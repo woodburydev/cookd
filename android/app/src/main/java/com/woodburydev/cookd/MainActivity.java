@@ -1,4 +1,4 @@
-package com.cookd;
+package com.woodburydev.cookd;
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 

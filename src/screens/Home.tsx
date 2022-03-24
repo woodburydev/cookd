@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import auth from '@react-native-firebase/auth';
+import {myContext} from '../../Context';
 
 export default function Home() {
+  const signedInUser: any = useContext(myContext);
   const logout = () => {
     auth()
       .signOut()
@@ -15,8 +17,8 @@ export default function Home() {
       });
   };
   return (
-    <View>
-      <Text>Hello</Text>
+    <View style={styles.mainBody}>
+      <Text>Hello {signedInUser.user.firstname}</Text>
       <Text style={styles.blueText} onPress={logout}>
         Logout
       </Text>
@@ -27,5 +29,10 @@ export default function Home() {
 export const styles = StyleSheet.create({
   blueText: {
     color: 'blue',
+  },
+  mainBody: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

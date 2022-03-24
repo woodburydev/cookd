@@ -10,8 +10,10 @@ import {
   View,
 } from 'react-native';
 import {ScrollView, TextInput} from 'react-native-gesture-handler';
-import auth from '@react-native-firebase/auth';
+import auth, {firebase} from '@react-native-firebase/auth';
+
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import axios from 'axios';
 import {myContext} from '../../Context';
 
 GoogleSignin.configure({
@@ -19,42 +21,94 @@ GoogleSignin.configure({
     '118418741458-9t1i99978bf503q4jldbmq9nr8sdj46p.apps.googleusercontent.com',
 });
 
-export default function Login({navigation}: any) {
+export default function Signup({navigation}: any) {
+  const userContext: any = useContext(myContext);
+  // const [otpSent, setOtpSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // const [userOTP, setUserOTP] = useState<any>();
+  const [userPhoneNumber, setUserPhoneNumber] = useState<any>();
+  // const [confirm, setConfirm] = useState<any>(null);
 
   const [errortext, setErrortext] = useState('');
-  const signedInUser: any = useContext(myContext);
+
+  const lastNameRef: any = useRef<HTMLDivElement>(null);
   const emailRef: any = useRef<HTMLDivElement>(null);
+  const phoneRef: any = useRef<HTMLDivElement>(null);
   const passwordRef: any = useRef<HTMLDivElement>(null);
 
-  const emailPasswordLogin = () => {
+  const countrycode = '+1';
+
+  // const sentOTP = async () => {
+  //   const confirmation = await auth().signInWithPhoneNumber(
+  //     countryCode + userPhoneNumber,
+  //   );
+  //   setConfirm(confirmation);
+  //   setOtpSent(true);
+  // };
+
+  const emailPasswordLogin = async () => {
+    // need to await this to be sure
+    await userContext.setOverrideGet(true);
     setLoading(true);
+    // we want to override the get function of user, until we have "created" this user.
     auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        // run logic in context then return response.
-        if (signedInUser.databaseFetchError) {
-          setErrortext("Oops, database doesn't show you in our system!");
-          setLoading(false);
-        }
+      .createUserWithEmailAndPassword(email, password)
+      .then(async () => {
+        // remove ! and try catch it
+        const fbuuid = firebase.auth().currentUser!.uid;
+        await axios
+          .post('http://localhost:3000/user', {
+            firstname: firstName,
+            lastname: lastName,
+            email: email,
+            fbuuid,
+            countrycode,
+            phone: userPhoneNumber,
+            allergies: '',
+          })
+          .then(async res => {
+            // success, ensured that the respose says we have successfully created a user
+            if (res.data.status === 'success') {
+              userContext.setOverrideGet(false);
+            } else {
+              // delete user from firebase and give error
+              await firebase.auth().currentUser?.delete();
+              setErrortext('Failed to save user to database!');
+              setLoading(false);
+            }
+          })
+          .catch(async err => {
+            console.log(err);
+            await firebase.auth().currentUser?.delete();
+            setErrortext('Oops, something went wrong. Please try again later');
+            setLoading(false);
+          });
       })
       .catch(error => {
         setLoading(false);
         if (error.code === 'auth/email-already-in-use') {
           setErrortext('That email address is already in use!');
         }
+
         if (error.code === 'auth/invalid-email') {
           setErrortext('That email address is invalid!');
-        }
-        if (error.code === 'auth/invalid-email') {
-          setErrortext('Incorrect password!');
         }
 
         console.error(error);
       });
   };
+
+  // const login = async () => {
+  //   try {
+  //     await confirm.confirm(userOTP);
+  //   } catch (error) {
+  //     console.log('Invalid code.');
+  //   }
+  // };
 
   async function onGoogleButtonPress() {
     // Get the users ID token
@@ -66,7 +120,6 @@ export default function Login({navigation}: any) {
     // Sign-in the user with the credential
     return auth().signInWithCredential(googleCredential);
   }
-
   return (
     <View style={styles.mainBody}>
       <ScrollView
@@ -89,12 +142,60 @@ export default function Login({navigation}: any) {
             <View style={styles.SectionStyle}>
               <TextInput
                 style={styles.inputStyle}
+                onChangeText={name => setFirstName(name)}
+                placeholder="First Name" //dummy@abc.com
+                placeholderTextColor="#8b9cb5"
+                autoCapitalize="words"
+                returnKeyType="next"
+                onSubmitEditing={() =>
+                  lastNameRef.current && lastNameRef.current.focus()
+                }
+                underlineColorAndroid="#f000"
+                blurOnSubmit={false}
+              />
+            </View>
+            <View style={styles.SectionStyle}>
+              <TextInput
+                style={styles.inputStyle}
+                onChangeText={name => setLastName(name)}
+                placeholder="Last Name" //dummy@abc.com
+                placeholderTextColor="#8b9cb5"
+                autoCapitalize="words"
+                ref={lastNameRef}
+                returnKeyType="next"
+                onSubmitEditing={() =>
+                  emailRef.current && emailRef.current.focus()
+                }
+                underlineColorAndroid="#f000"
+                blurOnSubmit={false}
+              />
+            </View>
+            <View style={styles.SectionStyle}>
+              <TextInput
+                style={styles.inputStyle}
                 ref={emailRef}
                 onChangeText={UserEmail => setEmail(UserEmail)}
                 placeholder="Email" //dummy@abc.com
                 placeholderTextColor="#8b9cb5"
                 autoCapitalize="none"
                 keyboardType="email-address"
+                returnKeyType="next"
+                onSubmitEditing={() =>
+                  phoneRef.current && phoneRef.current.focus()
+                }
+                underlineColorAndroid="#f000"
+                blurOnSubmit={false}
+              />
+            </View>
+            <View style={styles.SectionStyle}>
+              <TextInput
+                style={styles.inputStyle}
+                ref={phoneRef}
+                onChangeText={phone => setUserPhoneNumber(phone)}
+                placeholder="Phone" //dummy@abc.com
+                placeholderTextColor="#8b9cb5"
+                autoCapitalize="none"
+                keyboardType="phone-pad"
                 returnKeyType="next"
                 onSubmitEditing={() =>
                   passwordRef.current && passwordRef.current.focus()
@@ -133,8 +234,8 @@ export default function Login({navigation}: any) {
             </TouchableOpacity>
             <Text
               style={styles.registerTextStyle}
-              onPress={() => navigation.navigate('Signup')}>
-              New Here ? Register
+              onPress={() => navigation.navigate('Login')}>
+              Already have an account?
             </Text>
           </KeyboardAvoidingView>
         </View>
