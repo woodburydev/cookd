@@ -14,7 +14,8 @@ import auth, {firebase} from '@react-native-firebase/auth';
 
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import axios from 'axios';
-import {myContext} from '../../Context';
+import {myContext} from '../context/Context';
+import {endpoint} from '../config/api';
 
 GoogleSignin.configure({
   webClientId:
@@ -61,7 +62,7 @@ export default function Signup({navigation}: any) {
         // remove ! and try catch it
         const fbuuid = firebase.auth().currentUser!.uid;
         await axios
-          .post('http://localhost:3000/user', {
+          .post(`${endpoint}/user`, {
             firstname: firstName,
             lastname: lastName,
             email: email,

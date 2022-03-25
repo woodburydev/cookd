@@ -1,6 +1,7 @@
 import React, {createContext, useEffect, useState} from 'react';
 import axios from 'axios';
 import auth from '@react-native-firebase/auth';
+import {endpoint} from '../config/api';
 
 export const myContext = createContext({});
 export default function Context(props: any) {
@@ -13,7 +14,7 @@ export default function Context(props: any) {
     const uid = authUser.uid;
     authUser.getIdToken().then((token: string) => {
       axios
-        .get(`http://localhost:3000/user/${uid}`, {
+        .get(`${endpoint}/user/${uid}`, {
           headers: {Authorization: `Bearer ${token}`},
         })
         .then(res => {
