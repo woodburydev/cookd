@@ -13,6 +13,7 @@ import {ScrollView, TextInput} from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {myContext} from '../context/Context';
+import {testNotification} from '../config/notificationHandler';
 
 GoogleSignin.configure({
   webClientId:
@@ -30,6 +31,7 @@ export default function Login({navigation}: any) {
   const passwordRef: any = useRef<HTMLDivElement>(null);
 
   const emailPasswordLogin = () => {
+    testNotification();
     setLoading(true);
     auth()
       .signInWithEmailAndPassword(email, password)
