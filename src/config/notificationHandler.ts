@@ -4,7 +4,7 @@ import PushNotification from 'react-native-push-notification';
 import uuid from 'uuidv4';
 
 export async function notificationListener() {
-  messaging().onNotificationOpenedApp((message: any) => {
+  messaging().onNotificationOpenedApp(message => {
     console.log('Notification caused app to open: ', message);
   });
 
@@ -63,10 +63,7 @@ export async function requestUserPermission() {
   const enabled =
     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-  if (enabled) {
-    console.log('Authorization status:', authStatus);
-  }
+  console.log(enabled);
 }
 
 export async function getToken() {
