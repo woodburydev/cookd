@@ -21,11 +21,13 @@ export default function AppNavigator() {
     <ThemeProvider theme={myTheme}>
       <Stack.Navigator screenOptions={verticalAnimation} headerShown={false}>
         {user && user.email ? (
-          <Stack.Screen
-            name="HOME"
-            component={HomeNavigation}
-            options={{headerShown: false}}
-          />
+          <>
+            <Stack.Screen
+              name="HOME"
+              component={HomeNavigation}
+              options={{headerShown: false}}
+            />
+          </>
         ) : (
           <Stack.Screen
             name="LOGIN"

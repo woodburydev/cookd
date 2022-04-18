@@ -41,7 +41,10 @@ export default function Allergies() {
   return (
     <ScrollView
       keyboardShouldPersistTaps="handled"
-      contentContainerStyle={commonStyles.FlexColCenterStart}>
+      contentContainerStyle={[
+        commonStyles.FlexColCenterStart,
+        commonStyles.FlexGrow,
+      ]}>
       <KeyboardAvoidingView
         behavior="position"
         style={styles.KeyboardView}

@@ -90,21 +90,21 @@ export const DEFAULT_APP_COLOR = '#F6F5F5';
 
 export const commonStyles = StyleSheet.create({
   FlexColCenterCenter: {
+    flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
     width: '100%',
     height: '100%',
-    position: 'relative',
   },
   FlexColCenterStart: {
-    flexDirection: 'column',
     alignItems: 'center',
+    flexDirection: 'column',
     justifyContent: 'flex-start',
-    flex: 1,
     width: '100%',
-    position: 'relative',
+  },
+  FlexGrow: {
+    flexGrow: 1,
   },
   Underline: {
     textDecorationLine: 'underline',

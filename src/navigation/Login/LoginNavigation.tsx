@@ -29,21 +29,19 @@ export default function LoginNavigation() {
   };
 
   return (
-    <>
-      <Stack.Navigator
-        screenOptions={verticalAnimation}
-        theme={navTheme}
-        initialRouteName={getInitialRoute()}>
-        {Object.keys(LoginRoutes).map(key => {
-          return (
-            <Stack.Screen
-              name={getKeyValue(key)(LoginRoutes).name}
-              component={getKeyValue(key)(LoginRoutes).component}
-              key={getKeyValue(key)(LoginRoutes).name}
-            />
-          );
-        })}
-      </Stack.Navigator>
-    </>
+    <Stack.Navigator
+      screenOptions={verticalAnimation}
+      theme={navTheme}
+      initialRouteName={getInitialRoute()}>
+      {Object.keys(LoginRoutes).map(key => {
+        return (
+          <Stack.Screen
+            name={getKeyValue(key)(LoginRoutes).name}
+            component={getKeyValue(key)(LoginRoutes).component}
+            key={getKeyValue(key)(LoginRoutes).name}
+          />
+        );
+      })}
+    </Stack.Navigator>
   );
 }

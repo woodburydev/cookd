@@ -57,7 +57,10 @@ export default function Login() {
   return (
     <ScrollView
       keyboardShouldPersistTaps="handled"
-      contentContainerStyle={commonStyles.FlexColCenterCenter}>
+      contentContainerStyle={[
+        commonStyles.FlexColCenterCenter,
+        commonStyles.FlexGrow,
+      ]}>
       <KeyboardAvoidingView
         behavior="position"
         keyboardVerticalOffset={-250}

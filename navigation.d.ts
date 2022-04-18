@@ -1,9 +1,15 @@
 // navigation.d.ts
 
-import {LoginNavigationRoutes} from 'src/navigation/NavigationTypes';
+import {
+  LoginNavigationRoutes,
+  ProfileRouteNames,
+} from 'src/navigation/NavigationTypes';
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends LoginNavigationRoutes {}
+    interface RootParamList
+      extends LoginNavigationRoutes,
+        ProfileRouteNames,
+        HomeRouteNames {}
   }
 }

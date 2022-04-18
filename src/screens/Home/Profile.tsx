@@ -1,29 +1,102 @@
-import {Text} from '@rneui/themed';
-import React, {useContext} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {useNavigation} from '@react-navigation/core';
+import {Icon, Text} from '@rneui/themed';
+import React, {useContext, useState} from 'react';
+import {View, StyleSheet, ActivityIndicator} from 'react-native';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {commonStyles} from 'src/config/styles';
 import {UserContext} from 'src/context/UserContext';
+import {getKeyValue} from 'src/navigation/NavigationTypes';
+import {ProfileRoutes} from 'src/navigation/Profile/routes';
+import auth from '@react-native-firebase/auth';
+import uuidv4 from 'uuidv4';
 
 export default function Profile() {
   const user = useContext(UserContext).user!;
-  return (
-    <View style={commonStyles.FlexColCenterStart}>
-      <View style={[commonStyles.FlexColCenterCenter, styles.header]}>
-        <Text type="label" style={styles.headerText}>
-          {user.displayname}
-        </Text>
+  const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
+
+  if (loading) {
+    return (
+      <View style={commonStyles.FlexColCenterCenter}>
+        <ActivityIndicator />
       </View>
-    </View>
+    );
+  }
+  return (
+    <>
+      <View style={styles.BackgroundColor} />
+      <ScrollView
+        stickyHeaderIndices={[0]}
+        contentContainerStyle={[
+          commonStyles.FlexColCenterStart,
+          styles.scrollView,
+        ]}>
+        <View style={[commonStyles.FlexColCenterCenter, styles.header]}>
+          <Text type="label" style={styles.headerText}>
+            {user.displayname}
+          </Text>
+        </View>
+        <View
+          style={[commonStyles.FlexColCenterStart, styles.contentContainer]}>
+          <Text type="header" style={styles.labelText}>
+            Your Cookd
+          </Text>
+          <View style={styles.LinksContainer}>
+            {Object.keys(ProfileRoutes).map(key => {
+              const {name, iconType, iconName, displayName} =
+                getKeyValue(key)(ProfileRoutes);
+              return (
+                <>
+                  {name === 'INVITE_FRIEND' ? (
+                    <Text type="header" style={styles.labelText} key={uuidv4()}>
+                      General
+                    </Text>
+                  ) : null}
+                  <TouchableOpacity
+                    style={styles.LinkContainer}
+                    key={uuidv4()}
+                    onPress={() => {
+                      navigation.navigate(name);
+                    }}>
+                    <Icon
+                      type={iconType}
+                      key={uuidv4()}
+                      name={iconName}
+                      size={20}
+                    />
+
+                    <Text key={uuidv4()} style={styles.LinkText} type="info">
+                      {displayName}
+                    </Text>
+                    <Icon
+                      type="material-community"
+                      key={uuidv4()}
+                      name="chevron-right"
+                      size={20}
+                    />
+                  </TouchableOpacity>
+                </>
+              );
+            })}
+            <Text
+              type="description"
+              centerText
+              style={[styles.linkText]}
+              onPress={() => {
+                setLoading(true);
+                auth().signOut();
+              }}>
+              Log Out
+            </Text>
+          </View>
+        </View>
+      </ScrollView>
+    </>
   );
 }
 export const styles = StyleSheet.create({
-  contentContainer: {
-    width: '70%',
-    marginTop: 75,
-  },
   header: {
-    flex: 0,
-    height: '20%',
+    height: 100,
     backgroundColor: 'white',
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
@@ -33,11 +106,67 @@ export const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   headerText: {
-    marginTop: '12.5%',
+    marginTop: '13%',
   },
   logoContainer: {
     height: 150,
     marginBottom: 50,
     width: 250,
+  },
+  contentContainer: {
+    width: '100%',
+  },
+  labelText: {
+    alignSelf: 'flex-start',
+    marginTop: 30,
+    marginBottom: 10,
+    marginLeft: 20,
+  },
+  LinksContainer: {
+    width: '100%',
+  },
+  LinkContainer: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    display: 'flex',
+    marginTop: 5,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    paddingTop: 10,
+    width: '100%',
+    paddingBottom: 10,
+  },
+  BackgroundColor: {
+    color: '#fff',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: 500,
+    height: 500,
+  },
+  image: {
+    height: 70,
+    width: 70,
+    borderRadius: 50,
+  },
+  imageContainer: {
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: '12%',
+  },
+  LinkText: {
+    marginRight: 'auto',
+    marginLeft: '5%',
+    alignSelf: 'flex-start',
+    marginTop: 2,
+  },
+  linkText: {
+    textDecorationLine: 'underline',
+    marginTop: 20,
+  },
+  scrollView: {
+    paddingBottom: 20,
   },
 });

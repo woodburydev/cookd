@@ -13,7 +13,7 @@ export default function GetStarted() {
   const navigation = useNavigation();
 
   return (
-    <View style={commonStyles.FlexColCenterStart}>
+    <View style={[commonStyles.FlexColCenterStart, styles.PageContainer]}>
       <Image
         source={CookingImage}
         style={styles.imageContainer}
@@ -67,6 +67,9 @@ export const styles = StyleSheet.create({
     width: windowWidth,
     resizeMode: 'cover',
     zIndex: -1,
+  },
+  PageContainer: {
+    flex: 1,
   },
   mainBodyContainer: {
     height: windowHeight < 700 ? '80%' : '60%',
