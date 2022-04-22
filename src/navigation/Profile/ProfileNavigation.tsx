@@ -1,20 +1,20 @@
 import {DefaultTheme} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
-import {DEFAULT_APP_COLOR} from 'src/config/styles';
 import {ProfileRoutes} from './routes';
 import {
   getKeyValue,
   ProfileNavigationOptions,
-} from '@navigation/NavigationTypes';
+} from 'src/navigation/NavigationTypes';
 import {HomeRoutes} from '../Home/routes';
 import uuidv4 from 'uuidv4';
+import {AppColorPalette} from 'src/config/styles';
 
 export default function ProfileNavigation() {
   const Stack: any = createStackNavigator();
   const navTheme = DefaultTheme;
 
-  navTheme.colors.background = DEFAULT_APP_COLOR;
+  navTheme.colors.background = AppColorPalette.appBackgroundColor;
   return (
     <Stack.Navigator screenOptions={ProfileNavigationOptions}>
       <Stack.Screen

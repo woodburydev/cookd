@@ -14,6 +14,7 @@ export const UserContext = createContext<Partial<UserContextType>>({});
 export default function Context(props: PropsWithChildren<any>) {
   const [user, setUser] = useState<any>(undefined);
   const [databaseFetchError, setDatabaseFetchError] = useState(false);
+  const [loadingUserContext, setLoadingUserContext] = useState<boolean>(false);
   // helpful for when we dont want to get the user until a process is finished, like in the register screen.
   const [overrideGet, setOverrideGet] = useState(false);
 
@@ -28,17 +29,19 @@ export default function Context(props: PropsWithChildren<any>) {
           // check for response if its empty by finding id ?
           if (res.data.id) {
             setUser(res.data);
+            setLoadingUserContext(false);
             setDatabaseFetchError(false);
           } else {
             console.error('No response from database getting user');
             setUser(null);
             setDatabaseFetchError(true);
+            setLoadingUserContext(false);
           }
         })
         .catch(error => {
-          console.log('ERROR: ', JSON.stringify(error));
           setUser(null);
           setDatabaseFetchError(true);
+          setLoadingUserContext(false);
           // maybe get some state for the specific error being returned from server
         });
     });
@@ -46,7 +49,7 @@ export default function Context(props: PropsWithChildren<any>) {
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(authUser => {
       if (authUser && !overrideGet) {
-        console.log('Getting user');
+        setLoadingUserContext(true);
         getUser(authUser);
       } else {
         setUser(null);
@@ -58,7 +61,13 @@ export default function Context(props: PropsWithChildren<any>) {
 
   return (
     <UserContext.Provider
-      value={{user, setOverrideGet, databaseFetchError, getUser}}>
+      value={{
+        user,
+        setOverrideGet,
+        databaseFetchError,
+        getUser,
+        loadingUserContext,
+      }}>
       {props.children}
     </UserContext.Provider>
   );

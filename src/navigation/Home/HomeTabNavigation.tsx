@@ -1,6 +1,6 @@
 import {DefaultTheme} from '@react-navigation/native';
 import React from 'react';
-import {AppColorPalette, DEFAULT_APP_COLOR} from 'src/config/styles';
+import {AppColorPalette, commonStyles} from 'src/config/styles';
 import {
   BottomTabNavigationOptions,
   createBottomTabNavigator,
@@ -8,14 +8,14 @@ import {
 import {HomeRoutes} from './routes';
 import {getKeyValue} from '../NavigationTypes';
 import {Icon} from '@rneui/base';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import ProfileNavigation from '../Profile/ProfileNavigation';
 import uuidv4 from 'uuidv4';
 
 export default function HomeTabNavigation() {
   const navTheme = DefaultTheme;
 
-  navTheme.colors.background = DEFAULT_APP_COLOR;
+  navTheme.colors.background = AppColorPalette.appBackgroundColor;
 
   const Tab = createBottomTabNavigator();
 

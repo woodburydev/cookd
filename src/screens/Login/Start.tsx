@@ -19,7 +19,8 @@ export default function GetStarted() {
         style={styles.imageContainer}
         PlaceholderContent={<ActivityIndicator />}
       />
-      <View style={[commonStyles.FlexColCenterStart, styles.mainBodyContainer]}>
+      <View
+        style={[commonStyles.FlexColCenterCenter, styles.mainBodyContainer]}>
         <Image
           source={CookdLogo}
           style={styles.logoContainer}
@@ -34,25 +35,15 @@ export default function GetStarted() {
           </Text>
         </View>
 
-        <View style={styles.textDivider}>
-          <Text style={[styles.subText]} type="description">
-            Welcome to Cookd! Let's set up your profile in 30 seconds.
-          </Text>
-        </View>
         <Button
           onPress={() =>
             navigation.navigate(
-              LoginRoutes.SIGN_UP.name as LoginRoutesNames['SIGN_UP'],
+              LoginRoutes.PHONE_NUMBER.name as LoginRoutesNames['PHONE_NUMBER'],
             )
           }
           title="GET STARTED"
           style={styles.button}
         />
-        <Link
-          to={{screen: LoginRoutes.SIGN_IN.name as LoginRoutesNames['SIGN_IN']}}
-          style={styles.linkStyle}>
-          Already have an account?
-        </Link>
       </View>
     </View>
   );
@@ -72,7 +63,7 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   mainBodyContainer: {
-    height: windowHeight < 700 ? '80%' : '60%',
+    height: '60%',
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     zIndex: 1,
@@ -81,8 +72,6 @@ export const styles = StyleSheet.create({
     bottom: 0,
   },
   logoContainer: {
-    marginTop: 50,
-    marginBottom: 10,
     padding: 0,
     height: 110,
     width: 150,

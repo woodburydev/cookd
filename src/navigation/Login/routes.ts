@@ -5,15 +5,25 @@ import Signup from '@screens/Login/Signup';
 import Allergies from '@screens/Login/Allergies';
 import Cuisines from 'src/screens/Login/Cuisines';
 import Signin from 'src/screens/Login/Signin';
+import PhoneNumber from 'src/screens/Login/PhoneNumber';
+import Email from 'src/screens/Login/Email';
 
 export const LoginRoutes = {
   GET_STARTED: {
     name: 'GET_STARTED',
     component: Start,
   },
+  PHONE_NUMBER: {
+    name: 'PHONE_NUMBER',
+    component: PhoneNumber,
+  },
   SIGN_UP: {
     name: 'SIGN_UP',
     component: Signup,
+  },
+  EMAIL: {
+    name: 'EMAIL',
+    component: Email,
   },
   ENTER_OTP: {
     name: 'ENTER_OTP',
@@ -30,9 +40,5 @@ export const LoginRoutes = {
   CUISINES: {
     name: 'CUISINES',
     component: Cuisines,
-  },
-  SIGN_IN: {
-    name: 'SIGN_IN',
-    component: Signin,
   },
 };

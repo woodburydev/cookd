@@ -6,6 +6,7 @@ export interface UserContextType {
   setOverrideGet: Dispatch<SetStateAction<boolean>>;
   databaseFetchError: boolean;
   getUser: (authUser: FirebaseAuthTypes.User) => void;
+  loadingUserContext: boolean;
 }
 
 export interface User {

@@ -7,7 +7,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {commonStyles, DEFAULT_APP_COLOR} from '@config/styles';
+import {AppColorPalette, commonStyles} from '@config/styles';
 import {Button, CheckBox, Text} from '@rneui/themed';
 import axios from 'axios';
 import auth from '@react-native-firebase/auth';
@@ -64,34 +64,19 @@ export default function Cuisines() {
   };
 
   return (
-    <ScrollView
-      keyboardShouldPersistTaps="handled"
-      contentContainerStyle={[
-        commonStyles.FlexColCenterStart,
-        commonStyles.FlexGrow,
-      ]}>
+    <View style={commonStyles.FlexColCenterCenter}>
       <KeyboardAvoidingView
         behavior="position"
         style={styles.KeyboardView}
         keyboardVerticalOffset={-80}>
-        <Header
-          loading="100%"
-          upArrow
-          downArrow
-          onPressDown={() => submit()}
-          onPressUp={() =>
-            navigation.navigate(
-              LoginRoutes.ALLERGIES.name as LoginRoutesNames['ALLERGIES'],
-            )
-          }
-        />
-        <View style={styles.ContentContainer}>
+        <View
+          style={[commonStyles.FlexColCenterCenter, styles.ContentContainer]}>
           <View style={[styles.SectionStyle, styles.TopContent]}>
             <Text style={styles.labelText} type="header">
-              Favorite Cuisines
+              Favorite Cuisines?
             </Text>
             <Text style={styles.descriptionText} type="info">
-              Check all that apply.
+              Check any that peak your interest!
             </Text>
             <View style={styles.ListContainer}>
               {getRadioButtonsData().map(item => (
@@ -114,7 +99,7 @@ export default function Cuisines() {
             style={styles.Button}
             title={
               loading ? (
-                <ActivityIndicator color="#1C0000" />
+                <ActivityIndicator color="white" />
               ) : (
                 'START BROWSING CHEFS'
               )
@@ -122,7 +107,7 @@ export default function Cuisines() {
           />
         </View>
       </KeyboardAvoidingView>
-    </ScrollView>
+    </View>
   );
 }
 
@@ -134,12 +119,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
   },
   ContentContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    height: '80%',
-    bottom: windowHeight < 700 ? 0 : 40,
+    marginTop: '10%',
   },
   SectionStyle: {
     flexDirection: 'column',
@@ -167,9 +147,9 @@ export const styles = StyleSheet.create({
     marginLeft: 10,
   },
   CheckboxContainerStyle: {
-    backgroundColor: DEFAULT_APP_COLOR,
+    backgroundColor: AppColorPalette.appBackgroundColor,
     padding: 0,
-    margin: windowHeight < 700 ? 0 : 5,
+    margin: windowHeight < 750 ? 4 : windowHeight < 850 ? 7 : 8,
   },
   CheckboxStyle: {
     fontSize: 13,
@@ -180,7 +160,7 @@ export const styles = StyleSheet.create({
   ListContainer: {
     alignItems: 'flex-start',
     marginTop: 20,
-    marginBottom: windowHeight < 700 ? 30 : 20,
+    marginBottom: 20,
   },
   TopContent: {},
 });

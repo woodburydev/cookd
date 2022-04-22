@@ -26,16 +26,10 @@ export default function Profile() {
     <>
       <View style={styles.BackgroundColor} />
       <ScrollView
-        stickyHeaderIndices={[0]}
         contentContainerStyle={[
           commonStyles.FlexColCenterStart,
           styles.scrollView,
         ]}>
-        <View style={[commonStyles.FlexColCenterCenter, styles.header]}>
-          <Text type="label" style={styles.headerText}>
-            {user.displayname}
-          </Text>
-        </View>
         <View
           style={[commonStyles.FlexColCenterStart, styles.contentContainer]}>
           <Text type="header" style={styles.labelText}>
@@ -53,7 +47,10 @@ export default function Profile() {
                     </Text>
                   ) : null}
                   <TouchableOpacity
-                    style={styles.LinkContainer}
+                    style={[
+                      commonStyles.FlexRowCenterBetween,
+                      styles.LinkContainer,
+                    ]}
                     key={uuidv4()}
                     onPress={() => {
                       navigation.navigate(name);
@@ -86,7 +83,7 @@ export default function Profile() {
                 setLoading(true);
                 auth().signOut();
               }}>
-              Log Out
+              Sign Out
             </Text>
           </View>
         </View>
@@ -118,7 +115,7 @@ export const styles = StyleSheet.create({
   },
   labelText: {
     alignSelf: 'flex-start',
-    marginTop: 30,
+    marginTop: 50,
     marginBottom: 10,
     marginLeft: 20,
   },
@@ -128,14 +125,9 @@ export const styles = StyleSheet.create({
   LinkContainer: {
     paddingLeft: 20,
     paddingRight: 20,
-    display: 'flex',
     marginTop: 5,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
     backgroundColor: 'white',
     paddingTop: 10,
-    width: '100%',
     paddingBottom: 10,
   },
   BackgroundColor: {
@@ -164,9 +156,9 @@ export const styles = StyleSheet.create({
   },
   linkText: {
     textDecorationLine: 'underline',
-    marginTop: 20,
+    marginTop: 30,
   },
   scrollView: {
-    paddingBottom: 20,
+    paddingBottom: 50,
   },
 });

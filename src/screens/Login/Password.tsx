@@ -1,11 +1,12 @@
 import {Icon} from '@rneui/base';
 import {Button, Input, Text} from '@rneui/themed';
-import React, {useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {
   View,
   KeyboardAvoidingView,
   StyleSheet,
   ActivityIndicator,
+  Dimensions,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {commonStyles} from '@config/styles';
@@ -30,7 +31,14 @@ export default function SetPassword() {
       RouteProp<LoginNavigationRoutes, LoginRoutesNames['SET_PASSWORD']>
     >();
 
+  const updateName = async () => {
+    await auth().currentUser?.updateProfile({
+      displayName: fullName,
+    });
+  };
+
   const email = route.params?.email;
+  const fullName = route.params?.fullName;
   const submitPassword = async () => {
     setLoading(true);
     if (password !== confirmPassword) {
@@ -43,7 +51,8 @@ export default function SetPassword() {
       try {
         auth()
           .currentUser!.linkWithCredential(credential)
-          .then(() => {
+          .then(async () => {
+            await updateName();
             navigation.navigate(
               LoginRoutes.ALLERGIES.name as LoginRoutesNames['ALLERGIES'],
             );
@@ -55,7 +64,8 @@ export default function SetPassword() {
             } else if (err.code === 'auth/requires-recent-login') {
               setErrorText('Please re-authenticate.');
               navigation.navigate(
-                LoginRoutes.SIGN_UP.name as LoginRoutesNames['SIGN_UP'],
+                LoginRoutes.PHONE_NUMBER
+                  .name as LoginRoutesNames['PHONE_NUMBER'],
               );
             } else {
               setErrorText('Oops, there was a problem');
@@ -68,36 +78,22 @@ export default function SetPassword() {
       }
     }
   };
-
   return (
-    <ScrollView
-      keyboardShouldPersistTaps="handled"
-      contentContainerStyle={[
-        commonStyles.FlexColCenterStart,
-        commonStyles.FlexGrow,
-      ]}>
-      <KeyboardAvoidingView
-        behavior="position"
-        style={styles.KeyboardView}
-        keyboardVerticalOffset={-150}>
-        <Header loading="60%" />
-        <View style={styles.ContentContainer}>
-          <Icon
-            type="material-community"
-            name="shield-lock-outline"
-            containerStyle={styles.lockIconContainer}
-            style={styles.lockLogo}
-            size={30}
-          />
+    <View style={[commonStyles.FlexColCenterCenter]}>
+      {/* <Header loading="60%" /> */}
+      <View style={[styles.ContentContainer]}>
+        <View />
+        <View style={[commonStyles.FlexColCenterCenter, styles.inputWrapper]}>
           <View style={styles.SectionStyle}>
             <Text style={styles.labelText} type="label">
-              Set a Password
+              Lets make a password!
             </Text>
             <Input
               shake={() => {}}
               style={styles.inputStyle}
               textContentType="newPassword"
               secureTextEntry
+              autoFocus={true}
               maxLength={40}
               onChangeText={input => {
                 setPassword(input);
@@ -113,7 +109,7 @@ export default function SetPassword() {
           </View>
           <View style={styles.SectionStyle}>
             <Text style={styles.labelText} type="label">
-              Confirm Password
+              Re-enter password
             </Text>
             <Input
               shake={() => {}}
@@ -130,54 +126,74 @@ export default function SetPassword() {
               blurOnSubmit={false}
             />
           </View>
+        </View>
+        <KeyboardAvoidingView
+          style={[styles.buttonView]}
+          keyboardVerticalOffset={-15}
+          behavior="position">
           <Button
-            onPress={submitPassword}
-            title={
+            onPress={() => (loading ? undefined : submitPassword())}
+            circle={true}
+            icon={
               loading ? (
-                <ActivityIndicator color="#1C0000" />
+                <ActivityIndicator color="white" />
               ) : (
-                'SELECT ALLERGENS'
+                <Icon
+                  type="material-icons"
+                  name="arrow-forward"
+                  iconStyle={styles.iconStyle}
+                  size={25}
+                />
               )
             }
             style={styles.Button}
           />
-        </View>
-      </KeyboardAvoidingView>
-    </ScrollView>
+        </KeyboardAvoidingView>
+      </View>
+    </View>
   );
 }
+
+const windowHeight = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
   SectionStyle: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    alignSelf: 'center',
-    width: '80%',
-    marginTop: 20,
+    width: '100%',
+    marginTop: 10,
   },
   inputStyle: {
     color: 'black',
     borderColor: '#c8c8d3',
   },
+  ContentContainer: {
+    marginBottom: '15%',
+    alignSelf: 'center',
+    justifyContent: 'space-around',
+    width: '80%',
+    height: '100%',
+    display: 'flex',
+  },
+  inputWrapper: {
+    bottom: windowHeight < 750 ? '1%' : '5%',
+  },
   labelText: {
+    alignSelf: 'flex-start',
     marginLeft: 10,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   KeyboardView: {
     width: '100%',
     display: 'flex',
   },
-  Button: {
-    alignSelf: 'center',
-    marginTop: 50,
+  iconStyle: {
+    color: 'white',
   },
-  ContentContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    height: '80%',
-    bottom: 40,
+  Button: {
+    alignSelf: 'flex-end',
+    color: 'white',
+  },
+  buttonView: {
+    top: '4%',
   },
   lockLogo: {
     marginBottom: 20,

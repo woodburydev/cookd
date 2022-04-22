@@ -1,38 +1,53 @@
 import {createTheme} from '@rneui/themed';
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 
 export const AppColorPalette = {
   orange: '#F26430',
+  appBackgroundColor: '#F6F5F5',
 };
 
+const windowHeight = Dimensions.get('window').height;
 export const myTheme = createTheme({
-  Button: props =>
-    props.mode === 'warning'
-      ? {
-          titleStyle: {
-            fontFamily: 'WorkSans-Regular',
-            color: 'black',
-            fontSize: 13,
-            fontWeight: '600',
-          },
-          buttonStyle: {
-            backgroundColor: '#F8EFA0',
-            width: 200,
-            height: 40,
-          },
-        }
-      : {
-          titleStyle: {
-            fontFamily: 'WorkSans-Regular',
-            color: 'white',
-            fontWeight: '600',
-          },
+  Button: props => {
+    if (props.mode === 'warning') {
+      return {
+        titleStyle: {
+          fontFamily: 'WorkSans-Regular',
+          color: 'black',
+          fontSize: 13,
+          fontWeight: '600',
+        },
+        buttonStyle: {
+          backgroundColor: '#F8EFA0',
+          width: 200,
+          height: 40,
+        },
+      };
+    } else {
+      if (props.circle) {
+        return {
           buttonStyle: {
             backgroundColor: '#F26430',
-            width: 300,
-            height: 55,
+            width: windowHeight < 850 ? 65 : 75,
+            height: windowHeight < 850 ? 65 : 75,
+            borderRadius: 50,
           },
+        };
+      }
+      return {
+        titleStyle: {
+          fontFamily: 'WorkSans-Regular',
+          color: 'white',
+          fontWeight: '600',
         },
+        buttonStyle: {
+          backgroundColor: '#F26430',
+          width: 300,
+          height: 55,
+        },
+      };
+    }
+  },
   Input: {
     style: {
       fontFamily: 'WorkSans-Regular',
@@ -75,6 +90,15 @@ export const myTheme = createTheme({
             textAlign: props.centerText ? 'center' : undefined,
           },
         };
+      case 'error':
+        return {
+          style: {
+            fontSize: 14,
+            color: 'red',
+            fontFamily: 'WorkSans-Regular',
+            textAlign: props.centerText ? 'center' : undefined,
+          },
+        };
       default: {
         return {
           style: {
@@ -86,14 +110,11 @@ export const myTheme = createTheme({
   },
 });
 
-export const DEFAULT_APP_COLOR = '#F6F5F5';
-
 export const commonStyles = StyleSheet.create({
   FlexColCenterCenter: {
-    flex: 1,
     flexDirection: 'column',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
     width: '100%',
     height: '100%',
   },
@@ -102,6 +123,12 @@ export const commonStyles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     width: '100%',
+  },
+  FlexRowCenterBetween: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
   },
   FlexGrow: {
     flexGrow: 1,

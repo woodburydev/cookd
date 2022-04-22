@@ -1,3 +1,4 @@
+import React from 'react';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {
   HeaderStyleInterpolators,
@@ -5,8 +6,11 @@ import {
   StackNavigationOptions,
   TransitionSpecs,
 } from '@react-navigation/stack';
+import {StyleSheet, View} from 'react-native';
 import {HomeRoutes} from './Home/routes';
+import {Text} from '@rneui/themed';
 import {ProfileRoutes} from './Profile/routes';
+import {commonStyles} from 'src/config/styles';
 
 // satisfy typescript needs
 export const getKeyValue = (key: string) => (obj: Record<string, any>) =>
@@ -15,13 +19,14 @@ export const getKeyValue = (key: string) => (obj: Record<string, any>) =>
 export type LoginNavigationRoutes = {
   GET_STARTED: undefined;
   SIGN_UP: undefined;
+  EMAIL: {fullName: string};
+  PHONE_NUMBER: {fullName: string; email: string};
   ENTER_OTP: {
     confirm: FirebaseAuthTypes.ConfirmationResult;
     sign_up?: {
       notInDB: boolean;
       userInformation: {
-        firstName: string;
-        lastName: string;
+        fullName: string;
         email: string;
         phone: string;
       };
@@ -30,17 +35,17 @@ export type LoginNavigationRoutes = {
   SET_PASSWORD: {email: string};
   ALLERGIES: undefined;
   CUISINES: {allergies: string[]};
-  SIGN_IN: undefined;
 };
 
 export type LoginRoutesNames = {
   GET_STARTED: 'GET_STARTED';
   SIGN_UP: 'SIGN_UP';
+  EMAIL: 'EMAIL';
+  PHONE_NUMBER: 'PHONE_NUMBER';
   ENTER_OTP: 'ENTER_OTP';
   SET_PASSWORD: 'SET_PASSWORD';
   ALLERGIES: 'ALLERGIES';
   CUISINES: 'CUISINES';
-  SIGN_IN: 'SIGN_IN';
 };
 
 export type HomeRouteNames = {
@@ -64,28 +69,8 @@ export type ProfileRouteNames = {
 };
 
 // vertical navigation
-export const verticalAnimation: StackNavigationOptions = {
-  gestureDirection: 'vertical',
-  transitionSpec: {
-    open: TransitionSpecs.TransitionIOSSpec,
-    close: TransitionSpecs.TransitionIOSSpec,
-  },
+export const LoginNavigationOptions: StackNavigationOptions = {
   headerShown: false,
-  headerStyleInterpolator: HeaderStyleInterpolators.forSlideUp,
-  cardStyleInterpolator: ({current, layouts}: StackCardInterpolationProps) => {
-    return {
-      cardStyle: {
-        transform: [
-          {
-            translateY: current.progress.interpolate({
-              inputRange: [0, 1],
-              outputRange: [layouts.screen.height, 0],
-            }),
-          },
-        ],
-      },
-    };
-  },
 };
 
 export const HomeNavigationOptions: StackNavigationOptions = {
@@ -97,7 +82,14 @@ export const ProfileNavigationOptions: StackNavigationOptions = props => {
   const displayName = ProfileRoutes[routeName]?.displayName;
   if (props.route.name === HomeRoutes.PROFILE.name) {
     return {
-      headerShown: false,
+      headerShown: true,
+      header: () => (
+        <View style={[commonStyles.FlexColCenterCenter, styles.header]}>
+          <Text type="header" style={styles.headerText}>
+            Profile
+          </Text>
+        </View>
+      ),
     };
   }
   return {
@@ -106,3 +98,19 @@ export const ProfileNavigationOptions: StackNavigationOptions = props => {
     headerShown: true,
   };
 };
+
+export const styles = StyleSheet.create({
+  header: {
+    height: 100,
+    backgroundColor: 'white',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    shadowColor: '#171717',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+  },
+  headerText: {
+    marginTop: '8%',
+  },
+});

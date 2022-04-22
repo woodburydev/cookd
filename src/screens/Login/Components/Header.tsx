@@ -1,24 +1,30 @@
 import {Icon, Image} from '@rneui/themed';
-import React from 'react';
+import {LinearProgress} from '@rneui/themed/dist/LinearProgress';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, ActivityIndicator, Animated} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import CookdLogo from 'src/assets/cookdlogo.png';
+import {AppColorPalette} from 'src/config/styles';
 
 export default function Header({
   loading,
-  onPressUp,
-  onPressDown,
   upArrow,
   downArrow,
+  isVisible,
 }: {
-  loading: string;
+  loading: number;
   onPressUp?: () => any;
   onPressDown?: () => any;
   upArrow?: boolean;
   downArrow?: boolean;
+  isVisible?: boolean;
 }) {
+  const [fadeAnim] = useState(new Animated.Value(0));
   const styles = StyleSheet.create({
     HeaderContainer: {
       display: 'flex',
+      position: 'absolute',
+      zIndex: 100,
       alignItems: 'center',
       justifyContent: 'space-between',
       height: '20%',
@@ -29,18 +35,17 @@ export default function Header({
       width: 75,
     },
     loadingBar: {
-      backgroundColor: '#F26430',
       height: 20,
-      width: loading,
+      width: '100%',
       alignSelf: 'flex-start',
     },
     iconsContainer: {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       width: '80%',
       flexDirection: 'row',
-      marginTop: 45,
+      top: 20,
     },
     upArrow: {
       display: upArrow ? undefined : 'none',
@@ -53,42 +58,43 @@ export default function Header({
     },
   });
 
+  useEffect(() => {
+    if (isVisible) {
+      setTimeout(() => {
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }).start();
+      }, 500);
+    }
+  }, [fadeAnim, isVisible]);
+
+  if (!isVisible) {
+    return null;
+  }
+
   return (
-    <Animated.View style={[styles.HeaderContainer]}>
+    <Animated.View style={[styles.HeaderContainer, {opacity: fadeAnim}]}>
       <View />
       <View style={styles.iconsContainer}>
-        {upArrow ? (
-          <Icon
-            type="material-icons"
-            name="arrow-upward"
-            onPress={onPressUp}
-            style={styles.upArrow}
-            // style={styles.lockLogo}
-            size={25}
-          />
-        ) : (
-          <View style={styles.paddingView} />
-        )}
-
         <Image
           source={CookdLogo}
           style={styles.logoContainer}
           PlaceholderContent={<ActivityIndicator />}
         />
-        {downArrow ? (
-          <Icon
-            type="material-icons"
-            name="arrow-downward"
-            onPress={onPressDown}
-            style={styles.downArrow}
-            size={25}
-          />
-        ) : (
-          <View style={styles.paddingView} />
-        )}
       </View>
 
-      <View style={styles.loadingBar} />
+      <LinearProgress
+        style={styles.loadingBar}
+        variant="determinate"
+        value={loading}
+        color={
+          loading > 0
+            ? AppColorPalette.orange
+            : AppColorPalette.appBackgroundColor
+        }
+      />
     </Animated.View>
   );
 }

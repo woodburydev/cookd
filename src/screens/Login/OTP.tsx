@@ -1,55 +1,51 @@
 import {Button, Icon, Input, Text} from '@rneui/themed';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
+  Dimensions,
   KeyboardAvoidingView,
   StyleSheet,
   View,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth';
+
 import {commonStyles} from '@config/styles';
-import {LoginRoutes} from '@navigation/Login/routes';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/core';
 import {
   LoginNavigationRoutes,
   LoginRoutesNames,
 } from 'src/navigation/NavigationTypes';
-import Header from './Components/Header';
+import {LoginRoutes} from 'src/navigation/Login/routes';
+import {UserContext} from 'src/context/UserContext';
+import {
+  CodeField,
+  Cursor,
+  useBlurOnFulfill,
+} from 'react-native-confirmation-code-field';
+
+const CELL_COUNT = 6;
 
 export default function EnterOTP() {
   const navigation = useNavigation();
+  const [value, setValue] = useState('');
+  const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
+  const {loadingUserContext} = useContext(UserContext);
+  const [readyToMove, setReadyToMove] = useState(false);
+
   const route =
     useRoute<RouteProp<LoginNavigationRoutes, LoginRoutesNames['ENTER_OTP']>>();
+  const windowHeight = Dimensions.get('window').height;
 
   const {confirm} = route.params;
-  const sign_up = route.params.sign_up;
 
-  let notInDB: boolean | undefined;
-  let firstName: string | undefined;
-  let lastName: string | undefined;
-  let email: string | undefined;
-
-  if (sign_up) {
-    notInDB = sign_up.notInDB;
-    firstName = sign_up.userInformation.firstName;
-    lastName = sign_up.userInformation.lastName;
-    email = sign_up.userInformation.email;
-  }
-
-  const [userOTP, setUserOTP] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorText, setErrorText] = useState('');
-  const signup = useCallback(async () => {
-    await auth().currentUser?.updateProfile({
-      displayName: `${firstName} ${lastName}`,
-    });
-  }, [firstName, lastName]);
 
   const login = useCallback(() => {
     return new Promise(async (resolve, reject) => {
       confirm
-        .confirm(userOTP)
+        .confirm(value)
         .then(res => {
           resolve(res);
         })
@@ -57,147 +53,150 @@ export default function EnterOTP() {
           reject(err);
         });
     });
-  }, [confirm, userOTP]);
+  }, [confirm, value]);
 
   useEffect(() => {
-    if (userOTP.length === 6 && !errorText && !loading) {
+    if (value.length === 6 && !errorText && !loading) {
       setLoading(true);
       login()
         .then(() => {
-          if (sign_up) {
-            return signup()
-              .then(() => {
-                if (notInDB) {
-                  // user has fully registered, but not in database.
-                  navigation.navigate(
-                    LoginRoutes.ALLERGIES.name as LoginRoutesNames['ALLERGIES'],
-                  );
-                } else {
-                  if (email) {
-                    navigation.navigate(
-                      LoginRoutes.SET_PASSWORD
-                        .name as LoginRoutesNames['SET_PASSWORD'],
-                      {email},
-                    );
-                  } else {
-                    console.log('Email should be defined! Please pass props.');
-                    setLoading(false);
-                  }
-                }
-              })
-              .catch(err => {
-                console.log(err);
-                setLoading(false);
-                setErrorText('Invalid Code');
-              });
-          } else {
-            console.log(
-              'Successfully authenticated login, will route to home page.',
-            );
-          }
+          setReadyToMove(true);
         })
         .catch(err => {
+          console.log(err.code);
           if (err?.code === 'auth/invalid-verification-code') {
             setErrorText('Invalid Code');
           } else if (err.code === 'auth/missing-verification-code') {
             setErrorText('Missing Verification Code');
+          } else if (err.code === 'auth/code-expired') {
+            setErrorText('Code Expired, Please Resend Text');
           } else {
-            console.log(err);
+            setErrorText('Oops, something went wrong.');
           }
           setLoading(false);
         });
     }
-  }, [
-    userOTP,
-    login,
-    navigation,
-    signup,
-    email,
-    notInDB,
-    loading,
-    errorText,
-    sign_up,
-  ]);
+  }, [loadingUserContext, value, login, navigation, loading, errorText]);
+
+  useEffect(() => {
+    // "ready to move" is a silly trick used to fix react error
+    if (readyToMove) {
+      if (!loadingUserContext) {
+        const email = auth().currentUser?.email;
+        if (email) {
+          navigation.navigate(
+            LoginRoutes.ALLERGIES.name as LoginRoutesNames['ALLERGIES'],
+          );
+        } else {
+          navigation.navigate(
+            LoginRoutes.SIGN_UP.name as LoginRoutesNames['SIGN_UP'],
+          );
+        }
+      }
+    }
+  }, [readyToMove, loadingUserContext, navigation]);
 
   return (
-    <ScrollView
-      keyboardShouldPersistTaps="handled"
-      contentContainerStyle={[
-        commonStyles.FlexColCenterStart,
-        commonStyles.FlexGrow,
-      ]}>
+    <View style={commonStyles.FlexColCenterCenter}>
       <KeyboardAvoidingView
         behavior="position"
         style={styles.KeyboardView}
-        keyboardVerticalOffset={-150}>
-        <Header
-          loading={sign_up ? '40%' : '0%'}
-          upArrow
-          onPressUp={() =>
-            sign_up
-              ? navigation.navigate(
-                  LoginRoutes.SIGN_UP.name as LoginRoutesNames['SIGN_UP'],
-                )
-              : navigation.navigate(
-                  LoginRoutes.SIGN_IN.name as LoginRoutesNames['SIGN_IN'],
-                )
-          }
-        />
-        <View style={styles.ContentContainer}>
-          <View style={styles.SectionStyle}>
-            <Icon
-              type="material-community"
-              name="shield-lock-outline"
-              style={styles.lockLogo}
-              size={30}
-            />
+        keyboardVerticalOffset={40}>
+        <View style={styles.SectionStyle}>
+          <View style={styles.header}>
             <Text style={styles.labelText} type="header">
-              Verification Code
+              What's the code?
             </Text>
-            <Input
-              shake={() => {}}
-              style={styles.inputStyle}
-              onChangeText={input => {
-                setUserOTP(input);
-                setErrorText('');
-              }}
-              placeholderTextColor="#8b9cb5"
-              keyboardType="number-pad"
-              maxLength={6}
-              errorMessage={errorText}
-              underlineColorAndroid="#f000"
-              rightIcon={
-                loading ? <ActivityIndicator color="#1C0000" /> : undefined
-              }
-              blurOnSubmit={false}
-            />
-            <Text style={styles.descriptionText} type="info">
-              You’ll recieve a text with a code within a couple minutes.
+            {loading ? (
+              <ActivityIndicator style={styles.loader} color="black" />
+            ) : null}
+          </View>
+
+          <CodeField
+            ref={ref}
+            autoFocus={true}
+            // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
+            value={value}
+            onChangeText={text => {
+              setValue(text);
+              setErrorText('');
+            }}
+            cellCount={CELL_COUNT}
+            rootStyle={styles.codeFieldRoot}
+            keyboardType="number-pad"
+            textContentType="oneTimeCode"
+            renderCell={({index, symbol}) => (
+              <View
+                key={index}
+                style={[commonStyles.FlexColCenterCenter, styles.cell]}>
+                <Text style={styles.inputCodeText}>{symbol}</Text>
+              </View>
+            )}
+          />
+          {errorText.length > 0 && (
+            <Text type="error" style={styles.errorText}>
+              {errorText}
             </Text>
+          )}
+
+          {/* c<Input
+            autoFocus={true}
+            shake={() => {}}
+            style={styles.inputStyle}
+            onChangeText={input => {
+              setUserOTP(input);
+              setErrorText('');
+            }}
+            placeholderTextColor="#8b9cb5"
+            keyboardType="number-pad"
+            maxLength={6}
+            textContentType="oneTimeCode"
+            errorMessage={errorText}
+            underlineColorAndroid="#f000"
+            rightIon={
+              loading ? <ActivityIndicator color="#1C0000" /> : undefined
+            }
+            rightIconContainerStyle={styles.loadingIconStyle}
+            blurOnSubmit={false}
+          /> */}
+          <Text style={styles.descriptionText} type="info">
+            You’ll recieve a text with a code within a couple minutes.
+          </Text>
+          {windowHeight > 850 ? (
             <Text style={styles.descriptionText} type="info">
               Check your phone number, or click resend text if you didn’t
               recieve it.
             </Text>
-            <Button
-              mode="warning"
-              onPress={() => login()}
-              title="Resend Text"
-              style={styles.WarningButton}
-            />
-          </View>
+          ) : null}
+
+          <Button
+            mode="warning"
+            onPress={() => login()}
+            title="Resend Text"
+            style={styles.WarningButton}
+          />
         </View>
       </KeyboardAvoidingView>
-    </ScrollView>
+    </View>
   );
 }
+
+const windowHeight = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
   SectionStyle: {
-    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-start',
     alignSelf: 'center',
+    marginTop: windowHeight < 750 ? '20%' : '-20%',
     width: '80%',
-    marginTop: 20,
+  },
+  header: {
+    flexDirection: 'row',
+  },
+  loadingIconStyle: {
+    position: 'absolute',
+    right: 0,
   },
   inputStyle: {
     color: 'black',
@@ -205,7 +204,6 @@ const styles = StyleSheet.create({
   },
   labelText: {
     marginLeft: 10,
-    marginBottom: 15,
   },
   KeyboardView: {
     width: '100%',
@@ -221,10 +219,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: '80%',
+    marginTop: '20%',
     bottom: 40,
   },
+  inputCodeText: {
+    fontSize: 32,
+    fontWeight: '700',
+  },
+  root: {flex: 1, padding: 20},
+  title: {textAlign: 'center', fontSize: 30},
+  codeFieldRoot: {marginTop: 20},
+  cell: {
+    width: 40,
+    height: 60,
+    fontSize: 24,
+    borderBottomWidth: 1,
+    borderBottomColor: 'black',
+    borderColor: 'black',
+    marginLeft: 10,
+    textAlign: 'center',
+  },
   descriptionText: {
-    marginTop: 20,
+    marginTop: 30,
     marginLeft: 10,
   },
   lockLogo: {
@@ -232,10 +248,13 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   errorText: {
-    margin: 0,
     marginTop: 25,
+    marginLeft: 10,
     marginBottom: 5,
-    fontFamily: 'WorkSans-Regular',
+  },
+  loader: {
+    left: 20,
+    bottom: 2,
   },
   WarningButton: {
     marginTop: 30,
