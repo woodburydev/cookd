@@ -61,3 +61,4 @@ buck-out/
 android/app/google-services.json
 yarn.lock
 ios/keys/*
+ios/Podfile.lock
