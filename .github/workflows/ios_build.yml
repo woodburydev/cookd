@@ -9,7 +9,7 @@ jobs:
     runs-on: macOS-latest
     defaults:
       run:
-        working-directory: ios
+        working-directory: .
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
