@@ -1,16 +1,15 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {
   ActivityIndicator,
-  Dimensions,
   KeyboardAvoidingView,
   StyleSheet,
   View,
 } from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
 import {Text, Input, Button, Icon} from '@rneui/themed';
 import {commonStyles} from '@config/styles';
 import {LoginRoutes} from '@navigation/Login/routes';
 import {useNavigation} from '@react-navigation/core';
+import {LoginRoutesNames} from 'src/navigation/NavigationTypes';
 
 export default function Signup() {
   const navigation = useNavigation();
@@ -25,7 +24,9 @@ export default function Signup() {
       setFirstNameErrorText('Please enter a longer name');
       setLoading(false);
     } else {
-      navigation.navigate(LoginRoutes.EMAIL.name, {fullName});
+      navigation.navigate(LoginRoutes.EMAIL.name as LoginRoutesNames['EMAIL'], {
+        fullName,
+      });
       setLoading(false);
     }
   };
@@ -41,7 +42,6 @@ export default function Signup() {
           <Input
             autoFocus={true}
             shake={() => {}}
-            style={styles.inputStyle}
             onChangeText={name => {
               setFullName(name);
               setFirstNameErrorText('');
@@ -82,19 +82,13 @@ export default function Signup() {
     </View>
   );
 }
-const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   SectionStyle: {
-    alignSelf: 'center',
     justifyContent: 'space-around',
     width: '80%',
     height: '100%',
-    display: 'flex',
     marginTop: '15%',
-  },
-  inputStyle: {
-    color: 'black',
   },
   labelText: {
     marginLeft: 10,
@@ -103,23 +97,11 @@ const styles = StyleSheet.create({
   inputContainer: {
     bottom: '15%',
   },
-  KeyboardView: {
-    width: '100%',
-    display: 'flex',
-  },
   Button: {
     alignSelf: 'flex-end',
   },
   buttonView: {
     top: '4%',
-  },
-  errorText: {
-    margin: 0,
-    marginTop: 20,
-    marginBottom: windowHeight < 700 ? 10 : 5,
-    fontSize: 16,
-    fontFamily: 'WorkSans-Regular',
-    fontWeight: '600',
   },
   iconStyle: {
     color: 'white',

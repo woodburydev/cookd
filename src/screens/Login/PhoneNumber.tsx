@@ -1,4 +1,4 @@
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/core';
+import {useNavigation} from '@react-navigation/core';
 import {Button, Icon, Input, Text} from '@rneui/themed';
 import React, {useCallback, useEffect, useState} from 'react';
 import {
@@ -7,7 +7,6 @@ import {
   KeyboardAvoidingView,
   ActivityIndicator,
 } from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
 import {commonStyles} from 'src/config/styles';
 import {LoginRoutes} from 'src/navigation/Login/routes';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
@@ -65,29 +64,18 @@ export default function PhoneNumber() {
     }
   }, [confirm, confirmDetails, navigation, userPhoneNumber]);
 
-  function formatPhoneNumber(value) {
-    // if input value is falsy eg if the user deletes the input, then just return
-    if (!value) return value;
-
-    // clean the input for any non-digit values.
+  function formatPhoneNumber(value: string) {
+    if (!value) {
+      return value;
+    }
     const phoneNumber = value.replace(/[^\d]/g, '');
-
-    // phoneNumberLength is used to know when to apply our formatting for the phone number
     const phoneNumberLength = phoneNumber.length;
-
-    // we need to return the value with no formatting if its less then four digits
-    // this is to avoid weird behavior that occurs if you  format the area code to early
-
-    if (phoneNumberLength < 4) return phoneNumber;
-
-    // if phoneNumberLength is greater than 4 and less the 7 we start to return
-    // the formatted number
+    if (phoneNumberLength < 4) {
+      return phoneNumber;
+    }
     if (phoneNumberLength < 7) {
       return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
     }
-
-    // finally, if the phoneNumberLength is greater then seven, we add the last
-    // bit of formatting and return it.
     return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(
       3,
       6,
@@ -95,8 +83,8 @@ export default function PhoneNumber() {
   }
 
   return (
-    <View style={[commonStyles.FlexColCenterCenter]}>
-      <View style={[commonStyles.FlexColCenterCenter]}>
+    <View style={commonStyles.FlexColCenterCenter}>
+      <View style={commonStyles.FlexColCenterCenter}>
         <View style={styles.SectionStyle}>
           <View />
           <View style={styles.inputContainer}>
@@ -148,23 +136,15 @@ export default function PhoneNumber() {
   );
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   SectionStyle: {
-    alignSelf: 'center',
-    justifyContent: 'space-around',
     width: '80%',
     height: '100%',
-    display: 'flex',
     marginTop: '15%',
+    justifyContent: 'space-around',
   },
   inputContainer: {
     bottom: '10%',
-  },
-  keyboardView: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    height: '100%',
   },
   Button: {
     alignSelf: 'flex-end',

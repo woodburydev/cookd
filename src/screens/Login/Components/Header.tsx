@@ -1,8 +1,7 @@
-import {Icon, Image} from '@rneui/themed';
+import {Image} from '@rneui/themed';
 import {LinearProgress} from '@rneui/themed/dist/LinearProgress';
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, ActivityIndicator, Animated} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import CookdLogo from 'src/assets/cookdlogo.png';
 import {AppColorPalette} from 'src/config/styles';
 

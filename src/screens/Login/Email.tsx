@@ -8,7 +8,6 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
 } from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
 import {endpoint} from 'src/config/api';
 import {commonStyles} from 'src/config/styles';
 import {LoginRoutes} from 'src/navigation/Login/routes';
@@ -45,7 +44,10 @@ export default function Email() {
       })
       .then(res => {
         if (res.data.status) {
-          navigation.navigate(LoginRoutes.SET_PASSWORD.name, {fullName, email});
+          navigation.navigate(
+            LoginRoutes.SET_PASSWORD.name as LoginRoutesNames['SET_PASSWORD'],
+            {fullName, email},
+          );
         } else {
           const reason = res.data.reason;
           if (reason === 'invalid-email') {
@@ -53,7 +55,9 @@ export default function Email() {
             setLoading(false);
           }
           if (reason === 'not-in-db') {
-            navigation.navigate(LoginRoutes.ALLERGIES.name, {});
+            navigation.navigate(
+              LoginRoutes.ALLERGIES.name as LoginRoutesNames['ALLERGIES'],
+            );
           }
         }
         setLoading(false);
@@ -75,7 +79,6 @@ export default function Email() {
           </Text>
           <Input
             shake={() => {}}
-            style={styles.inputStyle}
             maxLength={40}
             onChangeText={UserEmail => {
               setEmail(UserEmail);
@@ -117,13 +120,11 @@ export default function Email() {
   );
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   SectionStyle: {
-    alignSelf: 'center',
     justifyContent: 'space-around',
     width: '80%',
     height: '100%',
-    display: 'flex',
     marginTop: '15%',
   },
   iconStyle: {
@@ -138,16 +139,8 @@ export const styles = StyleSheet.create({
   inputContainer: {
     bottom: '15%',
   },
-  inputStyle: {
-    alignSelf: 'flex-start',
-    color: 'black',
-  },
   labelText: {
     marginLeft: 10,
     marginBottom: 20,
-  },
-  KeyboardView: {
-    width: '100%',
-    display: 'flex',
   },
 });

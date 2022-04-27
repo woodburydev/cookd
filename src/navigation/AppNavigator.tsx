@@ -6,7 +6,6 @@ import {ThemeProvider} from '@rneui/themed';
 import {myTheme} from '@config/styles';
 
 import LoginNavigation from './Login/LoginNavigation';
-import {verticalAnimation} from './NavigationTypes';
 import HomeNavigation from './Home/HomeNavigation';
 
 export default function AppNavigator() {
@@ -19,7 +18,7 @@ export default function AppNavigator() {
 
   return (
     <ThemeProvider theme={myTheme}>
-      <Stack.Navigator screenOptions={verticalAnimation} headerShown={false}>
+      <Stack.Navigator headerShown={false}>
         {user && user.email ? (
           <>
             <Stack.Screen

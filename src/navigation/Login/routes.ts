@@ -4,7 +4,6 @@ import Password from '@screens/Login/Password';
 import Signup from '@screens/Login/Signup';
 import Allergies from '@screens/Login/Allergies';
 import Cuisines from 'src/screens/Login/Cuisines';
-import Signin from 'src/screens/Login/Signin';
 import PhoneNumber from 'src/screens/Login/PhoneNumber';
 import Email from 'src/screens/Login/Email';
 

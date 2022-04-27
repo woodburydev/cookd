@@ -1,4 +1,4 @@
-import {Button, Image, Text} from '@rneui/themed';
+import {Button, Image} from '@rneui/themed';
 import React from 'react';
 import {View, StyleSheet, ActivityIndicator, Dimensions} from 'react-native';
 import {commonStyles} from '@config/styles';
@@ -7,7 +7,6 @@ import CookdLogo from '@assets/cookdlogolabel.png';
 import {LoginRoutes} from 'src/navigation/Login/routes';
 import {useNavigation} from '@react-navigation/core';
 import {LoginRoutesNames} from 'src/navigation/NavigationTypes';
-import {Link} from '@react-navigation/native';
 
 export default function GetStarted() {
   const navigation = useNavigation();
@@ -26,14 +25,6 @@ export default function GetStarted() {
           style={styles.logoContainer}
           PlaceholderContent={<ActivityIndicator />}
         />
-        <View style={styles.textDivider}>
-          <Text style={styles.mainText} type="header">
-            Bringing Fine{' '}
-            <Text style={[styles.mainText, commonStyles.Underline]}>
-              Dining Home
-            </Text>
-          </Text>
-        </View>
 
         <Button
           onPress={() =>
@@ -52,7 +43,7 @@ export default function GetStarted() {
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   imageContainer: {
     height: windowHeight / 2,
     width: windowWidth,
@@ -73,7 +64,7 @@ export const styles = StyleSheet.create({
   },
   logoContainer: {
     padding: 0,
-    height: 110,
+    height: 120,
     width: 150,
   },
   mainText: {

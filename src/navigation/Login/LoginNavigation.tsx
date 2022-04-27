@@ -1,20 +1,21 @@
-/* eslint-disable curly */
-import {DefaultTheme, useNavigation} from '@react-navigation/native';
+import {DefaultTheme} from '@react-navigation/native';
 import {
   createStackNavigator,
   StackNavigationOptions,
+  StackNavigationProp,
 } from '@react-navigation/stack';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {UserContext} from 'src/context/UserContext';
 import {
-  LoginNavigationOptions,
-  verticalAnimation,
+  LoginNavigationRoutes,
+  LoginRoutesNames,
 } from 'src/navigation/NavigationTypes';
 import {LoginRoutes} from './routes';
 import auth from '@react-native-firebase/auth';
-import {getKeyValue} from 'src/navigation/NavigationTypes';
 import Header from 'src/screens/Login/Components/Header';
 import {AppColorPalette} from 'src/config/styles';
+import {LoginNavigationOptions} from '../NavigationOptions';
+import {getKeyValue} from 'src/util/helperFunctions';
 
 export default function LoginNavigation() {
   const [isVisible, setIsVisible] = useState(false);
@@ -37,7 +38,10 @@ export default function LoginNavigation() {
     }
   };
 
-  const screenOptions: StackNavigationOptions = props => {
+  // intercepting screen options for control before rendering each route.
+  const screenOptions = (
+    props: StackNavigationProp<LoginNavigationRoutes, keyof LoginRoutesNames>,
+  ): StackNavigationOptions => {
     switch (props.route.name) {
       case LoginRoutes.PHONE_NUMBER.name:
         setLoading(0);
@@ -74,12 +78,6 @@ export default function LoginNavigation() {
 
     return LoginNavigationOptions;
   };
-
-  // onPressUp,
-  // onPressDown,
-  // upArrow,
-  // downArrow,
-
   return (
     <>
       <Header loading={loading} isVisible={isVisible} />

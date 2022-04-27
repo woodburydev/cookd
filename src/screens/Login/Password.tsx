@@ -1,6 +1,6 @@
 import {Icon} from '@rneui/base';
 import {Button, Input, Text} from '@rneui/themed';
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   View,
   KeyboardAvoidingView,
@@ -8,7 +8,6 @@ import {
   ActivityIndicator,
   Dimensions,
 } from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
 import {commonStyles} from '@config/styles';
 import {LoginRoutes} from '@navigation/Login/routes';
 import auth from '@react-native-firebase/auth';
@@ -17,7 +16,6 @@ import {
   LoginNavigationRoutes,
   LoginRoutesNames,
 } from 'src/navigation/NavigationTypes';
-import Header from './Components/Header';
 
 export default function SetPassword() {
   const [errorText, setErrorText] = useState('');
@@ -90,7 +88,6 @@ export default function SetPassword() {
             </Text>
             <Input
               shake={() => {}}
-              style={styles.inputStyle}
               textContentType="newPassword"
               secureTextEntry
               autoFocus={true}
@@ -99,11 +96,9 @@ export default function SetPassword() {
                 setPassword(input);
                 setErrorText('');
               }}
-              placeholderTextColor="#8b9cb5"
               onSubmitEditing={() =>
                 confirmPasswordRef.current && confirmPasswordRef.current.focus()
               }
-              underlineColorAndroid="#f000"
               blurOnSubmit={false}
             />
           </View>
@@ -113,16 +108,17 @@ export default function SetPassword() {
             </Text>
             <Input
               shake={() => {}}
-              style={styles.inputStyle}
               ref={confirmPasswordRef}
               textContentType="newPassword"
               secureTextEntry
               maxLength={40}
-              onChangeText={input => setConfirmPassword(input)}
+              onChangeText={input => {
+                setConfirmPassword(input);
+                setErrorText('');
+              }}
               placeholderTextColor="#8b9cb5"
               errorMessage={errorText}
               onSubmitEditing={() => submitPassword()}
-              underlineColorAndroid="#f000"
               blurOnSubmit={false}
             />
           </View>
@@ -161,17 +157,11 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 10,
   },
-  inputStyle: {
-    color: 'black',
-    borderColor: '#c8c8d3',
-  },
   ContentContainer: {
     marginBottom: '15%',
-    alignSelf: 'center',
     justifyContent: 'space-around',
     width: '80%',
     height: '100%',
-    display: 'flex',
   },
   inputWrapper: {
     bottom: windowHeight < 750 ? '1%' : '5%',
@@ -190,27 +180,8 @@ const styles = StyleSheet.create({
   },
   Button: {
     alignSelf: 'flex-end',
-    color: 'white',
   },
   buttonView: {
     top: '4%',
-  },
-  lockLogo: {
-    marginBottom: 20,
-    marginLeft: 50,
-  },
-  errorText: {
-    margin: 0,
-    marginTop: 20,
-  },
-  WarningButton: {
-    marginTop: 30,
-    marginLeft: 10,
-  },
-  checkLogo: {
-    marginLeft: 5,
-  },
-  lockIconContainer: {
-    alignSelf: 'flex-start',
   },
 });

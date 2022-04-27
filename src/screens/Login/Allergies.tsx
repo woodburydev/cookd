@@ -1,15 +1,13 @@
 import React, {useState} from 'react';
-import {View, KeyboardAvoidingView, StyleSheet, Dimensions} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import {View, StyleSheet, Dimensions} from 'react-native';
 import {AppColorPalette, commonStyles} from '@config/styles';
-import {Button, CheckBox, Input, Text} from '@rneui/themed';
+import {Button, CheckBox, Text} from '@rneui/themed';
 import {LoginRoutes} from '@navigation/Login/routes';
 import {useNavigation} from '@react-navigation/core';
 import {LoginRoutesNames} from 'src/navigation/NavigationTypes';
-import Header from './Components/Header';
 
 export default function Allergies() {
-  const [otherAllergies, setOtherAllergies] = useState('');
+  const [otherAllergies] = useState('');
   const [selectedAllergies, setSelectedAllergies] = useState<number[]>([]);
   const navigation = useNavigation();
   const checkBoxPressed = (item: number) => {
@@ -39,88 +37,67 @@ export default function Allergies() {
   };
 
   return (
-    <View style={commonStyles.FlexColCenterCenter}>
-      <KeyboardAvoidingView
-        behavior="position"
-        style={styles.KeyboardView}
-        keyboardVerticalOffset={-100}>
-        <View
-          style={[commonStyles.FlexColCenterCenter, styles.ContentContainer]}>
-          <View style={[styles.SectionStyle, styles.TopContent]}>
-            <Text style={styles.labelText} type="header">
-              Allergies?
-            </Text>
-            <Text style={styles.descriptionText} type="info">
-              Check any allergies that apply. This list can be edited per event
-              as-well.
-            </Text>
-            <View style={styles.ListContainer}>
-              {getRadioButtonsData().map(item => (
-                <CheckBox
-                  center
-                  key={item.id}
-                  title={item.label}
-                  containerStyle={styles.CheckboxContainerStyle}
-                  onPress={() => checkBoxPressed(item.id)}
-                  textStyle={styles.CheckboxStyle}
-                  checkedIcon="check-circle-o"
-                  uncheckedIcon="circle-o"
-                  checked={selectedAllergies.includes(item.id)}
-                />
-              ))}
-            </View>
-          </View>
+    <View style={[commonStyles.FlexColCenterCenter, styles.contentContainer]}>
+      <View style={styles.topContainer}>
+        <Text style={styles.labelText} type="header">
+          Allergies?
+        </Text>
+        <Text style={styles.descriptionText} type="info">
+          Check any allergies that apply. This list can be edited per event
+          as-well.
+        </Text>
 
-          <Button
-            onPress={submit}
-            title="FAVORITE CUISINES"
-            style={styles.Button}
-          />
+        <View style={styles.ListContainer}>
+          {getRadioButtonsData().map(item => (
+            <CheckBox
+              center
+              key={item.id}
+              title={item.label}
+              containerStyle={styles.CheckboxContainerStyle}
+              onPress={() => checkBoxPressed(item.id)}
+              textStyle={styles.CheckboxStyle}
+              checkedIcon="check-circle-o"
+              uncheckedIcon="circle-o"
+              checked={selectedAllergies.includes(item.id)}
+            />
+          ))}
         </View>
-      </KeyboardAvoidingView>
+      </View>
+
+      <Button
+        onPress={submit}
+        title="FAVORITE CUISINES"
+        style={styles.Button}
+      />
     </View>
   );
 }
 
 const windowHeight = Dimensions.get('window').height;
 
-export const styles = StyleSheet.create({
-  KeyboardView: {
-    width: '100%',
-    display: 'flex',
-  },
-  ContentContainer: {
-    marginTop: '10%',
-  },
+const styles = StyleSheet.create({
   SectionStyle: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    alignSelf: 'center',
-    width: '80%',
-    marginTop: 20,
+    width: '75%',
+    justifyContent: 'space-evenly',
   },
   Button: {
     marginTop: 20,
     marginBottom: 20,
-    alignSelf: 'center',
-  },
-  inputStyle: {
-    color: 'black',
-    borderColor: '#c8c8d3',
   },
   labelText: {
     marginLeft: 10,
     marginBottom: 10,
   },
-  errorText: {
-    margin: 0,
-    marginTop: 20,
-  },
   descriptionText: {
     marginTop: 10,
     marginBottom: 10,
     marginLeft: 10,
+  },
+  contentContainer: {
+    marginTop: '15%',
+  },
+  topContainer: {
+    width: '80%',
   },
   CheckboxContainerStyle: {
     backgroundColor: AppColorPalette.appBackgroundColor,
@@ -134,13 +111,10 @@ export const styles = StyleSheet.create({
     color: 'black',
   },
   ListContainer: {
+    alignSelf: 'flex-start',
     alignItems: 'flex-start',
     marginTop: 20,
     marginBottom: 20,
-  },
-  TopContent: {},
-  otherLabelText: {
-    top: 20,
   },
 });
 

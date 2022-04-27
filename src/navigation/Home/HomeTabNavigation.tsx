@@ -1,16 +1,16 @@
 import {DefaultTheme} from '@react-navigation/native';
 import React from 'react';
-import {AppColorPalette, commonStyles} from 'src/config/styles';
+import {AppColorPalette} from 'src/config/styles';
 import {
   BottomTabNavigationOptions,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import {HomeRoutes} from './routes';
-import {getKeyValue} from '../NavigationTypes';
 import {Icon} from '@rneui/base';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import ProfileNavigation from '../Profile/ProfileNavigation';
 import uuidv4 from 'uuidv4';
+import {getKeyValue} from 'src/util/helperFunctions';
 
 export default function HomeTabNavigation() {
   const navTheme = DefaultTheme;
@@ -44,8 +44,7 @@ export default function HomeTabNavigation() {
         break;
     }
     return {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      tabBarIcon: ({focused, color, size}) => (
+      tabBarIcon: ({focused}) => (
         <Icon
           type={
             route.name === HomeRoutes.PROFILE.displayName ||
@@ -89,7 +88,7 @@ export default function HomeTabNavigation() {
   );
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   focus: {
     color: AppColorPalette.orange,
   },

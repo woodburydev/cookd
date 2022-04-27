@@ -1,17 +1,15 @@
 import {useNavigation} from '@react-navigation/core';
 import {Icon, Text} from '@rneui/themed';
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, ActivityIndicator} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {commonStyles} from 'src/config/styles';
-import {UserContext} from 'src/context/UserContext';
-import {getKeyValue} from 'src/navigation/NavigationTypes';
 import {ProfileRoutes} from 'src/navigation/Profile/routes';
 import auth from '@react-native-firebase/auth';
 import uuidv4 from 'uuidv4';
+import {getKeyValue} from 'src/util/helperFunctions';
 
 export default function Profile() {
-  const user = useContext(UserContext).user!;
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
 
@@ -91,7 +89,7 @@ export default function Profile() {
     </>
   );
 }
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   header: {
     height: 100,
     backgroundColor: 'white',

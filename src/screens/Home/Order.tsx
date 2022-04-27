@@ -36,7 +36,7 @@ export default function Order() {
   );
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   contentContainer: {
     width: '70%',
     marginTop: 75,

@@ -1,4 +1,4 @@
-import {Button, Icon, Input, Text} from '@rneui/themed';
+import {Button, Text} from '@rneui/themed';
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
@@ -7,7 +7,6 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth';
 
 import {commonStyles} from '@config/styles';
@@ -20,7 +19,6 @@ import {LoginRoutes} from 'src/navigation/Login/routes';
 import {UserContext} from 'src/context/UserContext';
 import {
   CodeField,
-  Cursor,
   useBlurOnFulfill,
 } from 'react-native-confirmation-code-field';
 
@@ -115,7 +113,6 @@ export default function EnterOTP() {
           <CodeField
             ref={ref}
             autoFocus={true}
-            // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
             value={value}
             onChangeText={text => {
               setValue(text);
@@ -138,27 +135,6 @@ export default function EnterOTP() {
               {errorText}
             </Text>
           )}
-
-          {/* c<Input
-            autoFocus={true}
-            shake={() => {}}
-            style={styles.inputStyle}
-            onChangeText={input => {
-              setUserOTP(input);
-              setErrorText('');
-            }}
-            placeholderTextColor="#8b9cb5"
-            keyboardType="number-pad"
-            maxLength={6}
-            textContentType="oneTimeCode"
-            errorMessage={errorText}
-            underlineColorAndroid="#f000"
-            rightIon={
-              loading ? <ActivityIndicator color="#1C0000" /> : undefined
-            }
-            rightIconContainerStyle={styles.loadingIconStyle}
-            blurOnSubmit={false}
-          /> */}
           <Text style={styles.descriptionText} type="info">
             You’ll recieve a text with a code within a couple minutes.
           </Text>
@@ -185,7 +161,6 @@ const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   SectionStyle: {
-    justifyContent: 'center',
     alignItems: 'flex-start',
     alignSelf: 'center',
     marginTop: windowHeight < 750 ? '20%' : '-20%',
@@ -198,10 +173,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
   },
-  inputStyle: {
-    color: 'black',
-    borderColor: '#c8c8d3',
-  },
   labelText: {
     marginLeft: 10,
   },
@@ -213,14 +184,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 50,
     marginLeft: 10,
-  },
-  ContentContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '80%',
-    marginTop: '20%',
-    bottom: 40,
   },
   inputCodeText: {
     fontSize: 32,
@@ -241,10 +204,6 @@ const styles = StyleSheet.create({
   },
   descriptionText: {
     marginTop: 30,
-    marginLeft: 10,
-  },
-  lockLogo: {
-    marginBottom: 20,
     marginLeft: 10,
   },
   errorText: {

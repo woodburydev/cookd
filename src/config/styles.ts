@@ -53,6 +53,11 @@ export const myTheme = createTheme({
       fontFamily: 'WorkSans-Regular',
       fontWeight: '400',
     },
+    errorStyle: {
+      margin: 0,
+      marginTop: 20,
+      fontFamily: 'WorkSans-Regular',
+    },
   },
   Text: props => {
     switch (props.type) {
@@ -122,6 +127,12 @@ export const commonStyles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'flex-start',
+    width: '100%',
+  },
+  FlexColCenterSpaceAround: {
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
     width: '100%',
   },
   FlexRowCenterBetween: {

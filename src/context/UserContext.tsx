@@ -38,7 +38,7 @@ export default function Context(props: PropsWithChildren<any>) {
             setLoadingUserContext(false);
           }
         })
-        .catch(error => {
+        .catch(() => {
           setUser(null);
           setDatabaseFetchError(true);
           setLoadingUserContext(false);
