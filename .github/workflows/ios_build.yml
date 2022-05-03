@@ -26,8 +26,10 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      # - name: Install dependencies
-      #   run: yarn install --frozen-lockfile --network-timeout 300000
+      - name: Audit
+        run: npm audit fix
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --network-timeout 300000
       - name: Setup Ruby (bundle)
         uses: ruby/setup-ruby@v1
         with:
