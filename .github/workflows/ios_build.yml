@@ -12,8 +12,6 @@ jobs:
   deploy:
     name: Deploying to Testflight
     runs-on: macOS-latest
-    
-    steps:
     defaults:
       run:
         working-directory: .
