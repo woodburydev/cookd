@@ -12,9 +12,23 @@ jobs:
   deploy:
     name: Deploying to Testflight
     runs-on: macOS-latest
+    defaults:
+      run:
+        working-directory: .
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Restore node_modules from cache
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
       - name: Install dependencies
         run: yarn install --frozen-lockfile --network-timeout 300000
       - name: Setup Ruby (bundle)
@@ -22,8 +36,16 @@ jobs:
         with:
           ruby-version: 2.7.6
           bundler-cache: true
-      - name: Install Pods
-        run: cd ios && arch -x86_64 pod install --repo-update
+      - name: Restore Pods cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ios/Pods
+            ~/Library/Caches/CocoaPods
+            ~/.cocoapods
+          key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
       - name: Upload Build
         env:
             APP_STORE_CONNECT_API_KEY_KEY_ID: PKM7PSG8T7
@@ -32,4 +54,4 @@ jobs:
             APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64: true
             MATCH_PASSWORD: 6283
             MATCH_GIT_BASIC_AUTHORIZATION: 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
-        run: bundle exec fastlane beta
+        run: pwd && bundle exec fastlane beta
