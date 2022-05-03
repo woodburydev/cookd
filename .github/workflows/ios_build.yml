@@ -20,4 +20,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Upload to App Store
-        run: fastlane release
+        run:  bundle exec fastlane release
