@@ -47,7 +47,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pods-
       - name: Install Pods
-        run: cd ios && arch -x86_64 pod install --repo-update && cd ..
+        run: cd ios && arch -x86_64 pod install --repo-update
       - name: Upload Build
         env:
             APP_STORE_CONNECT_API_KEY_KEY_ID: PKM7PSG8T7
@@ -56,4 +56,4 @@ jobs:
             APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64: true
             MATCH_PASSWORD: 6283
             MATCH_GIT_BASIC_AUTHORIZATION: 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
-        run: bundle exec fastlane release
+        run: bundle exec fastlane beta
