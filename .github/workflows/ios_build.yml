@@ -43,6 +43,8 @@ jobs:
           key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
+      # - name: Run Bundle install 
+      #   run: cd ios && pwd && bundle install 
       - name: Deploy iOS Beta to TestFlight via Fastlane
         uses: maierj/fastlane-action@v1.4.0
         # run: cd ios && bundles install && bundle exec fastlane beta
