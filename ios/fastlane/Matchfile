@@ -1,4 +1,4 @@
-git_url("https://gitlab.com/woodburydev/cookdsecretkeys")
+git_url("git@gitlab.com:woodburydev/cookdsecretkeys.git")
 
 storage_mode("git")
 
