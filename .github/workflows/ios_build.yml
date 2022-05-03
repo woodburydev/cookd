@@ -1,7 +1,10 @@
 name: Upload build to App Store
 
 on:
-  workflow_dispatch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   upload-build:
