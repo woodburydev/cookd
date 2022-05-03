@@ -26,10 +26,6 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      - name: Audit
-        run: npm audit fix
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile --network-timeout 300000
       - name: Setup Ruby (bundle)
         uses: ruby/setup-ruby@v1
         with:
@@ -47,6 +43,8 @@ jobs:
             ${{ runner.os }}-pods-
       # - name: Run Bundle install 
       #   run: cd ios && pwd && bundle install 
+      - name: Git Config Fix 
+        run: git config --global --add url."git@gitlab.com:".insteadOf "https://gitlab.com/"
       - name: Deploy iOS Beta to TestFlight via Fastlane
         uses: maierj/fastlane-action@v1.4.0
         # run: cd ios && bundles install && bundle exec fastlane beta
