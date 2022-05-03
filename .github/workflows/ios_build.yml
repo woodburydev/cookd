@@ -54,4 +54,4 @@ jobs:
             APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64: true
             MATCH_PASSWORD: 6283
             MATCH_GIT_BASIC_AUTHORIZATION: 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
-        run: cd ios && pwd && bundle exec fastlane beta
+        run: cd ios && bundle install && bundle exec fastlane beta
