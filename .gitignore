@@ -63,3 +63,4 @@ yarn.lock
 ios/keys/*
 ios/Podfile.lock
 vendor
+ios/.env
