@@ -1,42 +1,20 @@
+name: Upload build to App Store
 
-name: CD
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions a tab
-  workflow_dispatch:
+  workflow_dispatch
 
 jobs:
-  deploy:
-    name: Deploying to Testflight
-    runs-on: macOS-latest
-    defaults:
-      run:
-        working-directory: ./ios
-    
+  upload-build:
+    runs-on: macos-latest
+    env:
+      APP_STORE_CONNECT_API_KEY_KEY_ID: PKM7PSG8T7
+      APP_STORE_CONNECT_API_KEY_ISSUER_ID: a2188504-3107-4b64-b932-8cb57568b5b5
+      APP_STORE_CONNECT_API_KEY_KEY: LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JR1RBZ0VBTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEJIa3dkd0lCQVFRZ25iU24yZmhlbHlJdm9pejkKYjYzTnduRTRCUko3cXNBRWl5d3puczZXL1RTZ0NnWUlLb1pJemowREFRZWhSQU5DQUFTY1E5d1NBdndCd1lhcwo2YnloNlBNTStNaHhVMmJ5MTdKUmIyOVV6OU0rcVZhMmZhQ0RoaUhXcUZNeW9hZmJQUDdaZ0R6VTNrTlpZZCtYCmNMY3lPK0VPCi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0=
+      APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64: true
+      MATCH_PASSWORD: 6283
+      MATCH_GIT_BASIC_AUTHORIZATION: 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
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v1
-
-      - name: Deploy iOS Beta to TestFlight via Fastlane
-        uses: maierj/fastlane-action@v1.4.0
-        with:
-          lane: closed_beta
-        env:
-          APP_STORE_CONNECT_TEAM_ID: '${{ secrets.APP_STORE_CONNECT_TEAM_ID }}'
-          DEVELOPER_APP_ID: '${{ secrets.DEVELOPER_APP_ID }}'
-          DEVELOPER_APP_IDENTIFIER: '${{ secrets.DEVELOPER_APP_IDENTIFIER }}'
-          DEVELOPER_PORTAL_TEAM_ID: '${{ secrets.DEVELOPER_PORTAL_TEAM_ID }}'
-          FASTLANE_APPLE_ID: '${{ secrets.FASTLANE_APPLE_ID }}'
-          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: '${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}'
-          MATCH_PASSWORD: '${{ secrets.MATCH_PASSWORD }}'
-          GIT_AUTHORIZATION: '${{ secrets.GIT_AUTHORIZATION }}'
-          PROVISIONING_PROFILE_SPECIFIER: '${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}'
-          TEMP_KEYCHAIN_PASSWORD: '${{ secrets.TEMP_KEYCHAIN_PASSWORD }}'
-          TEMP_KEYCHAIN_USER: '${{ secrets.TEMP_KEYCHAIN_USER }}'
-          APPLE_KEY_ID: '${{ secrets.APPLE_KEY_ID }}'
-          APPLE_ISSUER_ID: '${{ secrets.APPLE_ISSUER_ID }}'
-          APPLE_KEY_CONTENT: '${{ secrets.APPLE_KEY_CONTENT }}'
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Upload to App Store
+        run: fastlane release
