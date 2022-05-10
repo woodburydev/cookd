@@ -53,6 +53,7 @@ platform :ios do
 
     match(
       type: 'appstore',
+      git_url: "git@github.com:woodburydev/CookdPrivateKeys.git",
       app_identifier: "#{DEVELOPER_APP_IDENTIFIER}",
       # git_basic_authorization: Base64.strict_encode64(GIT_AUTHORIZATION),
       keychain_name: keychain_name,

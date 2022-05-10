@@ -64,3 +64,4 @@ ios/keys/*
 ios/Podfile.lock
 vendor
 ios/.env
+ios/.env
