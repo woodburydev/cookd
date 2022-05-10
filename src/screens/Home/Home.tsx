@@ -55,157 +55,160 @@ export default function Home({}) {
     },
   ];
   return (
-    <View style={commonStyles.FlexColCenterStart}>
-      <View style={[commonStyles.FlexColCenterCenter, styles.header]}>
-        <Image source={logo} style={styles.logoContainer} />
-      </View>
-      <View style={[commonStyles.FlexColStartStart, styles.contentContainer]}>
-        <Text type="info" style={styles.welcomeText}>
-          {`What's looking good today ${user?.displayname}?`}
-        </Text>
-        <View style={[commonStyles.FlexColStartStart, styles.feedContainer]}>
-          <View style={styles.feedHeader}>
-            <Text type="header">Trending Chefs</Text>
-          </View>
-          <ScrollView style={styles.feedCarousel} horizontal={true}>
-            {feedList.map((item, index) => (
-              <View
-                style={[
-                  commonStyles.FlexColCenterCenter,
-                  styles.feedItemWrapper,
-                ]}>
+    // eslint-disable-next-line react-native/no-inline-styles
+    <View style={{flex: 1}}>
+      <ScrollView contentContainerStyle={commonStyles.FlexColCenterStart}>
+        <View style={[commonStyles.FlexColCenterCenter, styles.header]}>
+          <Image source={logo} style={styles.logoContainer} />
+        </View>
+        <View style={[commonStyles.FlexColStartStart, styles.contentContainer]}>
+          <Text type="info" style={styles.welcomeText}>
+            {`What's looking good today ${user?.displayname}?`}
+          </Text>
+          <View style={[commonStyles.FlexColStartStart, styles.feedContainer]}>
+            <View style={styles.feedHeader}>
+              <Text type="header">Trending Chefs</Text>
+            </View>
+            <ScrollView style={styles.feedCarousel} horizontal={true}>
+              {feedList.map((item, index) => (
                 <View
-                  style={[commonStyles.FlexColCenterCenter, styles.feedItem]}
-                  key={index}>
-                  <Image source={item.cuisine.photo} style={styles.MainImg} />
+                  style={[
+                    commonStyles.FlexColCenterCenter,
+                    styles.feedItemWrapper,
+                  ]}>
                   <View
-                    style={[
-                      commonStyles.FlexColCenterCenter,
-                      styles.ChefAvitarWrapper,
-                    ]}>
+                    style={[commonStyles.FlexColCenterCenter, styles.feedItem]}
+                    key={index}>
+                    <Image source={item.cuisine.photo} style={styles.MainImg} />
                     <View
                       style={[
                         commonStyles.FlexColCenterCenter,
-                        styles.ChefAvitarContainer,
+                        styles.ChefAvitarWrapper,
                       ]}>
-                      <Image source={item.photo} style={styles.ChefAvitar} />
+                      <View
+                        style={[
+                          commonStyles.FlexColCenterCenter,
+                          styles.ChefAvitarContainer,
+                        ]}>
+                        <Image source={item.photo} style={styles.ChefAvitar} />
+                      </View>
                     </View>
-                  </View>
 
-                  <View
-                    style={[
-                      commonStyles.FlexColCenterCenter,
-                      styles.FeedItemContents,
-                    ]}>
-                    <Text type="info" style={styles.ChefName}>
-                      {item.name}
-                    </Text>
-                    <Text type="info" style={styles.CuisineName}>
-                      {item.cuisine.name}
-                    </Text>
                     <View
                       style={[
-                        commonStyles.FlexRowCenterBetween,
-                        styles.DetailsBar,
+                        commonStyles.FlexColCenterCenter,
+                        styles.FeedItemContents,
                       ]}>
-                      <Text
-                        type="info"
-                        style={styles.DetailsText}>{`$${item.cost}`}</Text>
-                      <View style={styles.Ratings}>
-                        {[...Array(item.rating - 1).keys()].map(item => (
+                      <Text type="info" style={styles.ChefName}>
+                        {item.name}
+                      </Text>
+                      <Text type="info" style={styles.CuisineName}>
+                        {item.cuisine.name}
+                      </Text>
+                      <View
+                        style={[
+                          commonStyles.FlexRowCenterBetween,
+                          styles.DetailsBar,
+                        ]}>
+                        <Text
+                          type="info"
+                          style={styles.DetailsText}>{`$${item.cost}`}</Text>
+                        <View style={styles.Ratings}>
+                          {[...Array(item.rating - 1).keys()].map(() => (
+                            <Icon
+                              type="font-awesome"
+                              name="star"
+                              size={11}
+                              iconStyle={styles.RatingIcon}
+                            />
+                          ))}
                           <Icon
                             type="font-awesome"
                             name="star"
                             size={11}
                             iconStyle={styles.RatingIcon}
                           />
-                        ))}
-                        <Icon
-                          type="font-awesome"
-                          name="star"
-                          size={11}
-                          iconStyle={styles.RatingIcon}
-                        />
+                        </View>
                       </View>
                     </View>
                   </View>
                 </View>
-              </View>
-            ))}
-          </ScrollView>
-        </View>
-        <View style={[commonStyles.FlexColStartStart, styles.feedContainer]}>
-          <View style={styles.feedHeader}>
-            <Text type="header">Your Cuisines</Text>
+              ))}
+            </ScrollView>
           </View>
-          <ScrollView style={styles.feedCarousel} horizontal={true}>
-            {feedList.map((item, index) => (
-              <View
-                style={[
-                  commonStyles.FlexColCenterCenter,
-                  styles.feedItemWrapper,
-                ]}>
+          <View style={[commonStyles.FlexColStartStart, styles.feedContainer]}>
+            <View style={styles.feedHeader}>
+              <Text type="header">Your Cuisines</Text>
+            </View>
+            <ScrollView style={styles.feedCarousel} horizontal={true}>
+              {feedList.map((item, index) => (
                 <View
-                  style={[commonStyles.FlexColCenterCenter, styles.feedItem]}
-                  key={index}>
-                  <Image source={item.dish.photo} style={styles.MainImg} />
+                  style={[
+                    commonStyles.FlexColCenterCenter,
+                    styles.feedItemWrapper,
+                  ]}>
                   <View
-                    style={[
-                      commonStyles.FlexColCenterCenter,
-                      styles.ChefAvitarWrapper,
-                    ]}>
+                    style={[commonStyles.FlexColCenterCenter, styles.feedItem]}
+                    key={index}>
+                    <Image source={item.dish.photo} style={styles.MainImg} />
                     <View
                       style={[
                         commonStyles.FlexColCenterCenter,
-                        styles.ChefAvitarContainer,
+                        styles.ChefAvitarWrapper,
                       ]}>
-                      <Image source={item.photo} style={styles.ChefAvitar} />
+                      <View
+                        style={[
+                          commonStyles.FlexColCenterCenter,
+                          styles.ChefAvitarContainer,
+                        ]}>
+                        <Image source={item.photo} style={styles.ChefAvitar} />
+                      </View>
                     </View>
-                  </View>
 
-                  <View
-                    style={[
-                      commonStyles.FlexColCenterCenter,
-                      styles.FeedItemContents,
-                    ]}>
-                    <Text type="info" style={styles.ChefName}>
-                      {`${item.name}'s`}
-                    </Text>
-                    <Text type="info" style={styles.CuisineName}>
-                      {item.dish.name}
-                    </Text>
                     <View
                       style={[
-                        commonStyles.FlexRowCenterBetween,
-                        styles.DetailsBar,
+                        commonStyles.FlexColCenterCenter,
+                        styles.FeedItemContents,
                       ]}>
-                      <Text
-                        type="info"
-                        style={styles.DetailsText}>{`$${item.cost}`}</Text>
-                      <View style={styles.Ratings}>
-                        {[...Array(item.rating - 1).keys()].map(() => (
+                      <Text type="info" style={styles.ChefName}>
+                        {`${item.name}'s`}
+                      </Text>
+                      <Text type="info" style={styles.CuisineName}>
+                        {item.dish.name}
+                      </Text>
+                      <View
+                        style={[
+                          commonStyles.FlexRowCenterBetween,
+                          styles.DetailsBar,
+                        ]}>
+                        <Text
+                          type="info"
+                          style={styles.DetailsText}>{`$${item.cost}`}</Text>
+                        <View style={styles.Ratings}>
+                          {[...Array(item.rating - 1).keys()].map(() => (
+                            <Icon
+                              type="font-awesome"
+                              name="star"
+                              size={11}
+                              iconStyle={styles.RatingIcon}
+                            />
+                          ))}
                           <Icon
                             type="font-awesome"
                             name="star"
                             size={11}
                             iconStyle={styles.RatingIcon}
                           />
-                        ))}
-                        <Icon
-                          type="font-awesome"
-                          name="star"
-                          size={11}
-                          iconStyle={styles.RatingIcon}
-                        />
+                        </View>
                       </View>
                     </View>
                   </View>
                 </View>
-              </View>
-            ))}
-          </ScrollView>
+              ))}
+            </ScrollView>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 }
@@ -236,7 +239,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   feedContainer: {
-    height: '43%',
+    height: 300,
     width: '100%',
     backgroundColor: 'transparent',
     marginBottom: 4,
@@ -256,7 +259,7 @@ const styles = StyleSheet.create({
     width: 200,
     backgroundColor: 'white',
     margin: 5,
-    borderRadius: 20,
+    borderRadius: 10,
     shadowColor: '#171717',
     shadowOffset: {width: -2, height: 4},
     shadowOpacity: 0.1,
@@ -265,7 +268,7 @@ const styles = StyleSheet.create({
   feedItem: {
     height: '100%',
     width: '100%',
-    borderRadius: 20,
+    borderRadius: 10,
     overflow: 'hidden',
   },
   MainImg: {
@@ -279,12 +282,12 @@ const styles = StyleSheet.create({
   },
   DetailsBar: {
     width: '100%',
-    height: '25%',
+    height: '30%',
     position: 'absolute',
     bottom: 0,
     paddingLeft: 10,
     paddingRight: 10,
-    paddingBottom: 8,
+    paddingBottom: 10,
   },
   ChefAvitarWrapper: {
     height: 85,
