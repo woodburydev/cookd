@@ -64,7 +64,7 @@ export default function Profile() {
                       {displayName}
                     </Text>
                     <Icon
-                      type="material-community"
+                      type={iconName}
                       key={uuidv4()}
                       name="chevron-right"
                       size={20}
