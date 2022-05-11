@@ -11,6 +11,14 @@ jobs:
     name: Deploying to Testflight
     runs-on: macOS-latest
     steps:
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          name: id_rsa # optional
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+          # config: ${{ secrets.CONFIG }} # ssh_config; optional
+          if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
       - name: Check out Git repository
         uses: actions/checkout@v2
       - name: Get yarn cache directory path
