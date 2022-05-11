@@ -40,7 +40,7 @@ platform :ios do
     api_key = app_store_connect_api_key(
       key_id: APPLE_KEY_ID,
       issuer_id: APPLE_ISSUER_ID,
-      key_content: APPLE_KEY_CONTENT,            
+      key_filepath: "./PipelineKey.p8",    
       duration: 1200,            
       in_house: false
     )
@@ -53,6 +53,7 @@ platform :ios do
 
     match(
       type: 'appstore',
+      git_url: "git@github.com:woodburydev/CookdPrivateKeys.git",
       app_identifier: "#{DEVELOPER_APP_IDENTIFIER}",
       # git_basic_authorization: Base64.strict_encode64(GIT_AUTHORIZATION),
       keychain_name: keychain_name,

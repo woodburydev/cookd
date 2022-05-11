@@ -588,7 +588,7 @@
 				CODE_SIGN_ENTITLEMENTS = Cookd/Cookd.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = MC5LT58J8L;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=*]" = arm64;
@@ -622,7 +622,7 @@
 				CODE_SIGN_ENTITLEMENTS = Cookd/Cookd.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = MC5LT58J8L;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = Cookd/Info.plist;

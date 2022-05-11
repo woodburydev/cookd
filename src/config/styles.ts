@@ -141,6 +141,12 @@ export const commonStyles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
   },
+  FlexColStartStart: {
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    width: '100%',
+  },
   FlexGrow: {
     flexGrow: 1,
   },
