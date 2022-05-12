@@ -638,7 +638,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.woodburydev.cookd;
 				PRODUCT_NAME = Cookd;
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.woodburydev.cookd";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.woodburydev.cookd 1652381632";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
