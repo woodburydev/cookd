@@ -588,7 +588,7 @@
 				CODE_SIGN_ENTITLEMENTS = Cookd/Cookd.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = MC5LT58J8L;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=*]" = arm64;
@@ -622,7 +622,7 @@
 				CODE_SIGN_ENTITLEMENTS = Cookd/Cookd.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = MC5LT58J8L;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = Cookd/Info.plist;
@@ -638,7 +638,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.woodburydev.cookd;
 				PRODUCT_NAME = Cookd;
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.woodburydev.cookd 1652381632";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.woodburydev.cookd";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
