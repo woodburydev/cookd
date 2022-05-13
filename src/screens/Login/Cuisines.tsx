@@ -1,12 +1,12 @@
-import React, {useContext, useState} from 'react';
-import {View, StyleSheet, ActivityIndicator, Dimensions} from 'react-native';
-import {AppColorPalette, commonStyles} from '@config/styles';
-import {Button, CheckBox, Text} from '@rneui/themed';
+import React, { useContext, useState } from 'react';
+import { View, StyleSheet, ActivityIndicator, Dimensions } from 'react-native';
+import { AppColorPalette, commonStyles } from '@config/styles';
+import { Button, CheckBox, Text } from '@rneui/themed';
 import axios from 'axios';
 import auth from '@react-native-firebase/auth';
-import {endpoint} from '@config/api';
-import {UserContext} from 'src/context/UserContext';
-import {RouteProp, useRoute} from '@react-navigation/core';
+import { endpoint } from '@config/api';
+import { UserContext } from 'src/context/UserContext';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
 import {
   LoginNavigationRoutes,
   LoginRoutesNames,
@@ -17,8 +17,9 @@ export default function Cuisines() {
   const [loading, setLoading] = useState(false);
   const route =
     useRoute<RouteProp<LoginNavigationRoutes, LoginRoutesNames['CUISINES']>>();
-  const {allergies} = route.params;
-  const {getUser} = useContext(UserContext);
+  const { allergies, foundOut } = route.params;
+  const navigation = useNavigation();
+  const { getUser } = useContext(UserContext);
 
   const checkBoxPressed = (item: number) => {
     if (selectedCuisines.includes(item)) {
@@ -41,6 +42,7 @@ export default function Cuisines() {
         fbuuid: user!.uid,
         email: user!.email,
         phone: user!.phoneNumber,
+        foundOut,
         allergies,
         cuisines,
       })

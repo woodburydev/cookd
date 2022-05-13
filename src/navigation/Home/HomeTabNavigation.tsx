@@ -1,16 +1,18 @@
-import {DefaultTheme} from '@react-navigation/native';
+import { DefaultTheme } from '@react-navigation/native';
 import React from 'react';
-import {AppColorPalette} from 'src/config/styles';
+import { AppColorPalette, commonStyles } from 'src/config/styles';
 import {
   BottomTabNavigationOptions,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import {HomeRoutes} from './routes';
-import {Icon} from '@rneui/base';
-import {StyleSheet} from 'react-native';
+import { HomeRoutes } from './routes';
+import { Icon } from '@rneui/base';
+import { StyleSheet } from 'react-native';
 import ProfileNavigation from '../Profile/ProfileNavigation';
 import uuidv4 from 'uuidv4';
-import {getKeyValue} from 'src/util/helperFunctions';
+import { getKeyValue } from 'src/util/helperFunctions';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Header from 'src/screens/Login/Components/Header';
 
 export default function HomeTabNavigation() {
   const navTheme = DefaultTheme;
@@ -20,7 +22,7 @@ export default function HomeTabNavigation() {
   const Tab = createBottomTabNavigator();
 
   const options = (props: any): BottomTabNavigationOptions => {
-    const {route} = props;
+    const { route } = props;
     let iconName: string;
 
     switch (route.name) {
@@ -43,12 +45,12 @@ export default function HomeTabNavigation() {
         iconName = '';
         break;
     }
-    return {
-      tabBarIcon: ({focused}) => (
+    const defaultReturn = {
+      tabBarIcon: ({ focused }: any) => (
         <Icon
           type={
             route.name === HomeRoutes.PROFILE.displayName ||
-            route.name === HomeRoutes.SEARCH.displayName
+              route.name === HomeRoutes.SEARCH.displayName
               ? 'ionicon'
               : 'material-community'
           }
@@ -59,7 +61,35 @@ export default function HomeTabNavigation() {
       ),
       tabBarShowLabel: false,
       headerShown: false,
-    };
+    }
+    if (route.name === HomeRoutes.HOME.displayName) {
+      return {
+        ...defaultReturn,
+        headerShown: true,
+        headerStyle: commonStyles.WhiteHeaderBackground,
+        header: (headerProps) => {
+          return (
+            <SafeAreaView style={commonStyles.WhiteHeaderBackground}>
+              <Header />
+            </SafeAreaView>
+          )
+        }
+      }
+    } else if (route.name === HomeRoutes.ORDER.displayName) {
+      return {
+        ...defaultReturn,
+        headerShown: true,
+        headerStyle: commonStyles.WhiteHeaderBackground,
+        header: (headerProps) => {
+          return (
+            <SafeAreaView style={commonStyles.WhiteHeaderBackground}>
+              <Header headerText="Manage Orders" />
+            </SafeAreaView>
+          )
+        }
+      }
+    }
+    return defaultReturn
   };
 
   return (

@@ -1,31 +1,36 @@
-import React, {useState} from 'react';
+import React, { createRef, useState } from 'react';
 import {
   ActivityIndicator,
+  Dimensions,
   KeyboardAvoidingView,
   StyleSheet,
   View,
 } from 'react-native';
-import {Text, Input, Button, Icon} from '@rneui/themed';
-import {commonStyles} from '@config/styles';
-import {LoginRoutes} from '@navigation/Login/routes';
-import {useNavigation} from '@react-navigation/core';
-import {LoginRoutesNames} from 'src/navigation/NavigationTypes';
+import { Text, Input, Button, Icon } from '@rneui/themed';
+import { commonStyles } from '@config/styles';
+import { LoginRoutes } from '@navigation/Login/routes';
+import { useNavigation } from '@react-navigation/core';
+import { LoginRoutesNames } from 'src/navigation/NavigationTypes';
 
 export default function Signup() {
   const navigation = useNavigation();
-  const [fullName, setFullName] = useState('');
-
-  const [firstNameErrorText, setFirstNameErrorText] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const lastNameRef: any = createRef();
+  const [lastNameErrorText, setLastNameErrorText] = useState('');
   const [loading, setLoading] = useState(false);
 
   const submit = () => {
     setLoading(true);
-    if (fullName.length <= 1) {
-      setFirstNameErrorText('Please enter a longer name');
+    if (firstName.length <= 1) {
+      setLastNameErrorText('Please enter a longer first name');
+      setLoading(false);
+    } else if (lastName.length <= 1) {
+      setLastNameErrorText('Please enter a longer last name');
       setLoading(false);
     } else {
       navigation.navigate(LoginRoutes.EMAIL.name as LoginRoutesNames['EMAIL'], {
-        fullName,
+        fullName: `${firstName} ${lastName}`,
       });
       setLoading(false);
     }
@@ -36,22 +41,42 @@ export default function Signup() {
         <View />
         <View style={styles.inputContainer}>
           <Text type="label" style={styles.labelText}>
-            Welcome! What's your name?
+            First Name
           </Text>
-
           <Input
             autoFocus={true}
-            shake={() => {}}
+            shake={() => { }}
             onChangeText={name => {
-              setFullName(name);
-              setFirstNameErrorText('');
+              setFirstName(name);
+              setLastNameErrorText('');
             }}
-            placeholder="John Smith"
+            autoComplete="name-given"
+            placeholder="John"
             autoCapitalize="words"
             maxLength={20}
-            errorMessage={firstNameErrorText}
             returnKeyType="next"
-            onSubmitEditing={() => {}}
+
+            onSubmitEditing={() => { lastNameRef.current && lastNameRef.current.focus() }}
+            blurOnSubmit={false}
+          />
+          <Text type="label" style={styles.labelText}>
+            Last Name
+          </Text>
+          <Input
+            autoFocus={true}
+            autoComplete="name-family"
+            shake={() => { }}
+            ref={lastNameRef}
+            onChangeText={name => {
+              setLastName(name);
+              setLastNameErrorText('');
+            }}
+            placeholder="Smith"
+            autoCapitalize="words"
+            maxLength={20}
+            errorMessage={lastNameErrorText}
+            returnKeyType="next"
+            onSubmitEditing={submit}
             blurOnSubmit={false}
           />
         </View>
@@ -83,6 +108,8 @@ export default function Signup() {
   );
 }
 
+const windowHeight = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
   SectionStyle: {
     justifyContent: 'space-around',
@@ -92,16 +119,16 @@ const styles = StyleSheet.create({
   },
   labelText: {
     marginLeft: 10,
-    marginBottom: 20,
+    marginBottom: windowHeight < 750 ? 5 : 20,
   },
   inputContainer: {
-    bottom: '15%',
+    bottom: windowHeight < 850 ? '13%' : '11%',
   },
   Button: {
     alignSelf: 'flex-end',
   },
   buttonView: {
-    top: '4%',
+    top: windowHeight < 850 ? '9%' : '4%',
   },
   iconStyle: {
     color: 'white',

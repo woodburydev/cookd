@@ -42,7 +42,7 @@
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<true/>
 	<key>LSApplicationCategoryType</key>
-	<string></string>
+	<string/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -57,7 +57,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -93,6 +93,7 @@
 		<string>WorkSans-SemiBoldItalic.ttf</string>
 		<string>WorkSans-Thin.ttf</string>
 		<string>WorkSans-ThinItalic.ttf</string>
+		<string>Fontisto.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

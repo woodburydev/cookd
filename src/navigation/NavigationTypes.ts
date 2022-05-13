@@ -17,8 +17,9 @@ export type LoginNavigationRoutes = {
     };
   };
   SET_PASSWORD: {email: string; fullName: string};
-  ALLERGIES: undefined;
-  CUISINES: {allergies: string[]};
+  FOUND_OUT: undefined;
+  ALLERGIES: { foundOut: string[] };
+  CUISINES: { foundOut: string[], allergies: string[] };
 };
 
 export type LoginRoutesNames = {
@@ -28,6 +29,7 @@ export type LoginRoutesNames = {
   PHONE_NUMBER: 'PHONE_NUMBER';
   ENTER_OTP: 'ENTER_OTP';
   SET_PASSWORD: 'SET_PASSWORD';
+  FOUND_OUT: 'FOUND_OUT';
   ALLERGIES: 'ALLERGIES';
   CUISINES: 'CUISINES';
 };

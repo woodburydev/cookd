@@ -58,9 +58,6 @@ export default function Home({ }) {
     // eslint-disable-next-line react-native/no-inline-styles
     <View style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={commonStyles.FlexColCenterStart} showsVerticalScrollIndicator={false}>
-        <View style={[commonStyles.FlexColCenterCenter, styles.header]}>
-          <Image source={logo} style={styles.logoContainer} />
-        </View>
         <View style={[commonStyles.FlexColStartStart, styles.contentContainer]}>
           <Text type="info" style={styles.welcomeText}>
             {`What's looking good today ${user?.displayname}?`}
@@ -214,17 +211,6 @@ export default function Home({ }) {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    height: 100,
-    backgroundColor: 'white',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    shadowColor: '#171717',
-    shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    paddingTop: 30,
-  },
   logoContainer: {
     height: 75,
     width: 75,

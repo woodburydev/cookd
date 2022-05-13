@@ -1,40 +1,44 @@
-import {Image} from '@rneui/themed';
-import {LinearProgress} from '@rneui/themed/dist/LinearProgress';
-import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, ActivityIndicator, Animated} from 'react-native';
+import { Image, Text } from '@rneui/themed';
+import { LinearProgress } from '@rneui/themed/dist/LinearProgress';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, ActivityIndicator, Animated } from 'react-native';
 import CookdLogo from 'src/assets/cookdlogo.png';
-import {AppColorPalette} from 'src/config/styles';
+import { AppColorPalette } from 'src/config/styles';
+import DeviceInfo from 'react-native-device-info';
+import { Icon } from '@rneui/base';
 
 export default function Header({
   loading,
-  upArrow,
-  downArrow,
-  isVisible,
+  headerContainerStyle,
+  backArrow,
+  headerText,
+  onPressBack,
+  loginPages,
+  ...rest
 }: {
-  loading: number;
-  onPressUp?: () => any;
-  onPressDown?: () => any;
-  upArrow?: boolean;
-  downArrow?: boolean;
-  isVisible?: boolean;
+  loading?: number;
+  headerContainerStyle?: {}
+  backArrow?: boolean;
+  headerText?: string;
+  onPressBack?: () => any;
+  loginPages?: boolean;
 }) {
   const [fadeAnim] = useState(new Animated.Value(0));
   const styles = StyleSheet.create({
     HeaderContainer: {
       display: 'flex',
-      position: 'absolute',
-      zIndex: 100,
       alignItems: 'center',
       justifyContent: 'space-between',
-      height: '20%',
+      height: DeviceInfo.hasNotch() ? 50 : 100,
       width: '100%',
+      ...headerContainerStyle,
     },
     logoContainer: {
       height: 75,
       width: 75,
     },
     loadingBar: {
-      height: 20,
+      height: 15,
       width: '100%',
       alignSelf: 'flex-start',
     },
@@ -44,56 +48,59 @@ export default function Header({
       justifyContent: 'center',
       width: '80%',
       flexDirection: 'row',
-      top: 20,
-    },
-    upArrow: {
-      display: upArrow ? undefined : 'none',
-    },
-    downArrow: {
-      display: downArrow ? undefined : 'none',
+      top: loginPages ? 15 : 0
     },
     paddingView: {
       width: 25,
     },
+    arrowBack: {
+      position: 'absolute',
+      left: 0,
+    }
   });
 
   useEffect(() => {
-    if (isVisible) {
-      setTimeout(() => {
-        Animated.timing(fadeAnim, {
-          toValue: 1,
-          duration: 1000,
-          useNativeDriver: true,
-        }).start();
-      }, 500);
-    }
-  }, [fadeAnim, isVisible]);
-
-  if (!isVisible) {
-    return null;
-  }
+    setTimeout(() => {
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true,
+      }).start();
+    }, 500);
+  }, [fadeAnim]);
 
   return (
-    <Animated.View style={[styles.HeaderContainer, {opacity: fadeAnim}]}>
+    <Animated.View style={[styles.HeaderContainer, { opacity: loginPages ? fadeAnim : 1 }]}>
       <View />
       <View style={styles.iconsContainer}>
-        <Image
-          source={CookdLogo}
-          style={styles.logoContainer}
-          PlaceholderContent={<ActivityIndicator />}
-        />
-      </View>
-
-      <LinearProgress
-        style={styles.loadingBar}
-        variant="determinate"
-        value={loading}
-        color={
-          loading > 0
-            ? AppColorPalette.orange
-            : AppColorPalette.appBackgroundColor
+        {backArrow &&
+          <View style={styles.arrowBack}>
+            <Icon type="ionicon" name="arrow-back" onPress={onPressBack} />
+          </View>}
+        {
+          headerText ? <Text type="header">{headerText}</Text> : <Image
+            source={CookdLogo}
+            style={styles.logoContainer}
+            PlaceholderContent={<ActivityIndicator />}
+          />
         }
-      />
+
+      </View>
+      {
+        loading && (
+          <LinearProgress
+            style={styles.loadingBar}
+            variant="determinate"
+            value={loading}
+            color={
+              loading > 0
+                ? AppColorPalette.orange
+                : AppColorPalette.appBackgroundColor
+            }
+          />
+        )
+      }
+
     </Animated.View>
   );
 }

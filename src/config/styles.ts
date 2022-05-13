@@ -123,10 +123,56 @@ export const commonStyles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+  mt5: {
+    marginTop: 5
+  },
+  mb5: {
+    marginBottom: 5
+  },
+  mx5: {
+    marginBottom: 5,
+    marginTop: 5
+  },
+  mt10: {
+    marginTop: 10
+  },
+  mb10: {
+    marginBottom: 10
+  },
+  mx10: {
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  mt20: {
+    marginTop: 20
+  },
+  mb20: {
+    marginBottom: 20
+  },
+  mx20: {
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  mt30: {
+    marginTop: 30
+  },
+  mb30: {
+    marginBottom: 30
+  },
+  mx30: {
+    marginTop: 30,
+    marginBottom: 30,
+  },
   FlexColCenterStart: {
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'flex-start',
+    width: '100%',
+  },
+  FlexColStartCenter: {
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    justifyContent: 'center',
     width: '100%',
   },
   FlexColCenterSpaceAround: {
@@ -141,11 +187,17 @@ export const commonStyles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
   },
-  FlexColStartStart: {
-    alignItems: 'flex-start',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
+  FlexRowCenterCenter: {
+    alignItems: 'center',
+    flexDirection: 'row',
     width: '100%',
+    justifyContent: 'center',
+  },
+  FlexRowCenterStart: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'flex-start',
   },
   FlexGrow: {
     flexGrow: 1,
@@ -153,4 +205,16 @@ export const commonStyles = StyleSheet.create({
   Underline: {
     textDecorationLine: 'underline',
   },
+  WhiteHeaderBackground: {
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    backgroundColor: 'white',
+    shadowColor: '#171717',
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+  },
+  TransparentHeaderBackground: {
+    backgroundColor: AppColorPalette.appBackgroundColor, shadowColor: 'transparent'
+  }
 });
