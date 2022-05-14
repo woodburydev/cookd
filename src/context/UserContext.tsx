@@ -10,6 +10,7 @@ import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {endpoint} from '@config/api';
 import {UserContextType} from './ContextTypes';
 
+
 export const UserContext = createContext<Partial<UserContextType>>({});
 export default function Context(props: PropsWithChildren<any>) {
   const [user, setUser] = useState<any>(undefined);
