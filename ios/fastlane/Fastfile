@@ -53,6 +53,11 @@ platform :ios do
       force: true
     )
 
+    push_to_git_remote(
+      remote: "origin",         # optional, default:
+      force: true,    # optional, default: false
+    )
+
     cocoapods(
       clean_install: true
     )
