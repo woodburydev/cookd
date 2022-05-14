@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploying to Testflight
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     runs-on: macOS-latest
     steps:
       - name: Install SSH key
