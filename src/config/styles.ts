@@ -106,6 +106,7 @@ export const myTheme = createTheme({
   },
 });
 
+
 export const commonStyles = StyleSheet.create({
   FlexColCenterCenter: {
     flexDirection: 'column',
