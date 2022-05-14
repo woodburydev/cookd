@@ -49,6 +49,7 @@ platform :ios do
     
     commit_version_bump(
       message: "Version Bump",# create a commit with a custom message
+      xcodeproj: "Cookd.xcodeproj"
     )
 
     cocoapods(
