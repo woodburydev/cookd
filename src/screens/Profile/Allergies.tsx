@@ -34,39 +34,37 @@ export default function Allergies() {
   };
 
   return (
-    <View style={[commonStyles.FlexColCenterCenter]}>
-      <KeyboardAwareScrollView contentContainerStyle={[commonStyles.FlexColCenterCenter, { width: screenWidth }]}>
-        <KeyboardAvoidingView style={commonStyles.FlexColCenterCenter}>
-          <View style={styles.topContainer}>
-            <Text style={styles.labelText} type="header">
-              Allergies?
+    <View style={[commonStyles.FlexColCenterCenter, { flex: 1 }]}>
+      <KeyboardAwareScrollView contentContainerStyle={{ width: screenWidth, alignItems: 'center' }}>
+        <View style={styles.topContainer}>
+          <Text style={styles.labelText} type="header">
+            Allergies?
         </Text>
-            <Text style={styles.descriptionText} type="info">
-              Check any allergies that apply. This list can be edited per event
-              as-well.
+          <Text style={styles.descriptionText} type="info">
+            Check any allergies that apply. This list can be edited per event
+            as-well.
         </Text>
 
-            <View style={styles.ListContainer}>
-              {getRadioButtonsData().map(item => (
-                <CheckBox
-                  center
-                  key={item.id}
-                  title={item.label}
-                  containerStyle={styles.CheckboxContainerStyle}
-                  onPress={() => checkBoxPressed(item.id)}
-                  textStyle={styles.CheckboxStyle}
-                  checkedIcon="check-circle-o"
-                  uncheckedIcon="circle-o"
-                  checked={selectedAllergies.includes(item.id) || user.allergies.includes(item.value)}
-                />
-              ))}
-            </View>
-            <View>
-              <Text type="label" style={[styles.labelText, commonStyles.mt20]}>Other</Text>
-              <Input shake={() => null} />
-            </View>
+          <View style={styles.ListContainer}>
+            {getRadioButtonsData().map(item => (
+              <CheckBox
+                center
+                key={item.id}
+                title={item.label}
+                containerStyle={styles.CheckboxContainerStyle}
+                onPress={() => checkBoxPressed(item.id)}
+                textStyle={styles.CheckboxStyle}
+                checkedIcon="check-circle-o"
+                uncheckedIcon="circle-o"
+                checked={selectedAllergies.includes(item.id) || user.allergies.includes(item.value)}
+              />
+            ))}
           </View>
-        </KeyboardAvoidingView>
+          <View style={{ paddingBottom: 25 }}>
+            <Text type="label" style={[styles.labelText, commonStyles.mt20]}>Other</Text>
+            <Input shake={() => null} />
+          </View>
+        </View>
       </KeyboardAwareScrollView>
     </View>
   );
@@ -90,6 +88,7 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     width: '80%',
+    marginTop: 25
   },
   CheckboxContainerStyle: {
     backgroundColor: AppColorPalette.appBackgroundColor,

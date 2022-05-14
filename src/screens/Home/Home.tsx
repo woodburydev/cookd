@@ -66,7 +66,7 @@ export default function Home({ }) {
             <View style={styles.feedHeader}>
               <Text type="header">Trending Chefs</Text>
             </View>
-            <ScrollView showsHorizontalScrollIndicator={false} style={styles.feedCarousel} horizontal={true}>
+            <ScrollView showsHorizontalScrollIndicator={false} style={[styles.feedCarousel]} horizontal={true}>
               {feedList.map((item, index) => (
                 <View
                   style={[

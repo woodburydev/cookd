@@ -28,9 +28,9 @@ export default function FavoriteCuisines() {
   };
 
   return (
-    <View style={[commonStyles.FlexColCenterCenter]}>
-      <KeyboardAwareScrollView contentContainerStyle={[commonStyles.FlexColCenterCenter, { width: screenWidth }]}>
-        <KeyboardAvoidingView style={commonStyles.FlexColCenterCenter}>
+    <View style={[commonStyles.FlexColCenterCenter, { flex: 1 }]}>
+      <KeyboardAwareScrollView contentContainerStyle={[{ width: screenWidth }]}>
+        <View style={[{ marginTop: 25 }, commonStyles.FlexColCenterCenter]}>
           <View style={styles.topContainer}>
             <Text style={styles.labelText} type="header">
               Favorite Cuisines?
@@ -53,12 +53,12 @@ export default function FavoriteCuisines() {
                 />
               ))}
             </View>
-            <View>
+            <View style={{ paddingBottom: 25 }} >
               <Text type="label" style={[styles.labelText, commonStyles.mt20]}>Other</Text>
               <Input shake={() => null} />
             </View>
           </View>
-        </KeyboardAvoidingView>
+        </View>
       </KeyboardAwareScrollView>
     </View>
   );
