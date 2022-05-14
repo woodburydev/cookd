@@ -24,21 +24,11 @@ export const myTheme = createTheme({
         },
       };
     } else {
-      if (props.circle) {
-        return {
-          buttonStyle: {
-            backgroundColor: '#F26430',
-            width: windowHeight < 850 ? 65 : 75,
-            height: windowHeight < 850 ? 65 : 75,
-            borderRadius: 50,
-          },
-        };
-      }
       return {
         titleStyle: {
           fontFamily: 'WorkSans-Regular',
           color: 'white',
-          fontWeight: '600',
+          fontWeight: 'bold',
         },
         buttonStyle: {
           backgroundColor: '#F26430',
@@ -49,13 +39,14 @@ export const myTheme = createTheme({
     }
   },
   Input: {
+    inputContainerStyle: { borderBottomWidth: 0, backgroundColor: 'white', alignItems: 'center', padding: 5, borderRadius: 10, height: windowHeight < 750 ? 40 : 50 },
+    inputStyle: { marginLeft: 5 },
     style: {
       fontFamily: 'WorkSans-Regular',
       fontWeight: '400',
     },
     errorStyle: {
       margin: 0,
-      marginTop: 20,
       fontFamily: 'WorkSans-Regular',
     },
   },
@@ -198,6 +189,12 @@ export const commonStyles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'flex-start',
+  },
+  FlexColStartStart: {
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    flexDirection: 'column',
+    width: '100%',
   },
   FlexGrow: {
     flexGrow: 1,

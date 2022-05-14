@@ -65,3 +65,4 @@ ios/Podfile.lock
 vendor
 ios/.env
 ios/.env
+ios/Cookd.app.dSYM.zip

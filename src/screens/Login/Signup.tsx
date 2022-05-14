@@ -37,9 +37,8 @@ export default function Signup() {
   };
   return (
     <View style={commonStyles.FlexColCenterCenter}>
-      <View style={styles.SectionStyle}>
-        <View />
-        <View style={styles.inputContainer}>
+      <View style={[commonStyles.FlexColCenterCenter, styles.ContentContainer]}>
+        <View style={styles.SectionStyle}>
           <Text type="label" style={styles.labelText}>
             First Name
           </Text>
@@ -55,7 +54,7 @@ export default function Signup() {
             autoCapitalize="words"
             maxLength={20}
             returnKeyType="next"
-
+            errorStyle={{ marginBottom: windowHeight < 850 ? 0 : 15, marginTop: windowHeight < 850 ? 0 : 0 }}
             onSubmitEditing={() => { lastNameRef.current && lastNameRef.current.focus() }}
             blurOnSubmit={false}
           />
@@ -71,6 +70,10 @@ export default function Signup() {
               setLastName(name);
               setLastNameErrorText('');
             }}
+            errorStyle={{
+              marginTop: 10,
+              marginBottom: 15
+            }}
             placeholder="Smith"
             autoCapitalize="words"
             maxLength={20}
@@ -81,28 +84,10 @@ export default function Signup() {
           />
         </View>
 
-        <KeyboardAvoidingView
-          style={[styles.buttonView]}
-          keyboardVerticalOffset={50}
-          behavior="position">
-          <Button
-            onPress={() => (loading ? undefined : submit())}
-            circle={true}
-            icon={
-              loading ? (
-                <ActivityIndicator color="white" />
-              ) : (
-                <Icon
-                  type="material-icons"
-                  name="arrow-forward"
-                  iconStyle={styles.iconStyle}
-                  size={25}
-                />
-              )
-            }
-            style={styles.Button}
-          />
-        </KeyboardAvoidingView>
+        <Button onPress={() => (loading ? undefined : submit())} icon={
+          loading ? (
+            <ActivityIndicator color="white" />
+          ) : undefined} title={loading ? "" : "Next"} />
       </View>
     </View>
   );
@@ -112,25 +97,15 @@ const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   SectionStyle: {
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     width: '80%',
-    height: '100%',
-    marginTop: '15%',
   },
   labelText: {
+    alignSelf: 'flex-start',
     marginLeft: 10,
-    marginBottom: windowHeight < 750 ? 5 : 20,
+    marginBottom: 10,
   },
-  inputContainer: {
-    bottom: windowHeight < 850 ? '13%' : '11%',
-  },
-  Button: {
-    alignSelf: 'flex-end',
-  },
-  buttonView: {
-    top: windowHeight < 850 ? '9%' : '4%',
-  },
-  iconStyle: {
-    color: 'white',
+  ContentContainer: {
+    bottom: windowHeight < 750 ? 60 : 100
   },
 });

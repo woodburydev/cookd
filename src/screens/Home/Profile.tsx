@@ -30,21 +30,22 @@ export default function Profile() {
           styles.scrollView,
         ]}>
         <View
-          style={[commonStyles.FlexColCenterStart, styles.contentContainer]}>
-          <Text type="header" style={styles.labelText}>
-            Your Cookd
-          </Text>
+          style={[commonStyles.FlexColCenterStart, styles.contentContainer, commonStyles.mt20]}>
           <View style={styles.LinksContainer}>
             {Object.keys(ProfileRoutes).map(key => {
               const { name, iconType, iconName, displayName } =
                 getKeyValue(key)(ProfileRoutes);
               return (
                 <>
-                  {name === 'INVITE_FRIEND' ? (
+                  {name === 'FAVORITE_CHEFS' && (
+                    <Text type="header" style={styles.firstLabelText}>
+                      Your Cookd
+                    </Text>)}
+                  {name === 'INVITE_FRIEND' && (
                     <Text type="header" style={styles.labelText} key={uuidv4()}>
                       General
                     </Text>
-                  ) : null}
+                  )}
                   <TouchableOpacity
                     style={[
                       commonStyles.FlexRowCenterBetween,
@@ -111,6 +112,11 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     width: '100%',
+  },
+  firstLabelText: {
+    alignSelf: 'flex-start',
+    marginTop: 20,
+    marginLeft: 20,
   },
   labelText: {
     alignSelf: 'flex-start',
