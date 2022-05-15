@@ -4,10 +4,12 @@ import { AppColorPalette, commonStyles } from '@config/styles';
 import { CheckBox, Input, Text } from '@rneui/themed';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { UserContext } from 'src/context/UserContext';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const screenWidth = Dimensions.get('window').width;
 
 export default function Allergies() {
+
   const [otherAllergies] = useState('');
   const user = useContext(UserContext).user!;
   const [selectedAllergies, setSelectedAllergies] = useState<number[]>([]);
@@ -21,6 +23,7 @@ export default function Allergies() {
     }
   };
 
+
   const getAllergies = () => {
     const values = getRadioButtonsData()
       .filter(item => selectedAllergies.includes(item.id))
@@ -33,9 +36,15 @@ export default function Allergies() {
     const allergies = getAllergies();
   };
 
+
   return (
-    <View style={[commonStyles.FlexColCenterCenter, { flex: 1 }]}>
-      <KeyboardAwareScrollView contentContainerStyle={{ width: screenWidth, alignItems: 'center' }}>
+    <ScrollView contentContainerStyle={{ minHeight: '100%', flexDirection: 'column', justifyContent: 'center' }}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={100}
+        behavior={"position"}
+        contentContainerStyle={{ width: screenWidth, alignItems: 'center' }}
+      >
         <View style={styles.topContainer}>
           <Text style={styles.labelText} type="header">
             Allergies?
@@ -59,14 +68,15 @@ export default function Allergies() {
                 checked={selectedAllergies.includes(item.id) || user.allergies.includes(item.value)}
               />
             ))}
+
           </View>
           <View style={{ paddingBottom: 25 }}>
             <Text type="label" style={[styles.labelText, commonStyles.mt20]}>Other</Text>
             <Input shake={() => null} />
           </View>
         </View>
-      </KeyboardAwareScrollView>
-    </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 
@@ -87,8 +97,10 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   topContainer: {
+    top: windowHeight < 750 ? 20 : 0,
     width: '80%',
-    marginTop: 25
+    minHeight: '100%',
+    justifyContent: 'center',
   },
   CheckboxContainerStyle: {
     backgroundColor: AppColorPalette.appBackgroundColor,

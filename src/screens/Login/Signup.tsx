@@ -49,7 +49,7 @@ export default function Signup() {
               setFirstName(name);
               setLastNameErrorText('');
             }}
-            autoComplete="name-given"
+            autoComplete="name"
             placeholder="John"
             autoCapitalize="words"
             maxLength={20}
@@ -62,7 +62,6 @@ export default function Signup() {
             Last Name
           </Text>
           <Input
-            autoFocus={true}
             autoComplete="name-family"
             shake={() => { }}
             ref={lastNameRef}

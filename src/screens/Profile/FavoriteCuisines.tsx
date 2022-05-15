@@ -12,6 +12,7 @@ import {
   LoginRoutesNames,
 } from 'src/navigation/NavigationTypes';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -28,9 +29,14 @@ export default function FavoriteCuisines() {
   };
 
   return (
-    <View style={[commonStyles.FlexColCenterCenter, { flex: 1 }]}>
-      <KeyboardAwareScrollView contentContainerStyle={[{ width: screenWidth }]}>
-        <View style={[{ marginTop: 25 }, commonStyles.FlexColCenterCenter]}>
+    <ScrollView contentContainerStyle={{ flexDirection: 'column', justifyContent: 'center', minHeight: '100%' }}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={100}
+        behavior={"position"}
+        contentContainerStyle={{ width: screenWidth, alignItems: 'center' }}
+      >
+        <View style={[{ marginTop: 25, width: '100%', justifyContent: 'center', alignItems: 'center' }]}>
           <View style={styles.topContainer}>
             <Text style={styles.labelText} type="header">
               Favorite Cuisines?
@@ -59,8 +65,8 @@ export default function FavoriteCuisines() {
             </View>
           </View>
         </View>
-      </KeyboardAwareScrollView>
-    </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 
@@ -72,6 +78,9 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     width: '80%',
+    top: windowHeight < 750 ? 10 : 0,
+    justifyContent: 'center',
+    minHeight: '100%',
   },
   labelText: {
     marginLeft: 10,

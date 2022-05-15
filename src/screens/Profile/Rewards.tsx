@@ -61,6 +61,7 @@ export default function Rewards() {
 const styles = StyleSheet.create({
   upperContentContainer: {
     width: '70%',
+    marginTop: 30
   },
   howToEarnText: {
   },
