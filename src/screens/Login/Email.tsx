@@ -93,6 +93,7 @@ export default function Email() {
             keyboardType="email-address"
             returnKeyType="next"
             onSubmitEditing={() => submit()}
+            autoComplete="email"
             blurOnSubmit={false}
             errorMessage={emailErrorText}
           />

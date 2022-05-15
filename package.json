@@ -34,6 +34,7 @@
     "react-native": "0.67.4",
     "react-native-confirmation-code-field": "^7.3.0",
     "react-native-device-info": "^8.7.1",
+    "react-native-element-dropdown": "^1.8.10",
     "react-native-gesture-handler": "^2.3.2",
     "react-native-keyboard-accessory": "^0.1.16",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",

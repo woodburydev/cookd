@@ -75,7 +75,22 @@ export default function HomeTabNavigation() {
           )
         }
       }
-    } else if (route.name === HomeRoutes.ORDER.displayName) {
+    }
+    else if (route.name === HomeRoutes.SEARCH.displayName) {
+      return {
+        ...defaultReturn,
+        headerShown: true,
+        headerStyle: commonStyles.WhiteHeaderBackground,
+        header: (headerProps) => {
+          return (
+            <SafeAreaView style={commonStyles.WhiteHeaderBackground}>
+              <Header headerText="Search" />
+            </SafeAreaView>
+          )
+        }
+      }
+    }
+    else if (route.name === HomeRoutes.ORDER.displayName) {
       return {
         ...defaultReturn,
         headerShown: true,
