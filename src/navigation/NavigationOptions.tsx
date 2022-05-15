@@ -24,6 +24,7 @@ export const HomeNavigationOptions: StackNavigationOptions = {
   headerShown: false,
 };
 
+
 export const ProfileNavigationOptions = (
   props: StackNavigationProp<ProfileNavigationRoutes, keyof ProfileRouteNames>,
 ): StackNavigationOptions => {
