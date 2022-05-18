@@ -56,6 +56,7 @@ export default function Allergies() {
               center
               key={item.id}
               title={item.label}
+              checkedColor={AppColorPalette.orange}
               containerStyle={styles.CheckboxContainerStyle}
               onPress={() => checkBoxPressed(item.id)}
               textStyle={styles.CheckboxStyle}

@@ -24,22 +24,28 @@ export default function HomeTabNavigation() {
   const options = (props: any): BottomTabNavigationOptions => {
     const { route } = props;
     let iconName: string;
+    let iconType: string;
 
     switch (route.name) {
       case HomeRoutes.HOME.displayName:
         iconName = 'home';
+        iconType = 'material-community'
         break;
       case HomeRoutes.ORDER.displayName:
-        iconName = 'silverware-fork-knife';
+        iconName = 'clipboard-text-outline';
+        iconType = 'material-community'
         break;
       case HomeRoutes.MESSAGE.displayName:
         iconName = 'message-text-outline';
+        iconType = 'material-community'
         break;
       case HomeRoutes.PROFILE.displayName:
         iconName = 'person-circle-outline';
+        iconType = 'ionicon'
         break;
       case HomeRoutes.SEARCH.displayName:
         iconName = 'search-outline';
+        iconType = 'ionicon'
         break;
       default:
         iconName = '';
@@ -48,12 +54,7 @@ export default function HomeTabNavigation() {
     const defaultReturn = {
       tabBarIcon: ({ focused }: any) => (
         <Icon
-          type={
-            route.name === HomeRoutes.PROFILE.displayName ||
-              route.name === HomeRoutes.SEARCH.displayName
-              ? 'ionicon'
-              : 'material-community'
-          }
+          type={iconType}
           name={iconName}
           iconStyle={focused ? styles.focus : undefined}
           size={25}
