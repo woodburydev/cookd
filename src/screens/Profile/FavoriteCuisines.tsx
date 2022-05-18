@@ -54,6 +54,7 @@ export default function FavoriteCuisines() {
                   onPress={() => checkBoxPressed(item.id)}
                   textStyle={styles.CheckboxStyle}
                   checkedIcon="check-circle-o"
+                  checkedColor={AppColorPalette.orange}
                   uncheckedIcon="circle-o"
                   checked={selectedCuisines.includes(item.id) || user.cuisines.includes(item.label.toLowerCase())}
                 />

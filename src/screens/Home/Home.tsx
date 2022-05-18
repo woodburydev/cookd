@@ -31,7 +31,7 @@ export default function Home({ }) {
     },
     {
       photo: ChefPhoto2,
-      name: 'Chef Boyardee',
+      name: 'Chef Mariano',
       cuisine: { photo: ItalyPhoto, name: 'Italian Cuisine' },
       rating: 4,
       cost: 125,
