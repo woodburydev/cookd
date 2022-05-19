@@ -9,12 +9,13 @@ import { Icon, Image, Text } from '@rneui/themed';
 import { ProfileRoutes } from './Profile/routes';
 import ProfilePicture from '@assets/profilePicture.jpg';
 import { AppColorPalette, commonStyles } from 'src/config/styles';
-import { ProfileNavigationRoutes, ProfileRouteNames } from './NavigationTypes';
+import { ProfileNavigationRoutes, ProfileRouteNames, MessageRouteNames, MessageNavigationRoutes } from './NavigationTypes';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AirbnbRating, Button } from '@rneui/base';
 import { UserContext } from 'src/context/UserContext';
 import Header from 'src/screens/Login/Components/Header';
 import { useNavigation } from '@react-navigation/core';
+import { MessageRoutes } from './Messages/routes';
 
 export const LoginNavigationOptions: StackNavigationOptions = {
   headerShown: false,
@@ -24,6 +25,38 @@ export const HomeNavigationOptions: StackNavigationOptions = {
   headerShown: false,
 };
 
+export const MessageNavigationOptions = (
+  props: StackNavigationProp<MessageNavigationRoutes, keyof MessageRouteNames>,
+): StackNavigationOptions => {
+  const navigation = useNavigation();
+  const routeName = props.route.name as keyof MessageRouteNames;
+  const { recipientDisplayName } = props.route?.params || '';
+  const displayName = MessageRoutes[routeName]?.displayName;
+  if (routeName === MessageRoutes['MESSAGE_DETAIL'].name) {
+    return {
+      headerShown: true,
+      headerStyle: commonStyles.WhiteHeaderBackground,
+      header: (headerProps) => {
+        return (
+          <SafeAreaView style={commonStyles.WhiteHeaderBackground}>
+            <Header headerText={recipientDisplayName} />
+          </SafeAreaView>
+        )
+      }
+    }
+  }
+  return {
+    headerShown: true,
+    headerStyle: commonStyles.WhiteHeaderBackground,
+    header: (headerProps) => {
+      return (
+        <SafeAreaView style={commonStyles.WhiteHeaderBackground}>
+          <Header headerText={displayName} />
+        </SafeAreaView>
+      )
+    }
+  }
+}
 
 export const ProfileNavigationOptions = (
   props: StackNavigationProp<ProfileNavigationRoutes, keyof ProfileRouteNames>,
