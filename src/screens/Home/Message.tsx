@@ -15,7 +15,7 @@ export default function Message() {
     <ScrollView>
       <View style={commonStyles.FlexColStartStart}>
         <Text type="label" style={[commonStyles.mx20, styles.Text]}>Current Order</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('MESSAGE_DETAIL', { recipientDisplayName: "Chef Mariano" })} containerStyle={styles.TouchableOpacityContainer} style={[styles.WhiteBackgroundView]}>
+        <TouchableOpacity onPress={() => navigation.navigate('MESSAGE_DETAIL', { recipientDisplayName: "Chef Kakashi" })} containerStyle={styles.TouchableOpacityContainer} style={[styles.WhiteBackgroundView]}>
           <View>
             <Image source={Chef} style={[styles.CardImageStyle]} containerStyle={{ marginLeft: 20 }} />
           </View>

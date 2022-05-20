@@ -85,7 +85,7 @@ export default function Cuisines() {
         onPress={submit}
         style={styles.Button}
         title={
-          loading ? <ActivityIndicator color="white" /> : 'START BROWSING CHEFS'
+          loading ? <ActivityIndicator color="white" /> : 'Start Browsing Chefs'
         }
       />
     </View>
