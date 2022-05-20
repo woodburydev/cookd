@@ -2,8 +2,8 @@ import { Input, Text } from '@rneui/themed/dist';
 import React, { useContext } from 'react';
 import { Dimensions, KeyboardAvoidingView, StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { GiftedChat, InputToolbar, MessageText } from 'react-native-gifted-chat';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Bubble, GiftedChat, InputToolbar, MessageText } from 'react-native-gifted-chat';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { commonStyles } from 'src/config/styles';
 import { UserContext } from 'src/context/UserContext';
 import Chef from '@assets/chef.jpg';
@@ -141,8 +141,11 @@ const MessageDetail = () => {
         <GiftedChat
             messages={chatMessages[route.params.recipientDisplayName]}
             onSend={() => null}
+            alignTop={false}
+            listViewProps={{contentContainerStyle: {flexGrow: 1, justifyContent: 'flex-end'}}}
             bottomOffset={insets.bottom + 43}
             renderMessageText={renderMessageText}
+            renderBubble={renderBubble}
             renderInputToolbar={renderInputToolbar}
             timeTextStyle={{ left: { display: 'none' },right: { display: 'none'} }}
             user={{
@@ -188,9 +191,11 @@ const styles = StyleSheet.create({
 
 
 
-export const renderMessageText = (props) => (
+const renderMessageText = (props) => (
     <MessageText
       {...props}
+      containerStyle={{
+      }}
       textStyle={{
         left: { color: 'black', fontFamily: 'WorkSans-Regular', fontWeight: '400' },
         right: { color: 'white', fontFamily: 'WorkSans-Regular', fontWeight: '400' },
@@ -198,10 +203,17 @@ export const renderMessageText = (props) => (
     />
   );
 
-  export const renderInputToolbar = (props) => (
+  const renderInputToolbar = (props) => (
     <InputToolbar
+        containerStyle={{
+            borderTopColor: 'white'
+        }}
       {...props}
       />
   );
 
+
+  const renderBubble = (props) => {
+    return <Bubble {...props} wrapperStyle={{ left: { marginTop: 10, marginBottom: 10, padding: 8 }, right: { marginTop: 10, marginBottom: 10, padding: 8}}} />
+  }
 export default MessageDetail;
