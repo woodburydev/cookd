@@ -70,7 +70,7 @@ export default function Allergies() {
 
       <Button
         onPress={submit}
-        title="FAVORITE CUISINES"
+        title="Favorite Cuisines"
         style={styles.Button}
       />
     </View>

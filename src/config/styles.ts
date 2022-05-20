@@ -20,6 +20,7 @@ export const myTheme = createTheme({
         buttonStyle: {
           backgroundColor: '#F8EFA0',
           width: 200,
+          borderRadius: 10,
           height: 40,
         },
       };
@@ -33,6 +34,7 @@ export const myTheme = createTheme({
         buttonStyle: {
           backgroundColor: '#F26430',
           width: 300,
+          borderRadius: 10,
           height: 55,
         },
       };

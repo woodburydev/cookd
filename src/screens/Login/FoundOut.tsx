@@ -43,6 +43,7 @@ export default function FoundOut() {
                             key={item.id}
                             title={item.label}
                             containerStyle={styles.CheckboxContainerStyle}
+                            checkedColor={AppColorPalette.orange}
                             onPress={() => checkBoxPressed(item.id)}
                             textStyle={styles.CheckboxStyle}
                             checkedIcon="check-circle-o"

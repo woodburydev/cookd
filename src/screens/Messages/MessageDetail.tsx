@@ -75,7 +75,7 @@ const MessageDetail = () => {
         {
             _id: 1,
             text: `Hey are you on the way?`,
-            createdAt: April16Date,
+            createdAt: April18Date,
             user: {
                 _id: 1,
                 name: 'React Native',
@@ -85,7 +85,7 @@ const MessageDetail = () => {
         {
             _id: 2,
             text: 'Yes! I am about 14 minutes away.',
-            createdAt: April16Date,
+            createdAt: April18Date,
             user: {
                 _id: 2,
                 name: 'React Native',
@@ -95,7 +95,7 @@ const MessageDetail = () => {
         {
             _id: 3,
             text: 'Okay man see you soon',
-            createdAt: April16Date,
+            createdAt: April18Date,
             user: {
                 _id: 1,
                 name: 'React Native',
@@ -106,7 +106,7 @@ const MessageDetail = () => {
         {
             _id: 1,
             text: `Hey ${user?.displayname.split(" ")[0]}! do you have any Garlic? It said you have some, but just double checking since its important!`,
-            createdAt: April16Date,
+            createdAt: nowDate,
             user: {
                 _id: 2,
                 name: 'React Native',
@@ -116,7 +116,7 @@ const MessageDetail = () => {
         {
             _id: 2,
             text: 'Yeah of course! I got more than I can possibly use haha.',
-            createdAt: April16Date,
+            createdAt: nowDate,
             user: {
                 _id: 1,
                 name: 'React Native',
@@ -126,7 +126,7 @@ const MessageDetail = () => {
         {
             _id: 3,
             text: 'Okay sounds good!',
-            createdAt: April16Date,
+            createdAt: nowDate,
             user: {
                 _id: 2,
                 name: 'React Native',
