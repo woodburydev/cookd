@@ -54,6 +54,13 @@ export type ProfileNavigationRoutes = {
   TERMS_OF_SERVICE: undefined;
 };
 
+
+export type MessageNavigationRoutes = {
+  MESSAGE: undefined;
+  MESSAGE_DETAIL: { recipientDisplayName: string };
+};
+
+
 export type ProfileRouteNames = {
   ALLERGIES: 'ALLERGIES';
   CONTACT_INFO: 'CONTACT_INFO';
@@ -64,4 +71,9 @@ export type ProfileRouteNames = {
   PRIVACY_POLICY: 'PRIVACY_POLICY';
   REWARDS: 'REWARDS';
   TERMS_OF_SERVICE: 'TERMS_OF_SERVICE';
+};
+
+export type MessageRouteNames = {
+  MESSAGE: 'MESSAGE';
+  MESSAGE_DETAIL: 'MESSAGE_DETAIL';
 };

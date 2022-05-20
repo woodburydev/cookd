@@ -14,7 +14,7 @@ export default function InviteFriend() {
           <View style={styles.contentContainer}>
             <Text style={commonStyles.mb30} centerText type="large-header">Email or Phone Number</Text>
             <Text style={commonStyles.mb30} type="description">Inviting a friend can give you a point towards your reward of 25% off once they use the service for the first time.</Text>
-            <Input shake={() => null} placeholder="(xxx) xxx-xxxx or xxxxxxx@xxxx.xxx" />
+            <Input shake={() => null} />
           </View>
           <Button title="Submit" />
         </KeyboardAvoidingView>

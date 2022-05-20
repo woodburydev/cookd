@@ -56,157 +56,155 @@ export default function Home({ }) {
   ];
   return (
     // eslint-disable-next-line react-native/no-inline-styles
-    <View style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={commonStyles.FlexColCenterStart} showsVerticalScrollIndicator={false}>
-        <View style={[commonStyles.FlexColStartStart, styles.contentContainer]}>
-          <Text type="info" style={styles.welcomeText}>
-            {`What's looking good today ${user?.displayname}?`}
-          </Text>
-          <View style={[commonStyles.FlexColStartStart, styles.feedContainer]}>
-            <View style={styles.feedHeader}>
-              <Text type="header">Trending Chefs</Text>
-            </View>
-            <ScrollView showsHorizontalScrollIndicator={false} style={[styles.feedCarousel]} horizontal={true}>
-              {feedList.map((item, index) => (
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={[commonStyles.FlexColStartStart, styles.contentContainer]}>
+        <Text type="info" style={[styles.welcomeText, styles.LeftAlign]}>
+          What's looking good today {user?.displayname.split(" ")[0]}
+        </Text>
+        <View style={[commonStyles.FlexColStartStart, styles.feedContainer, styles.LeftAlign]}>
+          <View style={styles.feedHeader}>
+            <Text type="header">Trending Chefs</Text>
+          </View>
+          <ScrollView showsHorizontalScrollIndicator={false} style={[styles.feedCarousel]} horizontal={true}>
+            {feedList.map((item, index) => (
+              <View
+                style={[
+                  commonStyles.FlexColCenterCenter,
+                  styles.feedItemWrapper,
+                ]}>
                 <View
-                  style={[
-                    commonStyles.FlexColCenterCenter,
-                    styles.feedItemWrapper,
-                  ]}>
+                  style={[commonStyles.FlexColCenterCenter, styles.feedItem]}
+                  key={index}>
+                  <Image source={item.cuisine.photo} style={styles.MainImg} />
                   <View
-                    style={[commonStyles.FlexColCenterCenter, styles.feedItem]}
-                    key={index}>
-                    <Image source={item.cuisine.photo} style={styles.MainImg} />
+                    style={[
+                      commonStyles.FlexColCenterCenter,
+                      styles.ChefAvitarWrapper,
+                    ]}>
                     <View
                       style={[
                         commonStyles.FlexColCenterCenter,
-                        styles.ChefAvitarWrapper,
+                        styles.ChefAvitarContainer,
                       ]}>
-                      <View
-                        style={[
-                          commonStyles.FlexColCenterCenter,
-                          styles.ChefAvitarContainer,
-                        ]}>
-                        <Image source={item.photo} style={styles.ChefAvitar} />
-                      </View>
+                      <Image source={item.photo} style={styles.ChefAvitar} />
                     </View>
+                  </View>
 
+                  <View
+                    style={[
+                      commonStyles.FlexColCenterCenter,
+                      styles.FeedItemContents,
+                    ]}>
+                    <Text type="info" style={styles.ChefName}>
+                      {item.name}
+                    </Text>
+                    <Text type="info" style={styles.CuisineName}>
+                      {item.cuisine.name}
+                    </Text>
                     <View
                       style={[
-                        commonStyles.FlexColCenterCenter,
-                        styles.FeedItemContents,
+                        commonStyles.FlexRowCenterBetween,
+                        styles.DetailsBar,
                       ]}>
-                      <Text type="info" style={styles.ChefName}>
-                        {item.name}
-                      </Text>
-                      <Text type="info" style={styles.CuisineName}>
-                        {item.cuisine.name}
-                      </Text>
-                      <View
-                        style={[
-                          commonStyles.FlexRowCenterBetween,
-                          styles.DetailsBar,
-                        ]}>
-                        <Text
-                          type="info"
-                          style={styles.DetailsText}>{`$${item.cost}`}</Text>
-                        <View style={styles.Ratings}>
-                          {[...Array(item.rating - 1).keys()].map(() => (
-                            <Icon
-                              type="font-awesome"
-                              name="star"
-                              size={11}
-                              iconStyle={styles.RatingIcon}
-                            />
-                          ))}
+                      <Text
+                        type="info"
+                        style={styles.DetailsText}>{`$${item.cost}`}</Text>
+                      <View style={styles.Ratings}>
+                        {[...Array(item.rating - 1).keys()].map(() => (
                           <Icon
                             type="font-awesome"
                             name="star"
                             size={11}
                             iconStyle={styles.RatingIcon}
                           />
-                        </View>
+                        ))}
+                        <Icon
+                          type="font-awesome"
+                          name="star"
+                          size={11}
+                          iconStyle={styles.RatingIcon}
+                        />
                       </View>
                     </View>
                   </View>
                 </View>
-              ))}
-            </ScrollView>
-          </View>
-          <View style={[commonStyles.FlexColStartStart, styles.feedContainer]}>
-            <View style={styles.feedHeader}>
-              <Text type="header">Your Cuisines</Text>
-            </View>
-            <ScrollView style={styles.feedCarousel} horizontal={true}>
-              {feedList.map((item, index) => (
-                <View
-                  style={[
-                    commonStyles.FlexColCenterCenter,
-                    styles.feedItemWrapper,
-                  ]}>
-                  <View
-                    style={[commonStyles.FlexColCenterCenter, styles.feedItem]}
-                    key={index}>
-                    <Image source={item.dish.photo} style={styles.MainImg} />
-                    <View
-                      style={[
-                        commonStyles.FlexColCenterCenter,
-                        styles.ChefAvitarWrapper,
-                      ]}>
-                      <View
-                        style={[
-                          commonStyles.FlexColCenterCenter,
-                          styles.ChefAvitarContainer,
-                        ]}>
-                        <Image source={item.photo} style={styles.ChefAvitar} />
-                      </View>
-                    </View>
-
-                    <View
-                      style={[
-                        commonStyles.FlexColCenterCenter,
-                        styles.FeedItemContents,
-                      ]}>
-                      <Text type="info" style={styles.ChefName}>
-                        {`${item.name}'s`}
-                      </Text>
-                      <Text type="info" style={styles.CuisineName}>
-                        {item.dish.name}
-                      </Text>
-                      <View
-                        style={[
-                          commonStyles.FlexRowCenterBetween,
-                          styles.DetailsBar,
-                        ]}>
-                        <Text
-                          type="info"
-                          style={styles.DetailsText}>{`$${item.cost}`}</Text>
-                        <View style={styles.Ratings}>
-                          {[...Array(item.rating - 1).keys()].map(() => (
-                            <Icon
-                              type="font-awesome"
-                              name="star"
-                              size={11}
-                              iconStyle={styles.RatingIcon}
-                            />
-                          ))}
-                          <Icon
-                            type="font-awesome"
-                            name="star"
-                            size={11}
-                            iconStyle={styles.RatingIcon}
-                          />
-                        </View>
-                      </View>
-                    </View>
-                  </View>
-                </View>
-              ))}
-            </ScrollView>
-          </View>
+              </View>
+            ))}
+          </ScrollView>
         </View>
-      </ScrollView>
-    </View>
+        <View style={[commonStyles.FlexColStartStart, styles.feedContainer, styles.LeftAlign]}>
+          <View style={styles.feedHeader}>
+            <Text type="header">Your Cuisines</Text>
+          </View>
+          <ScrollView showsHorizontalScrollIndicator={false} style={styles.feedCarousel} horizontal={true}>
+            {feedList.map((item, index) => (
+              <View
+                style={[
+                  commonStyles.FlexColCenterCenter,
+                  styles.feedItemWrapper,
+                ]}>
+                <View
+                  style={[commonStyles.FlexColCenterCenter, styles.feedItem]}
+                  key={index}>
+                  <Image source={item.dish.photo} style={styles.MainImg} />
+                  <View
+                    style={[
+                      commonStyles.FlexColCenterCenter,
+                      styles.ChefAvitarWrapper,
+                    ]}>
+                    <View
+                      style={[
+                        commonStyles.FlexColCenterCenter,
+                        styles.ChefAvitarContainer,
+                      ]}>
+                      <Image source={item.photo} style={styles.ChefAvitar} />
+                    </View>
+                  </View>
+
+                  <View
+                    style={[
+                      commonStyles.FlexColCenterCenter,
+                      styles.FeedItemContents,
+                    ]}>
+                    <Text type="info" style={styles.ChefName}>
+                      {`${item.name}'s`}
+                    </Text>
+                    <Text type="info" style={styles.CuisineName}>
+                      {item.dish.name}
+                    </Text>
+                    <View
+                      style={[
+                        commonStyles.FlexRowCenterBetween,
+                        styles.DetailsBar,
+                      ]}>
+                      <Text
+                        type="info"
+                        style={styles.DetailsText}>{`$${item.cost}`}</Text>
+                      <View style={styles.Ratings}>
+                        {[...Array(item.rating - 1).keys()].map(() => (
+                          <Icon
+                            type="font-awesome"
+                            name="star"
+                            size={11}
+                            iconStyle={styles.RatingIcon}
+                          />
+                        ))}
+                        <Icon
+                          type="font-awesome"
+                          name="star"
+                          size={11}
+                          iconStyle={styles.RatingIcon}
+                        />
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -216,7 +214,7 @@ const styles = StyleSheet.create({
     width: 75,
   },
   contentContainer: {
-    width: '90%',
+    width: '100%',
     marginTop: 20,
   },
   welcomeText: {
@@ -265,6 +263,9 @@ const styles = StyleSheet.create({
     height: '50%',
     width: '100%',
     position: 'relative',
+  },
+  LeftAlign: {
+    marginLeft: 20
   },
   DetailsBar: {
     width: '100%',

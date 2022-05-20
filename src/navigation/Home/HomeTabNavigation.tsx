@@ -13,6 +13,7 @@ import uuidv4 from 'uuidv4';
 import { getKeyValue } from 'src/util/helperFunctions';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from 'src/screens/Login/Components/Header';
+import MessageNavigation from '../Messages/MessageNavigator';
 
 export default function HomeTabNavigation() {
   const navTheme = DefaultTheme;
@@ -117,6 +118,14 @@ export default function HomeTabNavigation() {
               <Tab.Screen
                 name={getKeyValue(key)(HomeRoutes).displayName}
                 component={ProfileNavigation}
+                key={uuidv4()}
+              />
+            );
+          } else if (key === HomeRoutes.MESSAGE.name) {
+            return (
+              <Tab.Screen
+                name={getKeyValue(key)(HomeRoutes).displayName}
+                component={MessageNavigation}
                 key={uuidv4()}
               />
             );
