@@ -39,7 +39,7 @@ export const MessageNavigationOptions = (
       header: (headerProps) => {
         return (
           <SafeAreaView style={commonStyles.WhiteHeaderBackground}>
-            <Header headerText={recipientDisplayName} />
+            <Header backArrow onPressBack={() => navigation.navigate("MESSAGE")} headerText={recipientDisplayName} />
           </SafeAreaView>
         )
       }
