@@ -7,6 +7,9 @@ import Cuisines from 'src/screens/Login/Cuisines';
 import PhoneNumber from 'src/screens/Login/PhoneNumber';
 import Email from 'src/screens/Login/Email';
 import FoundOut from 'src/screens/Login/FoundOut';
+import Browse from 'src/screens/Login/GetStarted/Browse';
+import Choose from 'src/screens/Login/GetStarted/Choose';
+import Schedule from 'src/screens/Login/GetStarted/Schedule';
 
 export const SignUpRoutes = {
   SIGN_UP: {
@@ -35,6 +38,21 @@ export const SignUpRoutes = {
   },
 }
 
+export const GetStartedRoutes = {
+  BROWSE: {
+    name: 'BROWSE',
+    component: Browse,
+  },
+  CHOOSE: {
+    name: 'CHOOSE',
+    component: Choose,
+  },
+  SCHEDULE: {
+    name: 'SCHEDULE',
+    component: Schedule,
+  },
+}
+
 export const LoginRoutes = {
   GET_STARTED: {
     name: 'GET_STARTED',
@@ -48,6 +66,7 @@ export const LoginRoutes = {
     name: 'ENTER_OTP',
     component: OTP,
   },
-  ...SignUpRoutes
+  ...SignUpRoutes,
+  ...GetStartedRoutes
 };
 

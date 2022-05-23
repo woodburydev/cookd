@@ -34,26 +34,8 @@ export default function Cuisines() {
     const cuisines = getRadioButtonsData()
       .filter(item => selectedCuisines.includes(item.id))
       .map(item => item.label.toLowerCase());
-
-    const user = auth().currentUser!;
-    axios
-      .post(`${endpoint}/user`, {
-        displayname: user!.displayName,
-        fbuuid: user!.uid,
-        email: user!.email,
-        phone: user!.phoneNumber,
-        foundOut,
-        allergies,
-        cuisines,
-      })
-      .then(() => {
-        getUser!(user);
-      })
-      .catch(err => {
-        console.log('Error saving user in database: ', err);
-        setLoading(false);
-      });
-  };
+    navigation.navigate('BROWSE', { allergies, cuisines, foundOut})
+    };
 
   return (
     <View style={[commonStyles.FlexColCenterCenter, styles.contentContainer]}>

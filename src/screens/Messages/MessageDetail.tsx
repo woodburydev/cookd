@@ -2,9 +2,9 @@ import { Input, Text } from '@rneui/themed/dist';
 import React, { useContext } from 'react';
 import { Dimensions, KeyboardAvoidingView, StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Bubble, GiftedChat, InputToolbar, MessageText } from 'react-native-gifted-chat';
+import { Bubble, Day, GiftedChat, InputToolbar, Message, MessageText } from 'react-native-gifted-chat';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { commonStyles } from 'src/config/styles';
+import { AppColorPalette, commonStyles } from 'src/config/styles';
 import { UserContext } from 'src/context/UserContext';
 import Chef from '@assets/chef.jpg';
 import Chef1 from '@assets/chef2.jpg';
@@ -146,6 +146,8 @@ const MessageDetail = () => {
             bottomOffset={insets.bottom + 43}
             renderMessageText={renderMessageText}
             renderBubble={renderBubble}
+            renderDay={renderDay}
+            renderMessage={renderMessage}
             renderInputToolbar={renderInputToolbar}
             timeTextStyle={{ left: { display: 'none' },right: { display: 'none'} }}
             user={{
@@ -214,6 +216,14 @@ const renderMessageText = (props) => (
 
 
   const renderBubble = (props) => {
-    return <Bubble {...props} wrapperStyle={{ left: { marginTop: 10, marginBottom: 10, padding: 8 }, right: { marginTop: 10, marginBottom: 10, padding: 8}}} />
+    return <Bubble {...props} wrapperStyle={{ left: { padding: 8 }, right: { padding: 8, backgroundColor: AppColorPalette.orange}}} />
+  }
+
+  const renderMessage = (props) => {
+    return <Message {...props} containerStyle={{ left: { marginTop: 15, marginBottom: 15}, right: { marginTop: 15, marginBottom: 15}}} />
+  }
+
+  const renderDay = (props) => {
+    return <Day {...props} wrapperStyle={{ marginTop: 20, marginBottom: 5 }} dateFormat="ddd, MMM D"/>
   }
 export default MessageDetail;
