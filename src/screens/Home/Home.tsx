@@ -63,7 +63,7 @@ export default function Home({ }) {
         </Text>
         <View style={[commonStyles.FlexColStartStart, styles.feedContainer, styles.LeftAlign]}>
           <View style={styles.feedHeader}>
-            <Text type="header">Trending Chefs</Text>
+            <Text type="large-header">Trending Chefs</Text>
           </View>
           <ScrollView showsHorizontalScrollIndicator={false} style={[styles.feedCarousel]} horizontal={true}>
             {feedList.map((item, index) => (
@@ -134,7 +134,7 @@ export default function Home({ }) {
         </View>
         <View style={[commonStyles.FlexColStartStart, styles.feedContainer, styles.LeftAlign]}>
           <View style={styles.feedHeader}>
-            <Text type="header">Your Cuisines</Text>
+            <Text type="large-header">Your Cuisines</Text>
           </View>
           <ScrollView showsHorizontalScrollIndicator={false} style={styles.feedCarousel} horizontal={true}>
             {feedList.map((item, index) => (
@@ -232,6 +232,7 @@ const styles = StyleSheet.create({
     height: '15%',
     width: '100%',
     paddingTop: 5,
+    marginBottom: 10,
   },
   feedCarousel: {
     height: '85%',
