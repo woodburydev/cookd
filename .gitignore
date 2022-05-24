@@ -66,3 +66,4 @@ vendor
 ios/.env
 ios/.env
 ios/Cookd.app.dSYM.zip
+ios/Cookd.xcodeproj/project.pbxproj
