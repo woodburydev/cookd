@@ -61,11 +61,11 @@ export default function Home({ }) {
         <Text type="info" style={[styles.welcomeText, styles.LeftAlign]}>
           What's looking good today {user?.displayname.split(" ")[0]}
         </Text>
-        <View style={[commonStyles.FlexColStartStart, styles.feedContainer, styles.LeftAlign]}>
-          <View style={styles.feedHeader}>
+        <View style={[commonStyles.FlexColStartStart, styles.feedContainer]}>
+          <View style={[styles.feedHeader, styles.LeftAlign]}>
             <Text type="large-header">Trending Chefs</Text>
           </View>
-          <ScrollView showsHorizontalScrollIndicator={false} style={[styles.feedCarousel]} horizontal={true}>
+          <ScrollView contentContainerStyle={styles.LeftAlign} showsHorizontalScrollIndicator={false} style={[styles.feedCarousel]} horizontal={true}>
             {feedList.map((item, index) => (
               <View
                 style={[
@@ -132,11 +132,11 @@ export default function Home({ }) {
             ))}
           </ScrollView>
         </View>
-        <View style={[commonStyles.FlexColStartStart, styles.feedContainer, styles.LeftAlign]}>
-          <View style={styles.feedHeader}>
+        <View style={[commonStyles.FlexColStartStart, styles.feedContainer]}>
+          <View style={[styles.feedHeader, styles.LeftAlign]}>
             <Text type="large-header">Your Cuisines</Text>
           </View>
-          <ScrollView showsHorizontalScrollIndicator={false} style={styles.feedCarousel} horizontal={true}>
+          <ScrollView showsHorizontalScrollIndicator={false} style={styles.feedCarousel} contentContainerStyle={styles.LeftAlign} horizontal={true}>
             {feedList.map((item, index) => (
               <View
                 style={[
