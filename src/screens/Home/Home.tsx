@@ -1,10 +1,9 @@
-import { Image, Text, Icon } from '@rneui/themed';
+import {Image, Text, Icon} from '@rneui/themed';
 
-import React, { useContext } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-import { commonStyles, AppColorPalette } from 'src/config/styles';
-import logo from '@assets/cookdlogo.png';
-import { UserContext } from '@context/UserContext';
+import React, {useContext} from 'react';
+import {ScrollView, StyleSheet, View} from 'react-native';
+import {commonStyles, AppColorPalette} from 'src/config/styles';
+import {UserContext} from '@context/UserContext';
 import ChefPhoto from '@assets/chef.jpg';
 import DishPhoto from '@assets/sushi.jpg';
 import CuisinePhoto from '@assets/japan.jpg';
@@ -17,41 +16,42 @@ import Tacos from '@assets/tacos.jpg';
 import ChefPhoto4 from '@assets/chef4.jpg';
 import Chicago from '@assets/chicago.jpg';
 import Burger from '@assets/burger.jpg';
+import t from 'tailwind';
 
-export default function Home({ }) {
-  const { user } = useContext(UserContext);
+export default function Home({}) {
+  const {user} = useContext(UserContext);
   const feedList = [
     {
       photo: ChefPhoto,
       name: 'Chef Kakashi',
-      cuisine: { photo: CuisinePhoto, name: 'Japanese Cuisine' },
+      cuisine: {photo: CuisinePhoto, name: 'Japanese Cuisine'},
       rating: 5,
       cost: 150,
-      dish: { photo: DishPhoto, name: 'Samurai Sushi' },
+      dish: {photo: DishPhoto, name: 'Samurai Sushi'},
     },
     {
       photo: ChefPhoto2,
       name: 'Chef Mariano',
-      cuisine: { photo: ItalyPhoto, name: 'Italian Cuisine' },
+      cuisine: {photo: ItalyPhoto, name: 'Italian Cuisine'},
       rating: 4,
       cost: 125,
-      dish: { photo: Pasta, name: 'Creamy Pesto Bowtie' },
+      dish: {photo: Pasta, name: 'Creamy Pesto Bowtie'},
     },
     {
       photo: ChefPhoto3,
       name: 'Chef Juan Carlo',
-      cuisine: { photo: Mexico, name: 'Mexican Cuisine' },
+      cuisine: {photo: Mexico, name: 'Mexican Cuisine'},
       rating: 5,
       cost: 125,
-      dish: { photo: Tacos, name: 'Fresco Street Tacos' },
+      dish: {photo: Tacos, name: 'Fresco Street Tacos'},
     },
     {
       photo: ChefPhoto4,
       name: 'Chef Deshawn Williams',
-      cuisine: { photo: Chicago, name: 'American Cuisine' },
+      cuisine: {photo: Chicago, name: 'American Cuisine'},
       rating: 5,
       cost: 75,
-      dish: { photo: Burger, name: 'Juicy Double Buffalo Burger' },
+      dish: {photo: Burger, name: 'Juicy Double Buffalo Burger'},
     },
   ];
   return (
@@ -59,13 +59,17 @@ export default function Home({ }) {
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={[commonStyles.FlexColStartStart, styles.contentContainer]}>
         <Text type="info" style={[styles.welcomeText, styles.LeftAlign]}>
-          What's looking good today {user?.displayname.split(" ")[0]}
+          What's looking good today {user?.displayname.split(' ')[0]}
         </Text>
         <View style={[commonStyles.FlexColStartStart, styles.feedContainer]}>
           <View style={[styles.feedHeader, styles.LeftAlign]}>
             <Text type="large-header">Trending Chefs</Text>
           </View>
-          <ScrollView contentContainerStyle={styles.LeftAlign} showsHorizontalScrollIndicator={false} style={[styles.feedCarousel]} horizontal={true}>
+          <ScrollView
+            contentContainerStyle={styles.LeftAlign}
+            showsHorizontalScrollIndicator={false}
+            style={[styles.feedCarousel]}
+            horizontal={true}>
             {feedList.map((item, index) => (
               <View
                 style={[
@@ -136,7 +140,11 @@ export default function Home({ }) {
           <View style={[styles.feedHeader, styles.LeftAlign]}>
             <Text type="large-header">Your Cuisines</Text>
           </View>
-          <ScrollView showsHorizontalScrollIndicator={false} style={styles.feedCarousel} contentContainerStyle={styles.LeftAlign} horizontal={true}>
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            style={styles.feedCarousel}
+            contentContainerStyle={styles.LeftAlign}
+            horizontal={true}>
             {feedList.map((item, index) => (
               <View
                 style={[
@@ -246,7 +254,7 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 10,
     shadowColor: '#171717',
-    shadowOffset: { width: -2, height: 4 },
+    shadowOffset: {width: -2, height: 4},
     shadowOpacity: 0.1,
     shadowRadius: 3,
   },
@@ -266,7 +274,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   LeftAlign: {
-    marginLeft: 20
+    marginLeft: 20,
   },
   DetailsBar: {
     width: '100%',

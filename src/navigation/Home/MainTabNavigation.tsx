@@ -1,21 +1,21 @@
-import { DefaultTheme } from '@react-navigation/native';
+import {DefaultTheme} from '@react-navigation/native';
 import React from 'react';
-import { AppColorPalette, commonStyles } from 'src/config/styles';
+import {AppColorPalette, commonStyles} from 'src/config/styles';
 import {
   BottomTabNavigationOptions,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import { HomeRoutes } from './routes';
-import { Icon } from '@rneui/base';
-import { StyleSheet } from 'react-native';
+import {HomeRoutes} from './routes';
+import {Icon} from '@rneui/base';
+import {StyleSheet} from 'react-native';
 import ProfileNavigation from '../Profile/ProfileNavigation';
 import uuidv4 from 'uuidv4';
-import { getKeyValue } from 'src/util/helperFunctions';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {getKeyValue} from 'src/util/helperFunctions';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from 'src/screens/Login/Components/Header';
 import MessageNavigation from '../Messages/MessageNavigator';
 
-export default function HomeTabNavigation() {
+export default function MainTabNavigation() {
   const navTheme = DefaultTheme;
 
   navTheme.colors.background = AppColorPalette.appBackgroundColor;
@@ -23,37 +23,37 @@ export default function HomeTabNavigation() {
   const Tab = createBottomTabNavigator();
 
   const options = (props: any): BottomTabNavigationOptions => {
-    const { route } = props;
+    const {route} = props;
     let iconName: string;
     let iconType: string;
 
     switch (route.name) {
       case HomeRoutes.HOME.displayName:
         iconName = 'home';
-        iconType = 'feather'
+        iconType = 'feather';
         break;
       case HomeRoutes.ORDER.displayName:
         iconName = 'clipboard-text-outline';
-        iconType = 'material-community'
+        iconType = 'material-community';
         break;
       case HomeRoutes.MESSAGE.displayName:
         iconName = 'message-text-outline';
-        iconType = 'material-community'
+        iconType = 'material-community';
         break;
       case HomeRoutes.PROFILE.displayName:
         iconName = 'person-circle-outline';
-        iconType = 'ionicon'
+        iconType = 'ionicon';
         break;
       case HomeRoutes.SEARCH.displayName:
         iconName = 'search-outline';
-        iconType = 'ionicon'
+        iconType = 'ionicon';
         break;
       default:
         iconName = '';
         break;
     }
     const defaultReturn = {
-      tabBarIcon: ({ focused }: any) => (
+      tabBarIcon: ({focused}: any) => (
         <Icon
           type={iconType}
           name={iconName}
@@ -63,50 +63,61 @@ export default function HomeTabNavigation() {
       ),
       tabBarShowLabel: false,
       headerShown: false,
-    }
+    };
     if (route.name === HomeRoutes.HOME.displayName) {
       return {
         ...defaultReturn,
         headerShown: true,
         headerStyle: commonStyles.WhiteHeaderBackground,
-        header: (headerProps) => {
+        header: headerProps => {
           return (
             <SafeAreaView style={commonStyles.WhiteHeaderBackground}>
               <Header />
             </SafeAreaView>
-          )
-        }
-      }
-    }
-    else if (route.name === HomeRoutes.SEARCH.displayName) {
+          );
+        },
+      };
+    } else if (route.name === HomeRoutes.MESSAGE.displayName) {
       return {
         ...defaultReturn,
         headerShown: true,
         headerStyle: commonStyles.WhiteHeaderBackground,
-        header: (headerProps) => {
+        header: headerProps => {
+          return (
+            <SafeAreaView style={commonStyles.WhiteHeaderBackground}>
+              <Header headerText="Messages" />
+            </SafeAreaView>
+          );
+        },
+      };
+    } else if (route.name === HomeRoutes.SEARCH.displayName) {
+      return {
+        ...defaultReturn,
+        headerShown: true,
+        headerStyle: commonStyles.WhiteHeaderBackground,
+        header: headerProps => {
           return (
             <SafeAreaView style={commonStyles.WhiteHeaderBackground}>
               <Header headerText="Search" />
             </SafeAreaView>
-          )
-        }
-      }
-    }
-    else if (route.name === HomeRoutes.ORDER.displayName) {
+          );
+        },
+      };
+    } else if (route.name === HomeRoutes.ORDER.displayName) {
       return {
         ...defaultReturn,
         headerShown: true,
         headerStyle: commonStyles.WhiteHeaderBackground,
-        header: (headerProps) => {
+        header: headerProps => {
           return (
             <SafeAreaView style={commonStyles.WhiteHeaderBackground}>
               <Header headerText="Manage Orders" />
             </SafeAreaView>
-          )
-        }
-      }
+          );
+        },
+      };
     }
-    return defaultReturn
+    return defaultReturn;
   };
 
   return (
