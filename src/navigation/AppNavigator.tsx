@@ -6,7 +6,7 @@ import {ThemeProvider} from '@rneui/themed';
 import {myTheme} from '@config/styles';
 
 import LoginNavigation from './Login/LoginNavigation';
-import MainNavigation from './Home/MainNavigation';
+import MainNavigation from './Main/MainNavigation';
 
 export default function AppNavigator() {
   const {user} = useContext(UserContext);

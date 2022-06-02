@@ -4,7 +4,7 @@ import {
   StackNavigationProp,
 } from '@react-navigation/stack';
 import {ActivityIndicator, StyleSheet, View} from 'react-native';
-import {HomeRoutes} from './Home/routes';
+import {MainTabRoutes} from './Main/routes';
 import {Icon, Image, Text} from '@rneui/themed';
 import {ProfileRoutes} from './Profile/routes';
 import ProfilePicture from '@assets/profilePicture.jpg';
@@ -14,6 +14,8 @@ import {
   ProfileRouteNames,
   MessageRouteNames,
   MessageNavigationRoutes,
+  HomeRouteNames,
+  HomeNavigationRoutes,
 } from './NavigationTypes';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {AirbnbRating, Button} from '@rneui/base';
@@ -21,6 +23,7 @@ import {UserContext} from 'src/context/UserContext';
 import Header from 'src/screens/Login/Components/Header';
 import {useNavigation} from '@react-navigation/core';
 import {MessageRoutes} from './Messages/routes';
+import {HomeRoutes} from './Home/routes';
 
 export const LoginNavigationOptions: StackNavigationOptions = {
   headerShown: false,
@@ -28,6 +31,39 @@ export const LoginNavigationOptions: StackNavigationOptions = {
 
 export const MainNavigationOptions: StackNavigationOptions = {
   headerShown: false,
+};
+
+export const HomeNavigationOptions = (
+  props: StackNavigationProp<HomeNavigationRoutes, keyof HomeRouteNames>,
+): StackNavigationOptions => {
+  const navigation = useNavigation();
+  const routeName = props.route.name as keyof HomeRouteNames;
+  const {chefName} = props.route?.params || '';
+  const displayName = HomeRoutes[routeName]?.displayName;
+  if (routeName !== HomeRoutes['HOME'].name) {
+    return {
+      headerShown: true,
+      headerStyle: commonStyles.WhiteHeaderBackground,
+      header: headerProps => {
+        return (
+          <SafeAreaView style={commonStyles.WhiteHeaderBackground}>
+            <Header backArrow onPressBack={() => navigation.goBack()} />
+          </SafeAreaView>
+        );
+      },
+    };
+  }
+  return {
+    headerShown: true,
+    headerStyle: commonStyles.WhiteHeaderBackground,
+    header: headerProps => {
+      return (
+        <SafeAreaView style={commonStyles.WhiteHeaderBackground}>
+          <Header />
+        </SafeAreaView>
+      );
+    },
+  };
 };
 
 export const MessageNavigationOptions = (
@@ -55,7 +91,7 @@ export const MessageNavigationOptions = (
     };
   }
   return {
-    headerShown: false,
+    headerShown: true,
     headerStyle: commonStyles.WhiteHeaderBackground,
     header: headerProps => {
       return (
@@ -76,7 +112,7 @@ export const ProfileNavigationOptions = (
   const routeName = props.route.name as keyof ProfileRouteNames;
   const displayName = ProfileRoutes[routeName]?.displayName;
 
-  if (props.route.name === HomeRoutes.PROFILE.name) {
+  if (props.route.name === MainTabRoutes.PROFILE.name) {
     return {
       headerShown: true,
       header: () => (

@@ -1,25 +1,24 @@
 import {DefaultTheme} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
-import {MainTabRoutes} from '../Main/routes';
 import uuidv4 from 'uuidv4';
 import {AppColorPalette} from 'src/config/styles';
 import {getKeyValue} from 'src/util/helperFunctions';
-import {MessageRoutes} from './routes';
-import {MessageNavigationOptions} from '../NavigationOptions';
+import {HomeRoutes} from './routes';
+import {HomeNavigationOptions} from '../NavigationOptions';
 
-export default function MessageNavigation() {
+export default function HomeNavigation() {
   const Stack: any = createStackNavigator();
   const navTheme = DefaultTheme;
 
   navTheme.colors.background = AppColorPalette.appBackgroundColor;
   return (
-    <Stack.Navigator screenOptions={MessageNavigationOptions}>
-      {Object.keys(MessageRoutes).map(key => {
+    <Stack.Navigator screenOptions={HomeNavigationOptions}>
+      {Object.keys(HomeRoutes).map(key => {
         return (
           <Stack.Screen
-            name={getKeyValue(key)(MessageRoutes).name}
-            component={getKeyValue(key)(MessageRoutes).component}
+            name={getKeyValue(key)(HomeRoutes).name}
+            component={getKeyValue(key)(HomeRoutes).component}
             key={uuidv4()}
           />
         );

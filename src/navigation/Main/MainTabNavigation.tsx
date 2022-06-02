@@ -5,7 +5,7 @@ import {
   BottomTabNavigationOptions,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import {HomeRoutes} from './routes';
+import {MainTabRoutes} from './routes';
 import {Icon} from '@rneui/base';
 import {StyleSheet} from 'react-native';
 import ProfileNavigation from '../Profile/ProfileNavigation';
@@ -14,6 +14,7 @@ import {getKeyValue} from 'src/util/helperFunctions';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from 'src/screens/Login/Components/Header';
 import MessageNavigation from '../Messages/MessageNavigator';
+import HomeNavigation from '../Home/HomeNavigation';
 
 export default function MainTabNavigation() {
   const navTheme = DefaultTheme;
@@ -28,23 +29,23 @@ export default function MainTabNavigation() {
     let iconType: string;
 
     switch (route.name) {
-      case HomeRoutes.HOME.displayName:
+      case MainTabRoutes.HOME.displayName:
         iconName = 'home';
         iconType = 'feather';
         break;
-      case HomeRoutes.ORDER.displayName:
+      case MainTabRoutes.ORDER.displayName:
         iconName = 'clipboard-text-outline';
         iconType = 'material-community';
         break;
-      case HomeRoutes.MESSAGE.displayName:
+      case MainTabRoutes.MESSAGE.displayName:
         iconName = 'message-text-outline';
         iconType = 'material-community';
         break;
-      case HomeRoutes.PROFILE.displayName:
+      case MainTabRoutes.PROFILE.displayName:
         iconName = 'person-circle-outline';
         iconType = 'ionicon';
         break;
-      case HomeRoutes.SEARCH.displayName:
+      case MainTabRoutes.SEARCH.displayName:
         iconName = 'search-outline';
         iconType = 'ionicon';
         break;
@@ -64,33 +65,7 @@ export default function MainTabNavigation() {
       tabBarShowLabel: false,
       headerShown: false,
     };
-    if (route.name === HomeRoutes.HOME.displayName) {
-      return {
-        ...defaultReturn,
-        headerShown: true,
-        headerStyle: commonStyles.WhiteHeaderBackground,
-        header: headerProps => {
-          return (
-            <SafeAreaView style={commonStyles.WhiteHeaderBackground}>
-              <Header />
-            </SafeAreaView>
-          );
-        },
-      };
-    } else if (route.name === HomeRoutes.MESSAGE.displayName) {
-      return {
-        ...defaultReturn,
-        headerShown: true,
-        headerStyle: commonStyles.WhiteHeaderBackground,
-        header: headerProps => {
-          return (
-            <SafeAreaView style={commonStyles.WhiteHeaderBackground}>
-              <Header headerText="Messages" />
-            </SafeAreaView>
-          );
-        },
-      };
-    } else if (route.name === HomeRoutes.SEARCH.displayName) {
+    if (route.name === MainTabRoutes.SEARCH.displayName) {
       return {
         ...defaultReturn,
         headerShown: true,
@@ -103,7 +78,7 @@ export default function MainTabNavigation() {
           );
         },
       };
-    } else if (route.name === HomeRoutes.ORDER.displayName) {
+    } else if (route.name === MainTabRoutes.ORDER.displayName) {
       return {
         ...defaultReturn,
         headerShown: true,
@@ -123,19 +98,28 @@ export default function MainTabNavigation() {
   return (
     <>
       <Tab.Navigator screenOptions={options}>
-        {Object.keys(HomeRoutes).map((key: any) => {
-          if (key === HomeRoutes.PROFILE.name) {
+        {Object.keys(MainTabRoutes).map((key: any) => {
+          if (key === MainTabRoutes.HOME.name) {
             return (
               <Tab.Screen
-                name={getKeyValue(key)(HomeRoutes).displayName}
+                name={getKeyValue(key)(MainTabRoutes).displayName}
+                component={HomeNavigation}
+                key={uuidv4()}
+              />
+            );
+          }
+          if (key === MainTabRoutes.PROFILE.name) {
+            return (
+              <Tab.Screen
+                name={getKeyValue(key)(MainTabRoutes).displayName}
                 component={ProfileNavigation}
                 key={uuidv4()}
               />
             );
-          } else if (key === HomeRoutes.MESSAGE.name) {
+          } else if (key === MainTabRoutes.MESSAGE.name) {
             return (
               <Tab.Screen
-                name={getKeyValue(key)(HomeRoutes).displayName}
+                name={getKeyValue(key)(MainTabRoutes).displayName}
                 component={MessageNavigation}
                 key={uuidv4()}
               />
@@ -143,8 +127,8 @@ export default function MainTabNavigation() {
           }
           return (
             <Tab.Screen
-              name={getKeyValue(key)(HomeRoutes).displayName}
-              component={getKeyValue(key)(HomeRoutes).component}
+              name={getKeyValue(key)(MainTabRoutes).displayName}
+              component={getKeyValue(key)(MainTabRoutes).component}
               key={uuidv4()}
             />
           );

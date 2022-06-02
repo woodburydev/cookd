@@ -2,7 +2,7 @@ import {DefaultTheme} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import {ProfileRoutes} from './routes';
-import {HomeRoutes} from '../Home/routes';
+import {MainTabRoutes} from '../Main/routes';
 import uuidv4 from 'uuidv4';
 import {AppColorPalette} from 'src/config/styles';
 import {ProfileNavigationOptions} from '../NavigationOptions';
@@ -16,8 +16,8 @@ export default function ProfileNavigation() {
   return (
     <Stack.Navigator screenOptions={ProfileNavigationOptions}>
       <Stack.Screen
-        name={HomeRoutes.PROFILE.name}
-        component={HomeRoutes.PROFILE.component}
+        name={MainTabRoutes.PROFILE.name}
+        component={MainTabRoutes.PROFILE.component}
         key={uuidv4()}
       />
       {Object.keys(ProfileRoutes).map(key => {

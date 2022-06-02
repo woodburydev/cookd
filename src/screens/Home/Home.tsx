@@ -17,9 +17,12 @@ import ChefPhoto4 from '@assets/chef4.jpg';
 import Chicago from '@assets/chicago.jpg';
 import Burger from '@assets/burger.jpg';
 import t from 'tailwind';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
 
 export default function Home({}) {
   const {user} = useContext(UserContext);
+  const navigation = useNavigation();
   const feedList = [
     {
       photo: ChefPhoto,
@@ -71,11 +74,14 @@ export default function Home({}) {
             style={[styles.feedCarousel]}
             horizontal={true}>
             {feedList.map((item, index) => (
-              <View
+              <TouchableOpacity
                 style={[
                   commonStyles.FlexColCenterCenter,
                   styles.feedItemWrapper,
-                ]}>
+                ]}
+                onPress={() =>
+                  navigation.navigate('CHEF_PROFILE', {chefName: item.name})
+                }>
                 <View
                   style={[commonStyles.FlexColCenterCenter, styles.feedItem]}
                   key={index}>
@@ -132,7 +138,7 @@ export default function Home({}) {
                     </View>
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             ))}
           </ScrollView>
         </View>
@@ -146,7 +152,10 @@ export default function Home({}) {
             contentContainerStyle={styles.LeftAlign}
             horizontal={true}>
             {feedList.map((item, index) => (
-              <View
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('CHEF_PROFILE', {chefName: item.name})
+                }
                 style={[
                   commonStyles.FlexColCenterCenter,
                   styles.feedItemWrapper,
@@ -207,7 +216,7 @@ export default function Home({}) {
                     </View>
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             ))}
           </ScrollView>
         </View>
@@ -317,8 +326,5 @@ const styles = StyleSheet.create({
   Ratings: {
     display: 'flex',
     flexDirection: 'row',
-  },
-  RatingIcon: {
-    color: AppColorPalette.orange,
   },
 });

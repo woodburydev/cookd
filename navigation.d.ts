@@ -10,6 +10,7 @@ declare global {
     interface RootParamList
       extends LoginNavigationRoutes,
         ProfileRouteNames,
-        HomeRouteNames {}
+        HomeRouteNames,
+        MainTabNames {}
   }
 }
