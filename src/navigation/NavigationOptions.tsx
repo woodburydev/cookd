@@ -1,28 +1,69 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import {
   StackNavigationOptions,
   StackNavigationProp,
 } from '@react-navigation/stack';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
-import { HomeRoutes } from './Home/routes';
-import { Icon, Image, Text } from '@rneui/themed';
-import { ProfileRoutes } from './Profile/routes';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import {MainTabRoutes} from './Main/routes';
+import {Icon, Image, Text} from '@rneui/themed';
+import {ProfileRoutes} from './Profile/routes';
 import ProfilePicture from '@assets/profilePicture.jpg';
-import { AppColorPalette, commonStyles } from 'src/config/styles';
-import { ProfileNavigationRoutes, ProfileRouteNames, MessageRouteNames, MessageNavigationRoutes } from './NavigationTypes';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { AirbnbRating, Button } from '@rneui/base';
-import { UserContext } from 'src/context/UserContext';
+import {AppColorPalette, commonStyles} from 'src/config/styles';
+import {
+  ProfileNavigationRoutes,
+  ProfileRouteNames,
+  MessageRouteNames,
+  MessageNavigationRoutes,
+  HomeRouteNames,
+  HomeNavigationRoutes,
+} from './NavigationTypes';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {AirbnbRating, Button} from '@rneui/base';
+import {UserContext} from 'src/context/UserContext';
 import Header from 'src/screens/Login/Components/Header';
-import { useNavigation } from '@react-navigation/core';
-import { MessageRoutes } from './Messages/routes';
+import {useNavigation} from '@react-navigation/core';
+import {MessageRoutes} from './Messages/routes';
+import {HomeRoutes} from './Home/routes';
 
 export const LoginNavigationOptions: StackNavigationOptions = {
   headerShown: false,
 };
 
-export const HomeNavigationOptions: StackNavigationOptions = {
+export const MainNavigationOptions: StackNavigationOptions = {
   headerShown: false,
+};
+
+export const HomeNavigationOptions = (
+  props: StackNavigationProp<HomeNavigationRoutes, keyof HomeRouteNames>,
+): StackNavigationOptions => {
+  const navigation = useNavigation();
+  const routeName = props.route.name as keyof HomeRouteNames;
+  const {chefName} = props.route?.params || '';
+  const displayName = HomeRoutes[routeName]?.displayName;
+  if (routeName !== HomeRoutes['HOME'].name) {
+    return {
+      headerShown: true,
+      headerStyle: commonStyles.WhiteHeaderBackground,
+      header: headerProps => {
+        return (
+          <SafeAreaView style={commonStyles.WhiteHeaderBackground}>
+            <Header backArrow onPressBack={() => navigation.goBack()} />
+          </SafeAreaView>
+        );
+      },
+    };
+  }
+  return {
+    headerShown: true,
+    headerStyle: commonStyles.WhiteHeaderBackground,
+    header: headerProps => {
+      return (
+        <SafeAreaView style={commonStyles.WhiteHeaderBackground}>
+          <Header />
+        </SafeAreaView>
+      );
+    },
+  };
 };
 
 export const MessageNavigationOptions = (
@@ -30,50 +71,71 @@ export const MessageNavigationOptions = (
 ): StackNavigationOptions => {
   const navigation = useNavigation();
   const routeName = props.route.name as keyof MessageRouteNames;
-  const { recipientDisplayName } = props.route?.params || '';
+  const {recipientDisplayName} = props.route?.params || '';
   const displayName = MessageRoutes[routeName]?.displayName;
   if (routeName === MessageRoutes['MESSAGE_DETAIL'].name) {
     return {
       headerShown: true,
       headerStyle: commonStyles.WhiteHeaderBackground,
-      header: (headerProps) => {
+      header: headerProps => {
         return (
           <SafeAreaView style={commonStyles.WhiteHeaderBackground}>
-            <Header backArrow onPressBack={() => navigation.navigate("MESSAGE")} headerText={recipientDisplayName} />
+            <Header
+              backArrow
+              onPressBack={() => navigation.navigate('MESSAGE')}
+              headerText={recipientDisplayName}
+            />
           </SafeAreaView>
-        )
-      }
-    }
+        );
+      },
+    };
   }
   return {
     headerShown: true,
     headerStyle: commonStyles.WhiteHeaderBackground,
-    header: (headerProps) => {
+    header: headerProps => {
       return (
         <SafeAreaView style={commonStyles.WhiteHeaderBackground}>
           <Header headerText={displayName} />
         </SafeAreaView>
-      )
-    }
-  }
-}
+      );
+    },
+  };
+};
 
 export const ProfileNavigationOptions = (
   props: StackNavigationProp<ProfileNavigationRoutes, keyof ProfileRouteNames>,
 ): StackNavigationOptions => {
-  const { user } = useContext(UserContext);
+  const {user} = useContext(UserContext);
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const routeName = props.route.name as keyof ProfileRouteNames;
   const displayName = ProfileRoutes[routeName]?.displayName;
 
-  if (props.route.name === HomeRoutes.PROFILE.name) {
+  if (props.route.name === MainTabRoutes.PROFILE.name) {
     return {
       headerShown: true,
       header: () => (
-        <SafeAreaView style={[commonStyles.FlexColCenterCenter, styles.header]} >
-          <Icon color={AppColorPalette.orange} style={styles.notificationIcon} containerStyle={[styles.notificationIconContainer, { top: insets.bottom > 30 ? 56 : 45, right: insets.bottom > 30 ? 25 : 40 }]} type="material" name="notification-important" />
-          <View style={[commonStyles.FlexRowCenterCenter, styles.HeaderWrapper, { marginTop: insets.bottom > 30 ? "7%" : '0%' }]}>
+        <SafeAreaView style={[commonStyles.FlexColCenterCenter, styles.header]}>
+          <Icon
+            color={AppColorPalette.orange}
+            style={styles.notificationIcon}
+            containerStyle={[
+              styles.notificationIconContainer,
+              {
+                top: insets.bottom > 30 ? 56 : 45,
+                right: insets.bottom > 30 ? 25 : 40,
+              },
+            ]}
+            type="material"
+            name="notification-important"
+          />
+          <View
+            style={[
+              commonStyles.FlexRowCenterCenter,
+              styles.HeaderWrapper,
+              {marginTop: insets.bottom > 30 ? '7%' : '0%'},
+            ]}>
             <View>
               <Image
                 source={ProfilePicture}
@@ -83,7 +145,10 @@ export const ProfileNavigationOptions = (
               />
             </View>
             <View style={[styles.headerContentContainer]}>
-              <Text type="label" style={[styles.headerText, { flex: 1, marginTop: 30 }]} numberOfLines={1}>
+              <Text
+                type="label"
+                style={[styles.headerText, {flex: 1, marginTop: 30}]}
+                numberOfLines={1}>
                 {user?.displayname}
               </Text>
             </View>
@@ -95,14 +160,18 @@ export const ProfileNavigationOptions = (
     return {
       headerShown: true,
       headerStyle: commonStyles.WhiteHeaderBackground,
-      header: (headerProps) => {
+      header: headerProps => {
         return (
           <SafeAreaView style={commonStyles.WhiteHeaderBackground}>
-            <Header backArrow headerText={displayName} onPressBack={() => navigation.navigate('PROFILE')} />
+            <Header
+              backArrow
+              headerText={displayName}
+              onPressBack={() => navigation.navigate('PROFILE')}
+            />
           </SafeAreaView>
-        )
-      }
-    }
+        );
+      },
+    };
   }
 };
 
@@ -113,13 +182,13 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     shadowColor: '#171717',
-    shadowOffset: { width: -2, height: 4 },
+    shadowOffset: {width: -2, height: 4},
     shadowOpacity: 0.1,
     position: 'relative',
     shadowRadius: 3,
   },
   HeaderWrapper: {
-    width: "100%",
+    width: '100%',
   },
   image: {
     height: 80,
@@ -144,11 +213,10 @@ const styles = StyleSheet.create({
   },
   headerContentContainer: {
     margin: 0,
-    width: "60%",
+    width: '60%',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 0,
   },
-  button: {
-  }
+  button: {},
 });

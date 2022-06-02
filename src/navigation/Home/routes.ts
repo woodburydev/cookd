@@ -1,33 +1,21 @@
+import ChefMenuDetail from 'src/screens/Home/ChefMenuDetail';
+import ChefProfile from 'src/screens/Home/ChefProfile';
 import Home from 'src/screens/Home/Home';
-import Message from 'src/screens/Home/Message';
-import Order from 'src/screens/Home/Order';
-import Profile from 'src/screens/Home/Profile';
-import Search from 'src/screens/Home/Search';
 
 export const HomeRoutes = {
   HOME: {
-    displayName: 'Home',
     name: 'HOME',
+    displayName: 'Home',
     component: Home,
   },
-  MESSAGE: {
-    displayName: 'Message',
-    name: 'MESSAGE',
-    component: Message,
+  CHEF_PROFILE: {
+    name: 'CHEF_PROFILE',
+    displayName: 'ChefProfile',
+    component: ChefProfile,
   },
-  SEARCH: {
-    displayName: 'Search',
-    name: 'SEARCH',
-    component: Search,
-  },
-  ORDER: {
-    displayName: 'Order',
-    name: 'ORDER',
-    component: Order,
-  },
-  PROFILE: {
-    displayName: 'Profile',
-    name: 'PROFILE',
-    component: Profile,
+  CHEF_MENU_DETAIL: {
+    name: 'CHEF_MENU_DETAIL',
+    displayName: 'ChefMenuDetail',
+    component: ChefMenuDetail,
   },
 };

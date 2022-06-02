@@ -6,7 +6,7 @@ import {ThemeProvider} from '@rneui/themed';
 import {myTheme} from '@config/styles';
 
 import LoginNavigation from './Login/LoginNavigation';
-import HomeNavigation from './Home/HomeNavigation';
+import MainNavigation from './Main/MainNavigation';
 
 export default function AppNavigator() {
   const {user} = useContext(UserContext);
@@ -23,7 +23,7 @@ export default function AppNavigator() {
           <>
             <Stack.Screen
               name="HOME"
-              component={HomeNavigation}
+              component={MainNavigation}
               options={{headerShown: false}}
             />
           </>

@@ -40,7 +40,7 @@ export type LoginRoutesNames = {
   SCHEDULE: "SCHEDULE"
 };
 
-export type HomeRouteNames = {
+export type MainTabNames = {
   HOME: 'HOME';
   MESSAGE: 'MESSAGE';
   ORDER: 'ORDER';
@@ -82,4 +82,17 @@ export type ProfileRouteNames = {
 export type MessageRouteNames = {
   MESSAGE: 'MESSAGE';
   MESSAGE_DETAIL: 'MESSAGE_DETAIL';
+};
+
+
+export type HomeRouteNames = {
+  HOME: 'HOME';
+  CHEF_PROFILE: 'CHEF_PROFILE';
+  CHEF_MENU_DETAIL: 'CHEF_MENU_DETAIL';
+};
+
+export type HomeNavigationRoutes = {
+  HOME: undefined;
+  CHEF_PROFILE: { chefName: string };
+  CHEF_MENU_DETAIL: { menuItem: string };
 };
