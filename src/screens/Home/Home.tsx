@@ -120,20 +120,15 @@ export default function Home({}) {
                         type="info"
                         style={styles.DetailsText}>{`$${item.cost}`}</Text>
                       <View style={styles.Ratings}>
-                        {[...Array(item.rating - 1).keys()].map(() => (
+                        {[...Array(item.rating).keys()].map(() => (
                           <Icon
                             type="font-awesome"
                             name="star"
+                            color={AppColorPalette.orange}
                             size={11}
                             iconStyle={styles.RatingIcon}
                           />
                         ))}
-                        <Icon
-                          type="font-awesome"
-                          name="star"
-                          size={11}
-                          iconStyle={styles.RatingIcon}
-                        />
                       </View>
                     </View>
                   </View>
@@ -198,20 +193,15 @@ export default function Home({}) {
                         type="info"
                         style={styles.DetailsText}>{`$${item.cost}`}</Text>
                       <View style={styles.Ratings}>
-                        {[...Array(item.rating - 1).keys()].map(() => (
+                        {[...Array(item.rating).keys()].map(() => (
                           <Icon
                             type="font-awesome"
                             name="star"
+                            color={AppColorPalette.orange}
                             size={11}
                             iconStyle={styles.RatingIcon}
                           />
                         ))}
-                        <Icon
-                          type="font-awesome"
-                          name="star"
-                          size={11}
-                          iconStyle={styles.RatingIcon}
-                        />
                       </View>
                     </View>
                   </View>
