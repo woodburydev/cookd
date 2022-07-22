@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
-import { AppColorPalette, commonStyles } from '@config/styles';
-import { Button, CheckBox, Text } from '@rneui/themed';
-import { LoginRoutes } from '@navigation/Login/routes';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
-import { LoginNavigationRoutes, LoginRoutesNames } from 'src/navigation/NavigationTypes';
+import React, {useState} from 'react';
+import {View, StyleSheet, Dimensions} from 'react-native';
+import {AppColorPalette, commonStyles} from '@config/styles';
+import {Button, CheckBox, Text} from '@rneui/themed';
+import {LoginRoutes} from '@navigation/Login/routes';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/core';
+import {
+  LoginNavigationRoutes,
+  LoginRoutesNames,
+} from 'src/navigation/NavigationTypes';
 
 export default function Allergies() {
   const [otherAllergies] = useState('');
@@ -12,7 +15,7 @@ export default function Allergies() {
   const navigation = useNavigation();
   const route =
     useRoute<RouteProp<LoginNavigationRoutes, LoginRoutesNames['ALLERGIES']>>();
-  const { foundOut } = route.params;
+  const {foundOut} = route.params;
   const checkBoxPressed = (item: number) => {
     if (selectedAllergies.includes(item)) {
       setSelectedAllergies(
@@ -35,7 +38,7 @@ export default function Allergies() {
     const allergies = getAllergies();
     navigation.navigate(
       LoginRoutes.CUISINES.name as LoginRoutesNames['CUISINES'],
-      { allergies, foundOut },
+      {allergies, foundOut},
     );
   };
 

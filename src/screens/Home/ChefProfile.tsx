@@ -67,7 +67,8 @@ export default function ChefProfile() {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={t`col-center-start`}>
+      contentContainerStyle={t`col-center-start`}
+    >
       <View style={t`row-center-center mt-5 w-full`}>
         <View style={t`col-center-center w-5/12`}>
           <Text type="header" centerText>
@@ -118,11 +119,13 @@ export default function ChefProfile() {
             onPress={() =>
               navigation.navigate('CHEF_MENU_DETAIL', {menuItem: item.title})
             }
-            style={t`row-center-between bg-white w-full mb-2`}>
+            style={t`row-center-between bg-white w-full mb-2`}
+          >
             <View style={t`col-start-start ml-5 w-3/6`}>
               <Text
                 type="description"
-                style={t`text-orange mb-2 font-semibold`}>
+                style={t`text-orange mb-2 font-semibold`}
+              >
                 {item.title}
               </Text>
               <View style={t`flex-row w-full`}>

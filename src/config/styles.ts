@@ -41,8 +41,15 @@ export const myTheme = createTheme({
     }
   },
   Input: {
-    inputContainerStyle: { borderBottomWidth: 0, backgroundColor: 'white', alignItems: 'center', padding: 5, borderRadius: 10, height: windowHeight < 750 ? 40 : 50 },
-    inputStyle: { marginLeft: 5 },
+    inputContainerStyle: {
+      borderBottomWidth: 0,
+      backgroundColor: 'white',
+      alignItems: 'center',
+      padding: 5,
+      borderRadius: 10,
+      height: windowHeight < 750 ? 40 : 50,
+    },
+    inputStyle: {marginLeft: 5},
     style: {
       fontFamily: 'WorkSans-Regular',
       fontWeight: '400',
@@ -118,7 +125,6 @@ export const myTheme = createTheme({
   },
 });
 
-
 export const commonStyles = StyleSheet.create({
   FlexColCenterCenter: {
     flexDirection: 'column',
@@ -128,40 +134,40 @@ export const commonStyles = StyleSheet.create({
     height: '100%',
   },
   mt5: {
-    marginTop: 5
+    marginTop: 5,
   },
   mb5: {
-    marginBottom: 5
+    marginBottom: 5,
   },
   mx5: {
     marginBottom: 5,
-    marginTop: 5
+    marginTop: 5,
   },
   mt10: {
-    marginTop: 10
+    marginTop: 10,
   },
   mb10: {
-    marginBottom: 10
+    marginBottom: 10,
   },
   mx10: {
     marginTop: 10,
     marginBottom: 10,
   },
   mt20: {
-    marginTop: 20
+    marginTop: 20,
   },
   mb20: {
-    marginBottom: 20
+    marginBottom: 20,
   },
   mx20: {
     marginTop: 20,
     marginBottom: 20,
   },
   mt30: {
-    marginTop: 30
+    marginTop: 30,
   },
   mb30: {
-    marginBottom: 30
+    marginBottom: 30,
   },
   mx30: {
     marginTop: 30,
@@ -220,11 +226,12 @@ export const commonStyles = StyleSheet.create({
     borderBottomRightRadius: 20,
     backgroundColor: 'white',
     shadowColor: '#171717',
-    shadowOffset: { width: -2, height: 4 },
+    shadowOffset: {width: -2, height: 4},
     shadowOpacity: 0.1,
     shadowRadius: 3,
   },
   TransparentHeaderBackground: {
-    backgroundColor: AppColorPalette.appBackgroundColor, shadowColor: 'transparent'
-  }
+    backgroundColor: AppColorPalette.appBackgroundColor,
+    shadowColor: 'transparent',
+  },
 });

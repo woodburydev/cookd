@@ -1,7 +1,7 @@
-import { Text, Image } from '@rneui/themed';
+import {Text, Image} from '@rneui/themed';
 import React from 'react';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
-import { AppColorPalette, commonStyles } from 'src/config/styles';
+import {View, StyleSheet, ActivityIndicator} from 'react-native';
+import {AppColorPalette, commonStyles} from 'src/config/styles';
 import ChefImage from '@assets/resturantimage.png';
 
 export default function Order() {
@@ -23,7 +23,8 @@ export default function Order() {
         <Text
           type="description"
           centerText
-          style={[styles.text, styles.linkText]}>
+          style={[styles.text, styles.linkText]}
+        >
           Find A Chef
         </Text>
       </View>

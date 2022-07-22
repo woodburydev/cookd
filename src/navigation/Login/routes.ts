@@ -36,7 +36,7 @@ export const SignUpRoutes = {
     name: 'CUISINES',
     component: Cuisines,
   },
-}
+};
 
 export const GetStartedRoutes = {
   BROWSE: {
@@ -51,7 +51,7 @@ export const GetStartedRoutes = {
     name: 'SCHEDULE',
     component: Schedule,
   },
-}
+};
 
 export const LoginRoutes = {
   GET_STARTED: {
@@ -67,6 +67,5 @@ export const LoginRoutes = {
     component: OTP,
   },
   ...SignUpRoutes,
-  ...GetStartedRoutes
+  ...GetStartedRoutes,
 };
-

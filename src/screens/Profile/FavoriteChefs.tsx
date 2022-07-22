@@ -1,8 +1,8 @@
-import { Icon, Image, Text } from '@rneui/themed/dist';
+import {Icon, Image, Text} from '@rneui/themed/dist';
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { AppColorPalette, commonStyles } from 'src/config/styles';
-import { ScrollView } from 'react-native-gesture-handler';
+import {View, StyleSheet} from 'react-native';
+import {AppColorPalette, commonStyles} from 'src/config/styles';
+import {ScrollView} from 'react-native-gesture-handler';
 import Chef from '@assets/chef.jpg';
 import Chef1 from '@assets/chef2.jpg';
 import Chef2 from '@assets/chef4.jpg';
@@ -22,7 +22,9 @@ export default function FavoriteChefs() {
                 <Text>SF Cullinary</Text>
               </View>
               <View style={styles.WhiteBackgroundTextBottom}>
-                <Text style={[commonStyles.mb5, styles.CuisineName]}>Mexican Cuisine</Text>
+                <Text style={[commonStyles.mb5, styles.CuisineName]}>
+                  Mexican Cuisine
+                </Text>
                 <View style={styles.StarIcons}>
                   {[...Array(5).keys()].map(() => (
                     <Icon
@@ -46,7 +48,9 @@ export default function FavoriteChefs() {
                 <Text>CIA at Greystone</Text>
               </View>
               <View style={styles.WhiteBackgroundTextBottom}>
-                <Text style={[commonStyles.mb5, styles.CuisineName]}>Itialian Cuisine</Text>
+                <Text style={[commonStyles.mb5, styles.CuisineName]}>
+                  Itialian Cuisine
+                </Text>
                 <View style={styles.StarIcons}>
                   {[...Array(5).keys()].map(() => (
                     <Icon
@@ -70,7 +74,9 @@ export default function FavoriteChefs() {
                 <Text>CIA at Copia</Text>
               </View>
               <View style={styles.WhiteBackgroundTextBottom}>
-                <Text style={[commonStyles.mb5, styles.CuisineName]}>American Cuisine</Text>
+                <Text style={[commonStyles.mb5, styles.CuisineName]}>
+                  American Cuisine
+                </Text>
                 <View style={styles.StarIcons}>
                   {[...Array(5).keys()].map(() => (
                     <Icon
@@ -102,13 +108,13 @@ const styles = StyleSheet.create({
   WhiteBackgroundTextContainer: {
     height: '100%',
     marginLeft: 20,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   WhiteBackgroundTextBottom: {
-    marginTop: 25
+    marginTop: 25,
   },
   StarIcons: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   ChefName: {
     fontWeight: '600',
@@ -120,9 +126,9 @@ const styles = StyleSheet.create({
   ChefImage: {
     width: 100,
     height: 100,
-    borderRadius: 100
+    borderRadius: 100,
   },
   RatingIcon: {
     color: AppColorPalette.orange,
   },
-})
+});

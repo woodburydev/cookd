@@ -71,7 +71,8 @@ export default function ChefMenuDetail() {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={t`col-center-start`}>
+      contentContainerStyle={t`col-center-start`}
+    >
       <Image
         style={[{width: ScreenWidth}, t`h-28 rounded-b-2xl`]}
         source={item.image}

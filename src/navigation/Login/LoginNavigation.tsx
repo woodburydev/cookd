@@ -136,7 +136,8 @@ export default function LoginNavigation() {
       <Stack.Navigator
         screenOptions={screenOptions}
         theme={navTheme}
-        initialRouteName={getInitialRoute()}>
+        initialRouteName={getInitialRoute()}
+      >
         {Object.keys(LoginRoutes).map(key => {
           return (
             <Stack.Screen

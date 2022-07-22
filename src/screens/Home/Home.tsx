@@ -72,7 +72,8 @@ export default function Home({}) {
             contentContainerStyle={styles.LeftAlign}
             showsHorizontalScrollIndicator={false}
             style={[styles.feedCarousel]}
-            horizontal={true}>
+            horizontal={true}
+          >
             {feedList.map((item, index) => (
               <TouchableOpacity
                 style={[
@@ -81,21 +82,25 @@ export default function Home({}) {
                 ]}
                 onPress={() =>
                   navigation.navigate('CHEF_PROFILE', {chefName: item.name})
-                }>
+                }
+              >
                 <View
                   style={[commonStyles.FlexColCenterCenter, styles.feedItem]}
-                  key={index}>
+                  key={index}
+                >
                   <Image source={item.cuisine.photo} style={styles.MainImg} />
                   <View
                     style={[
                       commonStyles.FlexColCenterCenter,
                       styles.ChefAvitarWrapper,
-                    ]}>
+                    ]}
+                  >
                     <View
                       style={[
                         commonStyles.FlexColCenterCenter,
                         styles.ChefAvitarContainer,
-                      ]}>
+                      ]}
+                    >
                       <Image source={item.photo} style={styles.ChefAvitar} />
                     </View>
                   </View>
@@ -104,7 +109,8 @@ export default function Home({}) {
                     style={[
                       commonStyles.FlexColCenterCenter,
                       styles.FeedItemContents,
-                    ]}>
+                    ]}
+                  >
                     <Text type="info" style={styles.ChefName}>
                       {item.name}
                     </Text>
@@ -115,10 +121,12 @@ export default function Home({}) {
                       style={[
                         commonStyles.FlexRowCenterBetween,
                         styles.DetailsBar,
-                      ]}>
+                      ]}
+                    >
                       <Text
                         type="info"
-                        style={styles.DetailsText}>{`$${item.cost}`}</Text>
+                        style={styles.DetailsText}
+                      >{`$${item.cost}`}</Text>
                       <View style={styles.Ratings}>
                         {[...Array(item.rating).keys()].map(() => (
                           <Icon
@@ -145,7 +153,8 @@ export default function Home({}) {
             showsHorizontalScrollIndicator={false}
             style={styles.feedCarousel}
             contentContainerStyle={styles.LeftAlign}
-            horizontal={true}>
+            horizontal={true}
+          >
             {feedList.map((item, index) => (
               <TouchableOpacity
                 onPress={() =>
@@ -154,21 +163,25 @@ export default function Home({}) {
                 style={[
                   commonStyles.FlexColCenterCenter,
                   styles.feedItemWrapper,
-                ]}>
+                ]}
+              >
                 <View
                   style={[commonStyles.FlexColCenterCenter, styles.feedItem]}
-                  key={index}>
+                  key={index}
+                >
                   <Image source={item.dish.photo} style={styles.MainImg} />
                   <View
                     style={[
                       commonStyles.FlexColCenterCenter,
                       styles.ChefAvitarWrapper,
-                    ]}>
+                    ]}
+                  >
                     <View
                       style={[
                         commonStyles.FlexColCenterCenter,
                         styles.ChefAvitarContainer,
-                      ]}>
+                      ]}
+                    >
                       <Image source={item.photo} style={styles.ChefAvitar} />
                     </View>
                   </View>
@@ -177,7 +190,8 @@ export default function Home({}) {
                     style={[
                       commonStyles.FlexColCenterCenter,
                       styles.FeedItemContents,
-                    ]}>
+                    ]}
+                  >
                     <Text type="info" style={styles.ChefName}>
                       {`${item.name}'s`}
                     </Text>
@@ -188,10 +202,12 @@ export default function Home({}) {
                       style={[
                         commonStyles.FlexRowCenterBetween,
                         styles.DetailsBar,
-                      ]}>
+                      ]}
+                    >
                       <Text
                         type="info"
-                        style={styles.DetailsText}>{`$${item.cost}`}</Text>
+                        style={styles.DetailsText}
+                      >{`$${item.cost}`}</Text>
                       <View style={styles.Ratings}>
                         {[...Array(item.rating).keys()].map(() => (
                           <Icon

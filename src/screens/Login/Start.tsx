@@ -19,7 +19,8 @@ export default function GetStarted() {
         PlaceholderContent={<ActivityIndicator />}
       />
       <View
-        style={[commonStyles.FlexColCenterCenter, styles.mainBodyContainer]}>
+        style={[commonStyles.FlexColCenterCenter, styles.mainBodyContainer]}
+      >
         <Image
           source={CookdLogo}
           style={styles.logoContainer}
@@ -30,7 +31,8 @@ export default function GetStarted() {
             Bringing{' '}
             <Text
               style={{fontWeight: '600', textDecorationLine: 'underline'}}
-              type="large-header">
+              type="large-header"
+            >
               Fine Dining
             </Text>{' '}
             Home
