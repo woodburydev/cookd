@@ -6,7 +6,8 @@ const DismissKeyboardHOC = () => {
     return (
       <ScrollView
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={props.style}>
+        contentContainerStyle={props.style}
+      >
         {children}
       </ScrollView>
     );

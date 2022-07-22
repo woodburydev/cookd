@@ -1,18 +1,24 @@
-import React, { useContext, useState } from 'react';
-import { View, StyleSheet, ActivityIndicator, Dimensions, KeyboardAvoidingView } from 'react-native';
-import { AppColorPalette, commonStyles } from '@config/styles';
-import { Button, CheckBox, Input, Text } from '@rneui/themed';
+import React, {useContext, useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  ActivityIndicator,
+  Dimensions,
+  KeyboardAvoidingView,
+} from 'react-native';
+import {AppColorPalette, commonStyles} from '@config/styles';
+import {Button, CheckBox, Input, Text} from '@rneui/themed';
 import axios from 'axios';
 import auth from '@react-native-firebase/auth';
-import { endpoint } from '@config/api';
-import { UserContext } from 'src/context/UserContext';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
+import {endpoint} from '@config/api';
+import {UserContext} from 'src/context/UserContext';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/core';
 import {
   LoginNavigationRoutes,
   LoginRoutesNames,
 } from 'src/navigation/NavigationTypes';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { ScrollView } from 'react-native-gesture-handler';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -29,21 +35,36 @@ export default function FavoriteCuisines() {
   };
 
   return (
-    <ScrollView contentContainerStyle={{ flexDirection: 'column', justifyContent: 'center', minHeight: '100%' }}>
+    <ScrollView
+      contentContainerStyle={{
+        flexDirection: 'column',
+        justifyContent: 'center',
+        minHeight: '100%',
+      }}
+    >
       <KeyboardAvoidingView
-        style={{ flex: 1 }}
+        style={{flex: 1}}
         keyboardVerticalOffset={100}
-        behavior={"position"}
-        contentContainerStyle={{ width: screenWidth, alignItems: 'center' }}
+        behavior={'position'}
+        contentContainerStyle={{width: screenWidth, alignItems: 'center'}}
       >
-        <View style={[{ marginTop: 25, width: '100%', justifyContent: 'center', alignItems: 'center' }]}>
+        <View
+          style={[
+            {
+              marginTop: 25,
+              width: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+            },
+          ]}
+        >
           <View style={styles.topContainer}>
             <Text style={styles.labelText} type="header">
               Favorite Cuisines?
-        </Text>
+            </Text>
             <Text style={styles.descriptionText} type="info">
               Check any that peak your interest!
-        </Text>
+            </Text>
             <View style={styles.ListContainer}>
               {getRadioButtonsData().map(item => (
                 <CheckBox
@@ -56,12 +77,17 @@ export default function FavoriteCuisines() {
                   checkedIcon="check-circle-o"
                   checkedColor={AppColorPalette.orange}
                   uncheckedIcon="circle-o"
-                  checked={selectedCuisines.includes(item.id) || user.cuisines.includes(item.label.toLowerCase())}
+                  checked={
+                    selectedCuisines.includes(item.id) ||
+                    user.cuisines.includes(item.label.toLowerCase())
+                  }
                 />
               ))}
             </View>
-            <View style={{ paddingBottom: 25 }} >
-              <Text type="label" style={[styles.labelText, commonStyles.mt20]}>Other</Text>
+            <View style={{paddingBottom: 25}}>
+              <Text type="label" style={[styles.labelText, commonStyles.mt20]}>
+                Other
+              </Text>
               <Input shake={() => null} />
             </View>
           </View>

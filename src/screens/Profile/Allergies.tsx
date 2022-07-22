@@ -1,15 +1,14 @@
-import React, { useContext, useState } from 'react';
-import { View, StyleSheet, Dimensions, KeyboardAvoidingView } from 'react-native';
-import { AppColorPalette, commonStyles } from '@config/styles';
-import { CheckBox, Input, Text } from '@rneui/themed';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { UserContext } from 'src/context/UserContext';
-import { ScrollView } from 'react-native-gesture-handler';
+import React, {useContext, useState} from 'react';
+import {View, StyleSheet, Dimensions, KeyboardAvoidingView} from 'react-native';
+import {AppColorPalette, commonStyles} from '@config/styles';
+import {CheckBox, Input, Text} from '@rneui/themed';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {UserContext} from 'src/context/UserContext';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const screenWidth = Dimensions.get('window').width;
 
 export default function Allergies() {
-
   const [otherAllergies] = useState('');
   const user = useContext(UserContext).user!;
   const [selectedAllergies, setSelectedAllergies] = useState<number[]>([]);
@@ -23,7 +22,6 @@ export default function Allergies() {
     }
   };
 
-
   const getAllergies = () => {
     const values = getRadioButtonsData()
       .filter(item => selectedAllergies.includes(item.id))
@@ -36,23 +34,28 @@ export default function Allergies() {
     const allergies = getAllergies();
   };
 
-
   return (
-    <ScrollView contentContainerStyle={{ minHeight: '100%', flexDirection: 'column', justifyContent: 'center' }}>
+    <ScrollView
+      contentContainerStyle={{
+        minHeight: '100%',
+        flexDirection: 'column',
+        justifyContent: 'center',
+      }}
+    >
       <KeyboardAvoidingView
-        style={{ flex: 1 }}
+        style={{flex: 1}}
         keyboardVerticalOffset={100}
-        behavior={"position"}
-        contentContainerStyle={{ width: screenWidth, alignItems: 'center' }}
+        behavior={'position'}
+        contentContainerStyle={{width: screenWidth, alignItems: 'center'}}
       >
         <View style={styles.topContainer}>
           <Text style={styles.labelText} type="header">
             Allergies?
-        </Text>
+          </Text>
           <Text style={styles.descriptionText} type="info">
             Check any allergies that apply. This list can be edited per event
             as-well.
-        </Text>
+          </Text>
 
           <View style={styles.ListContainer}>
             {getRadioButtonsData().map(item => (
@@ -66,13 +69,17 @@ export default function Allergies() {
                 textStyle={styles.CheckboxStyle}
                 checkedIcon="check-circle-o"
                 uncheckedIcon="circle-o"
-                checked={selectedAllergies.includes(item.id) || user.allergies.includes(item.value)}
+                checked={
+                  selectedAllergies.includes(item.id) ||
+                  user.allergies.includes(item.value)
+                }
               />
             ))}
-
           </View>
-          <View style={{ paddingBottom: 25 }}>
-            <Text type="label" style={[styles.labelText, commonStyles.mt20]}>Other</Text>
+          <View style={{paddingBottom: 25}}>
+            <Text type="label" style={[styles.labelText, commonStyles.mt20]}>
+              Other
+            </Text>
             <Input shake={() => null} />
           </View>
         </View>

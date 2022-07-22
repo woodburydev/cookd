@@ -1,9 +1,9 @@
-import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 export type LoginNavigationRoutes = {
   GET_STARTED: undefined;
   SIGN_UP: undefined;
-  EMAIL: { fullName: string };
+  EMAIL: {fullName: string};
   PHONE_NUMBER: undefined;
   ENTER_OTP: {
     confirm: FirebaseAuthTypes.ConfirmationResult;
@@ -16,13 +16,13 @@ export type LoginNavigationRoutes = {
       };
     };
   };
-  SET_PASSWORD: { email: string; fullName: string };
-  FOUND_OUT: undefined;]
-  ALLERGIES: { foundOut: string[] };
-  CUISINES: { foundOut: string[], allergies: string[] };
-  BROWSE: { foundOut: string[], allergies: string[], cuisines: string[] };
-  CHOOSE: { foundOut: string[], allergies: string[], cuisines: string[] };
-  SCHEDULE: { foundOut: string[], allergies: string[], cuisines: string[] };
+  SET_PASSWORD: {email: string; fullName: string};
+  FOUND_OUT: undefined;
+  ALLERGIES: {foundOut: string[]};
+  CUISINES: {foundOut: string[]; allergies: string[]};
+  BROWSE: {foundOut: string[]; allergies: string[]; cuisines: string[]};
+  CHOOSE: {foundOut: string[]; allergies: string[]; cuisines: string[]};
+  SCHEDULE: {foundOut: string[]; allergies: string[]; cuisines: string[]};
 };
 
 export type LoginRoutesNames = {
@@ -35,9 +35,9 @@ export type LoginRoutesNames = {
   FOUND_OUT: 'FOUND_OUT';
   ALLERGIES: 'ALLERGIES';
   CUISINES: 'CUISINES';
-  BROWSE: "BROWSE"
-  CHOOSE: "CHOOSE"
-  SCHEDULE: "SCHEDULE"
+  BROWSE: 'BROWSE';
+  CHOOSE: 'CHOOSE';
+  SCHEDULE: 'SCHEDULE';
 };
 
 export type MainTabNames = {
@@ -60,12 +60,10 @@ export type ProfileNavigationRoutes = {
   TERMS_OF_SERVICE: undefined;
 };
 
-
 export type MessageNavigationRoutes = {
   MESSAGE: undefined;
-  MESSAGE_DETAIL: { recipientDisplayName: string };
+  MESSAGE_DETAIL: {recipientDisplayName: string};
 };
-
 
 export type ProfileRouteNames = {
   ALLERGIES: 'ALLERGIES';
@@ -84,7 +82,6 @@ export type MessageRouteNames = {
   MESSAGE_DETAIL: 'MESSAGE_DETAIL';
 };
 
-
 export type HomeRouteNames = {
   HOME: 'HOME';
   CHEF_PROFILE: 'CHEF_PROFILE';
@@ -93,6 +90,6 @@ export type HomeRouteNames = {
 
 export type HomeNavigationRoutes = {
   HOME: undefined;
-  CHEF_PROFILE: { chefName: string };
-  CHEF_MENU_DETAIL: { menuItem: string };
+  CHEF_PROFILE: {chefName: string};
+  CHEF_MENU_DETAIL: {menuItem: string};
 };

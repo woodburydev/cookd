@@ -1,12 +1,12 @@
-import React, { useContext, useState } from 'react';
-import { View, StyleSheet, ActivityIndicator, Dimensions } from 'react-native';
-import { AppColorPalette, commonStyles } from '@config/styles';
-import { Button, CheckBox, Text } from '@rneui/themed';
+import React, {useContext, useState} from 'react';
+import {View, StyleSheet, ActivityIndicator, Dimensions} from 'react-native';
+import {AppColorPalette, commonStyles} from '@config/styles';
+import {Button, CheckBox, Text} from '@rneui/themed';
 import axios from 'axios';
 import auth from '@react-native-firebase/auth';
-import { endpoint } from '@config/api';
-import { UserContext } from 'src/context/UserContext';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
+import {endpoint} from '@config/api';
+import {UserContext} from 'src/context/UserContext';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/core';
 import {
   LoginNavigationRoutes,
   LoginRoutesNames,
@@ -17,9 +17,9 @@ export default function Cuisines() {
   const [loading, setLoading] = useState(false);
   const route =
     useRoute<RouteProp<LoginNavigationRoutes, LoginRoutesNames['CUISINES']>>();
-  const { allergies, foundOut } = route.params;
+  const {allergies, foundOut} = route.params;
   const navigation = useNavigation();
-  const { getUser } = useContext(UserContext);
+  const {getUser} = useContext(UserContext);
 
   const checkBoxPressed = (item: number) => {
     if (selectedCuisines.includes(item)) {
@@ -34,8 +34,8 @@ export default function Cuisines() {
     const cuisines = getRadioButtonsData()
       .filter(item => selectedCuisines.includes(item.id))
       .map(item => item.label.toLowerCase());
-    navigation.navigate('BROWSE', { allergies, cuisines, foundOut})
-    };
+    navigation.navigate('BROWSE', {allergies, cuisines, foundOut});
+  };
 
   return (
     <View style={[commonStyles.FlexColCenterCenter, styles.contentContainer]}>

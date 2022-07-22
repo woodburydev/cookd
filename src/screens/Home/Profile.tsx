@@ -1,13 +1,13 @@
-import { useNavigation } from '@react-navigation/core';
-import { Icon, Text } from '@rneui/themed';
-import React, { useState } from 'react';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { commonStyles } from 'src/config/styles';
-import { ProfileRoutes } from 'src/navigation/Profile/routes';
+import {useNavigation} from '@react-navigation/core';
+import {Icon, Text} from '@rneui/themed';
+import React, {useState} from 'react';
+import {View, StyleSheet, ActivityIndicator} from 'react-native';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {commonStyles} from 'src/config/styles';
+import {ProfileRoutes} from 'src/navigation/Profile/routes';
 import auth from '@react-native-firebase/auth';
 import uuidv4 from 'uuidv4';
-import { getKeyValue } from 'src/util/helperFunctions';
+import {getKeyValue} from 'src/util/helperFunctions';
 
 export default function Profile() {
   const navigation = useNavigation();
@@ -28,19 +28,26 @@ export default function Profile() {
         contentContainerStyle={[
           commonStyles.FlexColCenterStart,
           styles.scrollView,
-        ]}>
+        ]}
+      >
         <View
-          style={[commonStyles.FlexColCenterStart, styles.contentContainer, commonStyles.mt20]}>
+          style={[
+            commonStyles.FlexColCenterStart,
+            styles.contentContainer,
+            commonStyles.mt20,
+          ]}
+        >
           <View style={styles.LinksContainer}>
             {Object.keys(ProfileRoutes).map(key => {
-              const { name, iconType, iconName, displayName } =
+              const {name, iconType, iconName, displayName} =
                 getKeyValue(key)(ProfileRoutes);
               return (
                 <>
                   {name === 'FAVORITE_CHEFS' && (
                     <Text type="header" style={styles.firstLabelText}>
                       Your Cookd
-                    </Text>)}
+                    </Text>
+                  )}
                   {name === 'INVITE_FRIEND' && (
                     <Text type="header" style={styles.labelText} key={uuidv4()}>
                       General
@@ -54,7 +61,8 @@ export default function Profile() {
                     key={uuidv4()}
                     onPress={() => {
                       navigation.navigate(name);
-                    }}>
+                    }}
+                  >
                     <Icon
                       type={iconType}
                       key={uuidv4()}
@@ -82,7 +90,8 @@ export default function Profile() {
               onPress={() => {
                 setLoading(true);
                 auth().signOut();
-              }}>
+              }}
+            >
               Sign Out
             </Text>
           </View>
@@ -98,7 +107,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     shadowColor: '#171717',
-    shadowOffset: { width: -2, height: 4 },
+    shadowOffset: {width: -2, height: 4},
     shadowOpacity: 0.1,
     shadowRadius: 3,
   },
